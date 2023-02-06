@@ -137,35 +137,46 @@ public class Leetcode {
 //        System.out.println(stringToObject("[2,3,null,8,13,21,34,11,12, 13,14,  15,null,17,18]"));
 //        System.out.println("4 new TreeNode(13, <7>, <8>)".replaceAll("<.*?>","f"));
 //        System.out.println("4 new TreeNode(13, <7>, <8>)".replaceAll("^<.*?>",""));
-        System.out.println(stringToObject("[7,4,3,null,null,6,19]"));
 //        System.out.println(stringToObject("[1,null,2,null,3,null,4]"));
 //        final StringBuilder stringBuilder = new StringBuilder("Assalamu alaykum qonday ");
 //        System.out.println(stringBuilder);
+//        System.out.println(stringToObject("[1,0,1,0,1,0,1,1,null]"));
+        System.out.println(sumRootToLeaf(new TreeNode(1, new TreeNode(0, new TreeNode(0), new TreeNode(1)), new TreeNode(1, new TreeNode(0), new TreeNode(1)))));
+        System.out.println("---------------------------");
+        System.out.println(sumRootToLeaf(new TreeNode(1, new TreeNode(0, new TreeNode(0, new TreeNode(1), null), new TreeNode(1)), new TreeNode(1, new TreeNode(0), new TreeNode(1)))));
     }
 
-    public int sumRootToLeaf(TreeNode root) {
-        final List<String> of = List.of();
-        sumRootToLeaf(root, root.val + "", of);
-        System.out.println(of);
-        return 0;
+    public static int sumRootToLeaf(TreeNode root) {
+        return root == null ? 0 : sumRootToLeaf(root, 0);
     }
 
-    public int sumRootToLeaf(TreeNode root, String number, List<String> list) {
-        if (root != null) {
-            if (root.left != null && root.right != null) {
-                sumRootToLeaf(root.left, number + root.val, list);
-                sumRootToLeaf(root.right, number + root.val, list);
-            } else {
-                if (root.left != null) {
-                    sumRootToLeaf(root.left, number + root.val, list);
-                } else if (root.right != null) {
-                    sumRootToLeaf(root.right, number + root.val, list);
-                }
-            }
-        } else {
-            list.add(number);
+    private static int sumRootToLeaf(TreeNode node, int sum) {
+        if (node != null) {
+            sum += node.val;
+            return isLeaf(node) ? sum : sumRootToLeaf(node.left, sum * 2) + sumRootToLeaf(node.right, sum * 2);
         }
         return 0;
+    }
+
+    private static boolean isLeaf(TreeNode node) {
+        return node.left == null && node.right == null;
+    }
+
+    public static int sumRootToLeaf(TreeNode root, String number, int sum) {
+        if (root != null) {
+            if (root.left == null && root.right == null) {
+                sum += sumRootToLeaf(root.left, number + root.val, sum);
+            } else if (root.left != null && root.right == null) {
+                sum += sumRootToLeaf(root.left, number + root.val, sum);
+            } else if (root.left == null && root.right != null) {
+                sum += sumRootToLeaf(root.right, number + root.val, sum);
+            } else {
+                sum += sumRootToLeaf(root.left, number + root.val, sum) + sumRootToLeaf(root.right, number + root.val, sum);
+            }
+            return sum;
+        } else {
+            return Integer.parseInt(number, 2);
+        }
     }
 
     public static TreeNode reverseOddLevels(TreeNode root) {//https://leetcode.com/problems/reverse-odd-levels-of-binary-tree/description/
