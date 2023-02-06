@@ -140,10 +140,27 @@ public class Leetcode {
 //        System.out.println(stringToObject("[1,null,2,null,3,null,4]"));
 //        final StringBuilder stringBuilder = new StringBuilder("Assalamu alaykum qonday ");
 //        System.out.println(stringBuilder);
-//        System.out.println(stringToObject("[1,0,1,0,1,0,1,1,null]"));
-        System.out.println(sumRootToLeaf(new TreeNode(1, new TreeNode(0, new TreeNode(0), new TreeNode(1)), new TreeNode(1, new TreeNode(0), new TreeNode(1)))));
-        System.out.println("---------------------------");
-        System.out.println(sumRootToLeaf(new TreeNode(1, new TreeNode(0, new TreeNode(0, new TreeNode(1), null), new TreeNode(1)), new TreeNode(1, new TreeNode(0), new TreeNode(1)))));
+//        System.out.println(sumRootToLeaf(new TreeNode(1, new TreeNode(0, new TreeNode(0), new TreeNode(1)), new TreeNode(1, new TreeNode(0), new TreeNode(1)))));
+//        System.out.println("---------------------------");
+//        System.out.println(sumRootToLeaf(new TreeNode(1, new TreeNode(0, new TreeNode(0, new TreeNode(1), null), new TreeNode(1)), new TreeNode(1, new TreeNode(0), new TreeNode(1)))));
+//        System.out.println(stringToObject("[2,1,4]"));
+        System.out.println(stringToObject("[1,0,3]"));
+        System.out.println(getAllElements(new TreeNode(2, new TreeNode(1), new TreeNode(4)), new TreeNode(1, new TreeNode(0), new TreeNode(3))));
+    }
+
+    public static List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
+        final List<Integer> res = getAllElements(root2, getAllElements(root1, new LinkedList<>()));
+        Collections.sort(res);
+        return res;
+    }
+
+    public static List<Integer> getAllElements(TreeNode root, List<Integer> list) {
+        if (root != null) {
+            list.add(root.val);
+            getAllElements(root.right, list);
+            getAllElements(root.left, list);
+        }
+        return list;
     }
 
     public static int sumRootToLeaf(TreeNode root) {
