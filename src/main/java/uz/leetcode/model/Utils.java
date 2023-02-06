@@ -6,8 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Utils {
+
+    public static boolean treeNodeEquals(TreeNode root1, TreeNode root2) {
+        return root1 == null && root2 == null || root1 != null && root2 != null && root1.val == root2.val && treeNodeEquals(root1.left, root2.left) && treeNodeEquals(root1.right, root2.right);
+    }
+
     public static String stringToObject(String root) {
-        return stringToObject(Arrays.stream(root.replaceAll("[\\[\\] ]", "").split(",")).toList()).toString().replace("  "," ").trim();
+        return stringToObject(Arrays.stream(root.replaceAll("[\\[\\] ]", "").split(",")).toList()).toString().replace("  ", " ").trim();
     }
 
     public static StringBuilder stringToObject(List<String> root) {

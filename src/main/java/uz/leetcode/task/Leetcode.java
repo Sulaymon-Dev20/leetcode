@@ -144,8 +144,17 @@ public class Leetcode {
 //        System.out.println("---------------------------");
 //        System.out.println(sumRootToLeaf(new TreeNode(1, new TreeNode(0, new TreeNode(0, new TreeNode(1), null), new TreeNode(1)), new TreeNode(1, new TreeNode(0), new TreeNode(1)))));
 //        System.out.println(stringToObject("[2,1,4]"));
-        System.out.println(stringToObject("[1,0,3]"));
-        System.out.println(getAllElements(new TreeNode(2, new TreeNode(1), new TreeNode(4)), new TreeNode(1, new TreeNode(0), new TreeNode(3))));
+        System.out.println(stringToObject("[1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,2,null]"));
+//        System.out.println(stringToObject("[1,null,1,null,1,null,1,null,1,null,1,2,null]"));
+//        System.out.println(getAllElements(new TreeNode(2, new TreeNode(1), new TreeNode(4)), new TreeNode(1, new TreeNode(0), new TreeNode(3))));
+//        System.out.println(treeNodeEquals(new TreeNode(2, new TreeNode(1), new TreeNode(4)), new TreeNode(2, new TreeNode(1), new TreeNode(4))));
+        final TreeNode treeNode = new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(2), null)))))))))));
+        final TreeNode treeNode1 = new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(2), null))))));
+        System.out.println(isSubtree(treeNode, treeNode1));
+    }
+
+    public static boolean isSubtree(TreeNode root, TreeNode subRoot) {//https://leetcode.com/problems/subtree-of-another-tree/submissions/
+        return root != null && (treeNodeEquals(root, subRoot) || isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot));
     }
 
     public static List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
