@@ -153,7 +153,37 @@ public class Leetcode {
 //        System.out.println(minSubArrayLen(4, new int[]{1, 4, 4}));
 //        reorderList(null);
 //        System.out.println(arrayStringToListNode("4,9,3"));
-        reorderList(new ListNode(4, new ListNode(9, new ListNode(3))));
+//        reorderList(new ListNode(4, new ListNode(9, new ListNode(3))));
+//        System.out.println(minRemoveToMakeValid("lee(t(c)o)de)"));
+//        System.out.println(minRemoveToMakeValid("lee((t(c)o)de)"));
+//        System.out.println(minRemoveToMakeValid("lee((((((((((((t(c)o)de)"));
+//        System.out.println(minRemoveToMakeValid("a)b(c)d"));
+        System.out.println(minRemoveToMakeValid("))(("));
+    }
+
+    public static String minRemoveToMakeValid(String s) {
+        final StringBuilder res = new StringBuilder();
+        LinkedList<Integer> list = new LinkedList<>();
+        for (int i = 0, j = 0; i < s.length(); i++) {
+            final char letter = s.charAt(i);
+            if (letter == '(') {
+                list.addFirst(i - j);
+                res.append('(');
+            } else if (letter == ')') {
+                if (list.size() > 0) {
+                    list.removeFirst();
+                    res.append(')');
+                } else {
+                    j++;
+                }
+            } else {
+                res.append(letter);
+            }
+        }
+        if (!list.isEmpty()) {
+            list.forEach(res::deleteCharAt);
+        }
+        return res.toString();
     }
 
     public static void reorderList(ListNode head) {
