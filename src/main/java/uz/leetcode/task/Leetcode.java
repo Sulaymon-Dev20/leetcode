@@ -144,13 +144,35 @@ public class Leetcode {
 //        System.out.println("---------------------------");
 //        System.out.println(sumRootToLeaf(new TreeNode(1, new TreeNode(0, new TreeNode(0, new TreeNode(1), null), new TreeNode(1)), new TreeNode(1, new TreeNode(0), new TreeNode(1)))));
 //        System.out.println(stringToObject("[2,1,4]"));
-        System.out.println(stringToObject("[1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,2,null]"));
+//        System.out.println(stringToObject("[1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,2,null]"));
 //        System.out.println(stringToObject("[1,null,1,null,1,null,1,null,1,null,1,2,null]"));
 //        System.out.println(getAllElements(new TreeNode(2, new TreeNode(1), new TreeNode(4)), new TreeNode(1, new TreeNode(0), new TreeNode(3))));
 //        System.out.println(treeNodeEquals(new TreeNode(2, new TreeNode(1), new TreeNode(4)), new TreeNode(2, new TreeNode(1), new TreeNode(4))));
-        final TreeNode treeNode = new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(2), null)))))))))));
-        final TreeNode treeNode1 = new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(2), null))))));
-        System.out.println(isSubtree(treeNode, treeNode1));
+//        final TreeNode treeNode = new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(2), null)))))))))));
+//        final TreeNode treeNode1 = new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(2), null))))));
+//        System.out.println(isSubtree(treeNode, treeNode1));
+    }
+
+    public int[] findMode(TreeNode root) {
+        final HashMap<Integer, Integer> map = new HashMap<>();
+        findMode(root, map);
+        final Integer max = Collections.max(map.values());
+        return map.entrySet().stream()
+            .filter(item -> item.getValue().equals(max))
+            .mapToInt(Map.Entry::getKey)
+            .toArray();
+    }
+
+    public void findMode(TreeNode root, Map<Integer, Integer> map) {
+        if (root != null) {
+            map.put(root.val, map.getOrDefault(root.val, 0) + 1);
+            findMode(root.left, map);
+            findMode(root.right, map);
+        }
+    }
+
+    public TreeNode recoverFromPreorder(String traversal) {
+        return null;
     }
 
     public static boolean isSubtree(TreeNode root, TreeNode subRoot) {//https://leetcode.com/problems/subtree-of-another-tree/submissions/
