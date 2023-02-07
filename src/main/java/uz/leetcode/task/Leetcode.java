@@ -8,13 +8,11 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static uz.leetcode.model.Utils.*;
-
 
 public class Leetcode {
     public static void main(String[] args) {
@@ -151,6 +149,46 @@ public class Leetcode {
 //        final TreeNode treeNode = new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(2), null)))))))))));
 //        final TreeNode treeNode1 = new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(2), null))))));
 //        System.out.println(isSubtree(treeNode, treeNode1));
+//        System.out.println(minSubArrayLen(7, new int[]{2, 3, 1, 2, 4, 3}));
+//        System.out.println(minSubArrayLen(4, new int[]{1, 4, 4}));
+//        reorderList(null);
+//        System.out.println(arrayStringToListNode("4,9,3"));
+        reorderList(new ListNode(4, new ListNode(9, new ListNode(3))));
+    }
+
+    public static void reorderList(ListNode head) {
+        LinkedList<Integer> list = new LinkedList<>();
+        ListNode listNode = head;
+        while (listNode != null) {
+            list.addLast(listNode.val);
+            listNode = listNode.next;
+        }
+        int i = 0;
+        while (head != null) {
+            head.val = i % 2 == 0 ? list.removeFirst() : list.removeLast();
+            head = head.next;
+            i++;
+        }
+    }
+
+    public static int minSubArrayLen(int target, int[] nums) {
+        int sum = 0, begin = 0, i = 0;
+        for (; ; ) {
+            if (sum == target) {
+                return i - begin;
+            } else if (sum > target) {
+                sum -= nums[begin];
+            } else {
+                sum += nums[i];
+            }
+            if (i < nums.length - 1) {
+                i++;
+            } else if (begin < nums.length - 1) {
+                begin++;
+            } else {
+                return 0;
+            }
+        }
     }
 
     public int[] findMode(TreeNode root) {
@@ -320,17 +358,6 @@ public class Leetcode {
             res[i] = abs;
         }
         return res;
-    }
-
-    public static String arrayStringToListNode(String data) {
-        final String[] split = data.replaceAll("[\\[\\]]", "").split(",");
-        final String reduce = Arrays.stream(split).map(item -> " new ListNode(" + item + ",").reduce("", String::concat);
-        return (reduce.substring(0, reduce.length() - 1) + ")".repeat(split.length)).trim();
-    }
-
-    public static String arrayStringToListNode(int[] data) {
-        final String reduce = Arrays.stream(data).mapToObj(item -> " new ListNode(" + item + ",").reduce("", String::concat);
-        return (reduce.substring(0, reduce.length() - 1) + ")".repeat(data.length)).trim();
     }
 
     public static boolean isSubPath(ListNode head, TreeNode root) {

@@ -11,6 +11,17 @@ public class Utils {
         return root1 == null && root2 == null || root1 != null && root2 != null && root1.val == root2.val && treeNodeEquals(root1.left, root2.left) && treeNodeEquals(root1.right, root2.right);
     }
 
+    public static String arrayStringToListNode(String data) {
+        final String[] split = data.replaceAll("[\\[\\]]", "").split(",");
+        final String reduce = Arrays.stream(split).map(item -> " new ListNode(" + item + ",").reduce("", String::concat);
+        return (reduce.substring(0, reduce.length() - 1) + ")".repeat(split.length)).trim();
+    }
+
+    public static String arrayStringToListNode(int[] data) {
+        final String reduce = Arrays.stream(data).mapToObj(item -> " new ListNode(" + item + ",").reduce("", String::concat);
+        return (reduce.substring(0, reduce.length() - 1) + ")".repeat(data.length)).trim();
+    }
+
     public static String stringToObject(String root) {
         return stringToObject(Arrays.stream(root.replaceAll("[\\[\\] ]", "").split(",")).toList()).toString().replace("  ", " ").trim();
     }
