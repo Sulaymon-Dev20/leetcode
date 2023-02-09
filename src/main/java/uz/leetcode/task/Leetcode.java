@@ -158,7 +158,124 @@ public class Leetcode {
 //        System.out.println(minRemoveToMakeValid("lee((t(c)o)de)"));
 //        System.out.println(minRemoveToMakeValid("lee((((((((((((t(c)o)de)"));
 //        System.out.println(minRemoveToMakeValid("a)b(c)d"));
-        System.out.println(minRemoveToMakeValid("))(("));
+//        System.out.println(minRemoveToMakeValid("))(("));
+//        System.out.println(stringArrayToInputForm("[[1,1,1,1,1,1,1,0],[1,0,0,0,0,1,1,0],[1,0,1,0,1,1,1,0],[1,0,0,0,0,1,0,1],[1,1,1,1,1,1,1,0]]"));
+//        System.out.println(closedIsland(new int[][]{{1, 1, 1, 1, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 1, 0}, {1, 0, 1, 0, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 0}}));
+//        System.out.println(shortestPathBinaryMatrix());
+//        System.out.println(stringArrayToInputForm("[[0,0,0],[0,0,0],[0,1,0]]"));
+//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 0, 0}, {1, 1, 0}, {1, 1, 0}}));
+//        System.out.println(shortestPathBinaryMatrix(new int[][]{{1, 0, 0}, {1, 1, 0}, {1, 1, 0}}));
+//        System.out.println(stringArrayToInputForm("[[0,1,1,0,0,0],[0,1,0,1,1,0],[0,1,1,0,1,0],[0,0,0,1,1,0],[1,1,1,1,1,0],[1,1,1,1,1,0]]"));
+//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 0, 0}, {0, 0, 0}, {0, 1, 0}}));
+//        soutArray("[[0,1,1,0,0,0],[0,1,0,1,1,0],[0,1,1,0,1,0],[0,0,0,1,1,0],[1,1,1,1,1,0],[1,1,1,1,1,0]]");
+//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 1, 1, 0, 0, 0}, {0, 1, 0, 1, 1, 0}, {0, 1, 1, 0, 1, 0}, {0, 0, 0, 1, 1, 0}, {1, 1, 1, 1, 1, 0}, {1, 1, 1, 1, 1, 0}}));
+//        soutArray("[[0,1,0,0,0,0],[0,1,0,1,1,0],[0,1,1,0,1,0],[0,0,0,0,1,0],[1,1,1,1,1,0],[1,1,1,1,1,0]]");
+//        soutArray("{{0,1,0,0,0,0},{0,1,0,1,1,0},{0,1,1,0,1,0},{0,0,0,0,1,0},{1,1,1,1,1,0},{1,1,1,1,1,0}}");
+//        System.out.println(stringArrayToInputForm("[[0,1,0,0,0,0],[0,1,0,1,1,0],[0,1,1,0,1,0],[0,0,0,0,1,0],[1,1,1,1,1,0],[1,1,1,1,1,0]]"));
+//        System.out.println(stringArrayToInputForm("[[0,1,0,0,0,0],[0,1,0,1,1,0],[0,1,1,0,1,0],[0,0,0,0,1,0],[1,1,1,1,1,0],[1,1,1,1,1,0]]"));
+//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 1, 0, 0, 0, 0}, {0, 1, 0, 1, 1, 0}, {0, 1, 1, 0, 1, 0}, {0, 0, 0, 0, 1, 0}, {1, 1, 1, 1, 1, 0}, {1, 1, 1, 1, 1, 0}}));
+//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}));
+//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 1, 1}, {1, 0, 1, 1, 0, 0}, {0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0}}));
+//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 1, 0, 0, 0, 0}, {0, 1, 0, 1, 1, 0}, {0, 1, 1, 0, 1, 0}, {0, 0, 0, 0, 1, 0}, {1, 1, 1, 1, 1, 0}, {1, 1, 1, 1, 1, 0}}));//14
+//        System.out.println(allPathsSourceTarget());
+//        System.out.println(stringArrayToInputForm("[[4,3,1],[3,2,4],[3],[4],[]]"));
+        System.out.println(allPathsSourceTarget(new int[][]{{4, 3, 1}, {3, 2, 4}, {3}, {4}, {}}));
+    }
+
+    public static boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        return rooms.stream().flatMap(item->item.stream()).distinct().filter(item -> item >= 0 && item < rooms.size()).count() == rooms.size();
+    }
+
+    public static List<List<Integer>> allPathsSourceTarget(int[][] graphs) {
+        final List<List<Integer>> lists = Arrays.stream(graphs).map(item -> Arrays.stream(item).boxed().toList()).toList();
+        System.out.println(lists);
+        final List<List<Integer>> lists1 = IntStream.range(0, graphs.length).mapToObj(index -> allPathsSourceTarget(lists, new LinkedList<>(), index)).toList();
+        System.out.println(lists1);
+        return lists1;
+    }
+
+    public static List<Integer> allPathsSourceTarget(List<List<Integer>> lists, List<Integer> res, int i) {
+        if (!res.contains(i)) {
+            res.add(i);
+            lists.get(i).forEach(item -> {
+                res.add(item);
+                allPathsSourceTarget(lists, res, item);
+            });
+        }
+        return res;
+    }
+
+    public int nearestExit(char[][] maze, int[] entrance) {
+        return 0;
+    }
+
+    public int nearestExit(char[][] grid, int x, int y, int com) {
+//        if (checkExist(x, y, grid) && grid[x][y] == 0 && !checkPoint.contains(x + "<->" + y)) {
+//        } else {
+//            return x == grid.length || y == grid[0].length || x < 0 || y < 0 ? com : -1;
+//        }
+        return 0;
+    }
+
+    public static int shortestPathBinaryMatrix(int[][] grid) {
+        return shortestPathBinaryMatrix(grid, new HashSet<>(), 0, 0, 0);
+    }
+
+    public static int shortestPathBinaryMatrix(int[][] grid, HashSet<String> checkPoint, int x, int y, int som) {
+        if (checkExist(x, y, grid) && grid[x][y] == 0 && !checkPoint.contains(x + "<->" + y)) {
+            checkPoint.add(x + "<->" + y);
+            final int i = shortestPathBinaryMatrix(grid, checkPoint, x + 1, y + 1, som + 1);
+            final int g = shortestPathBinaryMatrix(grid, checkPoint, x - 1, y - 1, som + 1);
+            final int g1 = shortestPathBinaryMatrix(grid, checkPoint, x - 1, y + 1, som + 1);
+            final int i1 = shortestPathBinaryMatrix(grid, checkPoint, x + 1, y - 1, som + 1);
+
+            final int g3 = shortestPathBinaryMatrix(grid, checkPoint, x, y - 1, som + 1);
+            final int g2 = shortestPathBinaryMatrix(grid, checkPoint, x - 1, y, som + 1);
+            final int i3 = shortestPathBinaryMatrix(grid, checkPoint, x, y + 1, som + 1);
+            final int i2 = shortestPathBinaryMatrix(grid, checkPoint, x + 1, y, som + 1);
+            return getMinItem(i, i1, i2, i3, g, g1, g2, g3);
+        } else {
+            return x == grid.length && y == grid[0].length ? som : -1;
+        }
+    }
+
+    private static int getMinItem(int... nums) {
+        return Arrays.stream(nums).filter(item -> item > 0).min().orElse(-1);
+    }
+
+    public static int closedIsland(int[][] grid) {
+        int a = grid.length;
+        int b = grid[0].length;
+        int sum = 0;
+        boolean[][] check = new boolean[a][b];
+        for (int x = 0; x < a; x++) {
+            for (int y = 0; y < b; y++) {
+                sum += closedIsland(grid, check, x, y, a, b);
+            }
+        }
+        return sum;
+    }
+
+    public static int closedIsland(int[][] grid, boolean[][] check, int x, int y, int xLan, int yLan) {
+        if (!check[x][y]) {
+            check[x][y] = true;
+            if (grid[x][y] != '0') {
+                if (x + 1 != xLan && grid[x + 1][y] != '0') {
+                    closedIsland(grid, check, x + 1, y, xLan, yLan);
+                }
+                if (x - 1 != -1 && grid[x - 1][y] != '0') {
+                    closedIsland(grid, check, x - 1, y, xLan, yLan);
+                }
+                if (y + 1 != yLan && grid[x][y + 1] != '0') {
+                    closedIsland(grid, check, x, y + 1, xLan, yLan);
+                }
+                if (y - 1 != -1 && grid[x][y - 1] != '0') {
+                    closedIsland(grid, check, x, y - 1, xLan, yLan);
+                }
+                return 1;
+            }
+        }
+        return 0;
     }
 
     public static String minRemoveToMakeValid(String s) {
@@ -576,13 +693,13 @@ public class Leetcode {
         return null;
     }
 
-    public static int closedIsland(int[][] grid) {
+    public static int closedIsland3(int[][] grid) {
         int count = 0;
         final boolean[][] checks = new boolean[grid.length][grid[0].length];
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 AtomicInteger atomicInteger = new AtomicInteger();
-                closedIsland(grid, checks, i, j, atomicInteger);
+//                closedIsland(grid, checks, i, j, atomicInteger);
                 if (atomicInteger.get() != 0) {
                     count++;
                     System.out.println(i + "-" + j);
@@ -592,14 +709,14 @@ public class Leetcode {
         return count;
     }
 
-    public static boolean closedIsland(int[][] grid, boolean[][] checkList, int x, int y, AtomicInteger count) {
+    public static boolean closedIsland2(int[][] grid, boolean[][] checkList, int x, int y, AtomicInteger count) {
         if (checkExist(x, y, checkList) && !checkList[x][y]) {
             checkList[x][y] = true;
             if (grid[x][y] == 0) {
-                if (closedIsland(grid, checkList, x - 1, y, count) &&
-                    closedIsland(grid, checkList, x + 1, y, count) &&
-                    closedIsland(grid, checkList, x, y - 1, count) &&
-                    closedIsland(grid, checkList, x, y + 1, count)) {
+                if (closedIsland2(grid, checkList, x - 1, y, count) &&
+                    closedIsland2(grid, checkList, x + 1, y, count) &&
+                    closedIsland2(grid, checkList, x, y - 1, count) &&
+                    closedIsland2(grid, checkList, x, y + 1, count)) {
                     if (x != grid.length - 1 && y != grid[0].length - 1 && x != 0 && y != 0) {
                         count.incrementAndGet();
                     } else {
@@ -953,8 +1070,8 @@ public class Leetcode {
 
     public static void soutArray(String text) {
         System.out.println("---------------------------------");
-        for (String s : text.split("],")) {
-            System.out.println(s.replaceAll("[\\[\\]\" ]", ""));
+        for (String s : text.replace(',', ' ').split("[]}]")) {
+            System.out.println(s.trim().replaceAll("[\\[\\]\"{}]", ""));
         }
         System.out.println("---------------------------------");
     }
@@ -1009,26 +1126,6 @@ public class Leetcode {
                 }
             }
         }
-    }
-
-    private static boolean checkExist(int x, int y, char[][] ints) {
-        return ints[0].length - 1 >= y && ints.length - 1 >= x && 0 <= x && 0 <= y;
-    }
-
-    private static boolean checkExist(int x, int y, int[][] ints) {
-        return ints[0].length - 1 >= y && ints.length - 1 >= x && 0 <= x && 0 <= y;
-    }
-
-    private static boolean checkExist(int x, int y, Object[][] ints) {
-        return ints[0].length - 1 >= y && ints.length - 1 >= x && 0 <= x && 0 <= y;
-    }
-
-    private static boolean checkExist(int x, int y, String[][] ints) {
-        return ints[0].length - 1 >= y && ints.length - 1 >= x && 0 <= x && 0 <= y;
-    }
-
-    private static boolean checkExist(int x, int y, boolean[][] ints) {
-        return ints[0].length - 1 >= y && ints.length - 1 >= x && 0 <= x && 0 <= y;
     }
 
     public static String tictactoe(int[][] moves) {//https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/

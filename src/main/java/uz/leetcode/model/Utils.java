@@ -7,6 +7,34 @@ import java.util.Map;
 
 public class Utils {
 
+    public static String arrayIntToChar(int[][] text) {
+        return Arrays.stream(text).flatMap(line -> Arrays.stream(line).mapToObj(item -> Character.toString((char) item))).reduce("", String::concat);
+    }
+
+    public static String stringArrayToInputForm(String text) {
+        return text.replace('[', '{').replace(']', '}');
+    }
+
+    public static boolean checkExist(int x, int y, char[][] ints) {
+        return ints[0].length - 1 >= y && ints.length - 1 >= x && 0 <= x && 0 <= y;
+    }
+
+    public static boolean checkExist(int x, int y, int[][] ints) {
+        return ints[0].length - 1 >= y && ints.length - 1 >= x && 0 <= x && 0 <= y;
+    }
+
+    public static boolean checkExist(int x, int y, Object[][] ints) {
+        return ints[0].length - 1 >= y && ints.length - 1 >= x && 0 <= x && 0 <= y;
+    }
+
+    public static boolean checkExist(int x, int y, String[][] ints) {
+        return ints[0].length - 1 >= y && ints.length - 1 >= x && 0 <= x && 0 <= y;
+    }
+
+    public static boolean checkExist(int x, int y, boolean[][] ints) {
+        return ints[0].length - 1 >= y && ints.length - 1 >= x && 0 <= x && 0 <= y;
+    }
+
     public static boolean treeNodeEquals(TreeNode root1, TreeNode root2) {
         return root1 == null && root2 == null || root1 != null && root2 != null && root1.val == root2.val && treeNodeEquals(root1.left, root2.left) && treeNodeEquals(root1.right, root2.right);
     }
