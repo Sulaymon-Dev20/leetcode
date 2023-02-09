@@ -185,6 +185,23 @@ public class Leetcode {
 //        System.out.println("TreeNode(val=2, left=TreeNode(val=3, left=TreeNode(val=8, left=TreeNode(val=1, left=null, right=null), right=TreeNode(val=2, left=null, right=null)), right=TreeNode(val=13, left=TreeNode(val=3, left=null, right=null), right=TreeNode(val=4, left=null, right=null))), right=TreeNode(val=5, left=TreeNode(val=21, left=TreeNode(val=5, left=null, right=null), right=TreeNode(val=6, left=null, right=null)), right=TreeNode(val=34, left=TreeNode(val=7, left=null, right=null), right=TreeNode(val=8, left=null, right=null))))\n");
     }
 
+    public List<Integer> rightSideView(TreeNode root) {
+        final ArrayList<Integer> list = new ArrayList<>();
+        rightSideView(root, list, 0);
+        System.out.println(list);
+        return list;
+    }
+
+    public void rightSideView(TreeNode root, ArrayList<Integer> list, int level) {
+        if (root != null) {
+            if (list.size() == level) {
+                list.add(root.val);
+            }
+            rightSideView(root.right, list, level + 1);
+            rightSideView(root.left, list, level + 1);
+        }
+    }
+
     public List<String> binaryTreePaths(TreeNode root) {
         return null;
     }
