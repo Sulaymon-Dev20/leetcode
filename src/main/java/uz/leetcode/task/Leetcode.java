@@ -179,11 +179,54 @@ public class Leetcode {
 //        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 1, 0, 0, 0, 0}, {0, 1, 0, 1, 1, 0}, {0, 1, 1, 0, 1, 0}, {0, 0, 0, 0, 1, 0}, {1, 1, 1, 1, 1, 0}, {1, 1, 1, 1, 1, 0}}));//14
 //        System.out.println(allPathsSourceTarget());
 //        System.out.println(stringArrayToInputForm("[[4,3,1],[3,2,4],[3],[4],[]]"));
-        System.out.println(allPathsSourceTarget(new int[][]{{4, 3, 1}, {3, 2, 4}, {3}, {4}, {}}));
+//        System.out.println(allPathsSourceTarget(new int[][]{{4, 3, 1}, {3, 2, 4}, {3}, {4}, {}}));
+//        System.out.println(stringToObject("[2,3,5,8,13,21,34,1,2,3,4,5,6,7,8]"));
+//        System.out.println(reverseOddLevels(new TreeNode(2, new TreeNode(3, new TreeNode(8, new TreeNode(1), new TreeNode(2)), new TreeNode(13, new TreeNode(3), new TreeNode(4))), new TreeNode(5, new TreeNode(21, new TreeNode(5), new TreeNode(6)), new TreeNode(34, new TreeNode(7), new TreeNode(8))))));
+//        System.out.println("TreeNode(val=2, left=TreeNode(val=3, left=TreeNode(val=8, left=TreeNode(val=1, left=null, right=null), right=TreeNode(val=2, left=null, right=null)), right=TreeNode(val=13, left=TreeNode(val=3, left=null, right=null), right=TreeNode(val=4, left=null, right=null))), right=TreeNode(val=5, left=TreeNode(val=21, left=TreeNode(val=5, left=null, right=null), right=TreeNode(val=6, left=null, right=null)), right=TreeNode(val=34, left=TreeNode(val=7, left=null, right=null), right=TreeNode(val=8, left=null, right=null))))\n");
+    }
+
+    public List<String> binaryTreePaths(TreeNode root) {
+        return null;
+    }
+
+    public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+        if (original != null) {
+            if (original.val == target.val && cloned.val == target.val) {
+                return cloned;
+            } else {
+                final TreeNode targetCopy = getTargetCopy(original.left, cloned.left, target);
+                final TreeNode targetCopy1 = getTargetCopy(original.right, cloned.right, target);
+                return targetCopy != null ? targetCopy : targetCopy1;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public static TreeNode reverseOddLevels(TreeNode root) {
+        reverseOddLevels(root.left, root.right, 1);
+        return root;
+    }
+
+    private static void reverseOddLevels(TreeNode left, TreeNode right, int i) {
+        if (left != null) {
+            if (i % 2 == 1) {
+                int number = right.val;
+                right.val = left.val;
+                left.val = number;
+            }
+            reverseOddLevels(left.left, right.right, i + 1);
+            reverseOddLevels(left.right, right.left, i + 1);
+        }
+    }
+
+
+    public static int[] separateDigits(int[] nums) {
+        return Arrays.stream(nums).flatMap(number -> String.valueOf(number).chars().map(item -> item - '0')).toArray();
     }
 
     public static boolean canVisitAllRooms(List<List<Integer>> rooms) {
-        return rooms.stream().flatMap(item->item.stream()).distinct().filter(item -> item >= 0 && item < rooms.size()).count() == rooms.size();
+        return rooms.stream().flatMap(Collection::stream).distinct().filter(item -> item >= 0 && item < rooms.size()).count() == rooms.size();
     }
 
     public static List<List<Integer>> allPathsSourceTarget(int[][] graphs) {
@@ -412,10 +455,6 @@ public class Leetcode {
         }
     }
 
-    public static TreeNode reverseOddLevels(TreeNode root) {//https://leetcode.com/problems/reverse-odd-levels-of-binary-tree/description/
-        return null;
-    }
-
     public static int sumNumbers(TreeNode root) {//https://leetcode.com/problems/sum-root-to-leaf-numbers/description/
         final LinkedList<Integer> list = new LinkedList<>();
         sumNumbers(root, list, new StringBuilder(), root.val);
@@ -487,15 +526,6 @@ public class Leetcode {
         int num = columnNumber % 26;
         builder.append(Character.toString(64 + (columnNumber <= 26 ? columnNumber : num)));
         return columnNumber <= 26 ? builder : convertToHelper2(columnNumber - (i * 26), builder);
-    }
-
-    public String binaryTreePaths(TreeNode root) {
-        if (root != null) {
-//            root.val + (binaryTreePaths(root.left))
-            return null;
-        } else {
-            return null;
-        }
     }
 
     public static int[] dailyTemperatures(int[] temperatures) {
