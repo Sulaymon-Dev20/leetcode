@@ -50,11 +50,11 @@ public class Utils {
         return (reduce.substring(0, reduce.length() - 1) + ")".repeat(data.length)).trim();
     }
 
-    public static String stringArrayToTreeNode(String root) {
-        return stringArrayToTreeNode(Arrays.stream(root.replaceAll("[\\[\\] ]", "").split(",")).toList()).toString().replace("  ", " ").trim();
+    public static String arrayStringToTreeNode(String root) {
+        return arrayStringToTreeNode(Arrays.stream(root.replaceAll("[\\[\\] ]", "").split(",")).toList()).toString().replace("  ", " ").trim();
     }
 
-    public static StringBuilder stringArrayToTreeNode(List<String> root) {
+    public static StringBuilder arrayStringToTreeNode(List<String> root) {
         Map<Integer, String> map = new HashMap<>(root.size() / 2);
         for (int i = 0, c = 0, l = 1, r = 2; c < root.size() / 2; i++, l += 2, r += 2, c++) {
             if (root.get(i).equals("null")) {
