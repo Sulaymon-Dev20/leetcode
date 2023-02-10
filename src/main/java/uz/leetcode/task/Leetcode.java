@@ -2,6 +2,7 @@ package uz.leetcode.task;
 
 
 import uz.leetcode.model.ListNode;
+import uz.leetcode.model.Node;
 import uz.leetcode.model.TreeNode;
 
 import java.util.*;
@@ -184,8 +185,41 @@ public class Leetcode {
 //        System.out.println(reverseOddLevels(new TreeNode(2, new TreeNode(3, new TreeNode(8, new TreeNode(1), new TreeNode(2)), new TreeNode(13, new TreeNode(3), new TreeNode(4))), new TreeNode(5, new TreeNode(21, new TreeNode(5), new TreeNode(6)), new TreeNode(34, new TreeNode(7), new TreeNode(8))))));
 //        System.out.println("TreeNode(val=2, left=TreeNode(val=3, left=TreeNode(val=8, left=TreeNode(val=1, left=null, right=null), right=TreeNode(val=2, left=null, right=null)), right=TreeNode(val=13, left=TreeNode(val=3, left=null, right=null), right=TreeNode(val=4, left=null, right=null))), right=TreeNode(val=5, left=TreeNode(val=21, left=TreeNode(val=5, left=null, right=null), right=TreeNode(val=6, left=null, right=null)), right=TreeNode(val=34, left=TreeNode(val=7, left=null, right=null), right=TreeNode(val=8, left=null, right=null))))\n");
 //        System.out.println(binaryTreePaths());
-        System.out.println(arrayStringToTreeNode("1,2,3,null,5"));;
-        System.out.println(binaryTreePaths(new TreeNode(1, new TreeNode(2, null, new TreeNode(5)), new TreeNode(3))));
+//        System.out.println(arrayStringToTreeNode("1,2,3,null,5"));;
+//        System.out.println(binaryTreePaths(new TreeNode(1, new TreeNode(2, null, new TreeNode(5)), new TreeNode(3))));
+//        System.out.println(combinationSum(new int[]{2, 3, 6, 7}, 7));
+    }
+
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        return mergeTrees(new TreeNode(), root1, root2);
+    }
+
+    public TreeNode mergeTrees(TreeNode res, TreeNode root1, TreeNode root2) {
+        if (root1 != null || root2 != null) {
+            root1 = Objects.requireNonNullElse(root1, new TreeNode(0));
+            root2 = Objects.requireNonNullElse(root2, new TreeNode(0));
+            res.val = root1.val + root2.val;
+            if (root1.left != null || root2.left != null) {
+                res.left = mergeTrees(new TreeNode(), root1.left, root2.left);
+            }
+            if (root1.right != null || root2.right != null) {
+                res.right = mergeTrees(new TreeNode(), root1.right, root2.right);
+            }
+            return res;
+        } else {
+            return null;
+        }
+    }
+
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        for (int candidate : candidates) {
+            int qol = target % candidate;
+            for (int number : candidates) {
+                if (number == qol) {
+                }
+            }
+        }
+        return null;
     }
 
     public static List<String> binaryTreePaths(TreeNode root) {
