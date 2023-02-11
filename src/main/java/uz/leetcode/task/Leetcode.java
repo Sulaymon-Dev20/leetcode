@@ -196,8 +196,26 @@ public class Leetcode {
 //        System.out.println(pathSum(new TreeNode(5, new TreeNode(4, new TreeNode(11, new TreeNode(7), new TreeNode(2)), null), new TreeNode(8, new TreeNode(13, null, null), new TreeNode(4, new TreeNode(5), new TreeNode(1)))), 22));
 //        System.out.println(pathSum(new TreeNode(1, new TreeNode(2), new TreeNode(3)), 5));
 //        System.out.println(pathSum(new TreeNode(-2, null, new TreeNode(-3)), -5));
-        System.out.println(arrayStringToTreeNode("4,2,9,3,5,null,7"));
-        System.out.println(findTilt(new TreeNode(4, new TreeNode(2, new TreeNode(3), new TreeNode(5)), new TreeNode(9, null, new TreeNode(7)))));
+//        System.out.println(arrayStringToTreeNode("4,2,9,3,5,null,7"));
+//        System.out.println(findTilt(new TreeNode(4, new TreeNode(2, new TreeNode(3), new TreeNode(5)), new TreeNode(9, null, new TreeNode(7)))));
+        System.out.println(arrayStringToTreeNode("3,9,20,null,null,15,7"));
+        System.out.println(isBalanced(new TreeNode(3, new TreeNode(9, null, null), new TreeNode(20, new TreeNode(15), new TreeNode(7)))));
+        System.out.println(arrayStringToTreeNode("1,2,2,3,3,null,null,4,4"));
+        System.out.println(arrayStringToTreeNode("[1,2,2,3,null,null,3,4,null,null,4]"));
+        System.out.println(isBalanced(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(4), new TreeNode(4)), new TreeNode(3)), new TreeNode(2, null, null))));
+        System.out.println(isBalanced(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(4), null), null), new TreeNode(2, null, new TreeNode(3, null, new TreeNode(4))))));
+    }
+
+    public static boolean isBalanced(TreeNode root) {
+        if (root != null) {
+            return Math.abs(isBalanced(root.left, 0) - isBalanced(root.right, 0)) <= 1 && isBalanced(root.left) && isBalanced(root.right);
+        } else {
+            return true;
+        }
+    }
+
+    public static int isBalanced(TreeNode root, int deep) {
+        return root != null ? Math.max(isBalanced(root.left, deep + 1), isBalanced(root.right, deep + 1)) : deep;
     }
 
     static int findTilt = 0;
