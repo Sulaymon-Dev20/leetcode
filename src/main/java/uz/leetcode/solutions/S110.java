@@ -4,11 +4,7 @@ import uz.leetcode.model.TreeNode;
 
 public class S110 {
     public static boolean isBalanced(TreeNode root) {
-        if (root != null) {
-            return Math.abs(isBalanced(root.left, 0) - isBalanced(root.right, 0)) <= 1 && isBalanced(root.left) && isBalanced(root.right);
-        } else {
-            return true;
-        }
+        return root == null || Math.abs(isBalanced(root.left, 0) - isBalanced(root.right, 0)) <= 1 && isBalanced(root.left) && isBalanced(root.right);
     }
 
     public static int isBalanced(TreeNode root, int deep) {

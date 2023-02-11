@@ -206,6 +206,44 @@ public class Leetcode {
         System.out.println(isBalanced(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(4), null), null), new TreeNode(2, null, new TreeNode(3, null, new TreeNode(4))))));
     }
 
+    public int minDepth(TreeNode root) {
+        if (root != null) {
+            if (root.left == null && root.right != null) {
+                return 1 + minDepth(root.right);
+            }
+            if (root.left != null && root.right == null) {
+                return 1 + minDepth(root.left);
+            }
+            return root.left != null ? 1 + Math.min(minDepth(root.left), minDepth(root.right)) : 1;
+        }
+        return 0;
+    }
+
+    public int minDepth(TreeNode root, int deep) {
+        return root != null ? Math.max(minDepth(root.left, deep + 1), minDepth(root.right, deep + 1)) : deep;
+    }
+    /*
+    *     public int minDepth(TreeNode root) {
+        return root != null ? minDepth(root, 0) : 0;
+    }
+
+    public int minDepth(TreeNode root, int deep) {
+        if (root.left == null && root.right == null) {
+            return deep;
+        } else {
+            int left = Integer.MAX_VALUE;
+            int right = Integer.MAX_VALUE;
+            if (root.left != null) {
+                left = minDepth(root.left, deep + 1);
+            }
+            if (root.right != null) {
+                right = minDepth(root.right, deep + 1);
+            }
+            return Math.min(left, right);
+        }
+    }
+*/
+
     public static boolean isBalanced(TreeNode root) {
         if (root != null) {
             return Math.abs(isBalanced(root.left, 0) - isBalanced(root.right, 0)) <= 1 && isBalanced(root.left) && isBalanced(root.right);
