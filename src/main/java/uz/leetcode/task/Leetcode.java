@@ -188,6 +188,26 @@ public class Leetcode {
 //        System.out.println(arrayStringToTreeNode("1,2,3,null,5"));;
 //        System.out.println(binaryTreePaths(new TreeNode(1, new TreeNode(2, null, new TreeNode(5)), new TreeNode(3))));
 //        System.out.println(combinationSum(new int[]{2, 3, 6, 7}, 7));
+        System.out.println(arrayStringToTreeNode("1,null,1,1,1,null,null,1,1,null,1,null,null,null,1,null,1"));
+        System.out.println(longestZigZag(new TreeNode(1, null, new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1)))), new TreeNode(1, null, null))))));
+        System.out.println(arrayStringToTreeNode("1,1,1,null,1,null,null,1,1,null,1"));
+        System.out.println(longestZigZag(new TreeNode(1, new TreeNode(1, null, new TreeNode(1, new TreeNode(1, null, new TreeNode(1)), new TreeNode(1))), new TreeNode(1, null, null))));
+    }
+
+    public static int longestZigZag(TreeNode root) {
+        return Math.max(longestZigZag(root, 0, true), longestZigZag(root, 0, false));
+    }
+
+    public static int longestZigZag(TreeNode root, int som, boolean left) {
+        if (root != null) {
+            if (left) {
+                return Math.max(longestZigZag(root.left, som + 1, false), longestZigZag(root.right, 0, false));
+            } else {
+                return Math.max(longestZigZag(root.right, som + 1, true), longestZigZag(root.left, 0, true));
+            }
+        } else {
+            return som - 1;
+        }
     }
 
     public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
