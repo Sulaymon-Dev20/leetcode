@@ -2,9 +2,9 @@ package uz.leetcode.task;
 
 
 import uz.leetcode.model.ListNode;
-import uz.leetcode.model.Node;
 import uz.leetcode.model.TreeNode;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 import static uz.leetcode.model.Utils.*;
 
 public class Leetcode {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        System.out.println(minTime2(7, new int[][]{{0, 1}, {0, 2}, {1, 4}, {1, 5}, {2, 3}, {2, 6}}, List.of(false, false, true, false, false, true, false)));
 //        System.out.println(minTime2(7, new int[][]{{0, 1}, {0, 2}, {1, 4}, {1, 5}, {2, 3}, {2, 6}}, List.of(false, false, true, false, true, true, false)));
 //        System.out.println(Arrays.toString(countSubTrees(7, new int[][]{{0, 1}, {0, 2}, {1, 4}, {1, 5}, {2, 3}, {2, 6}}, "abaedcd")));
@@ -53,8 +53,6 @@ public class Leetcode {
 //        System.out.println(projectionArea(new int[][]{{1, 2, 3}, {3, 4, 5}}));
 //        System.out.println(summaryRanges(new int[]{0, 1, 2, 4, 5, 7}));
 //        System.out.println(summaryRanges(new int[]{0, 2, 3, 4, 6, 8, 9}));
-//        System.out.println(sortedArrayToBST(new int[]{-10, -3, 0, 5, 9}));
-//        System.out.println(sortedArrayToBST(new int[]{3, 5, 8}));
 //        System.out.println(arithmeticThree(new int[]{3, 6, 9, 12}, 4));
 //        System.out.println(Arrays.toString(findRelativeRanks(new int[]{10, 3, 8, 9, 4})));
 //        maximumProduct(new int[]{1,0,2,3,0,4,5,0});
@@ -198,12 +196,255 @@ public class Leetcode {
 //        System.out.println(pathSum(new TreeNode(-2, null, new TreeNode(-3)), -5));
 //        System.out.println(arrayStringToTreeNode("4,2,9,3,5,null,7"));
 //        System.out.println(findTilt(new TreeNode(4, new TreeNode(2, new TreeNode(3), new TreeNode(5)), new TreeNode(9, null, new TreeNode(7)))));
-        System.out.println(arrayStringToTreeNode("3,9,20,null,null,15,7"));
-        System.out.println(isBalanced(new TreeNode(3, new TreeNode(9, null, null), new TreeNode(20, new TreeNode(15), new TreeNode(7)))));
-        System.out.println(arrayStringToTreeNode("1,2,2,3,3,null,null,4,4"));
-        System.out.println(arrayStringToTreeNode("[1,2,2,3,null,null,3,4,null,null,4]"));
-        System.out.println(isBalanced(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(4), new TreeNode(4)), new TreeNode(3)), new TreeNode(2, null, null))));
-        System.out.println(isBalanced(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(4), null), null), new TreeNode(2, null, new TreeNode(3, null, new TreeNode(4))))));
+//        System.out.println(arrayStringToTreeNode("3,9,20,null,null,15,7"));
+//        System.out.println(isBalanced(new TreeNode(3, new TreeNode(9, null, null), new TreeNode(20, new TreeNode(15), new TreeNode(7)))));
+//        System.out.println(arrayStringToTreeNode("1,2,2,3,3,null,null,4,4"));
+//        System.out.println(arrayStringToTreeNode("[1,2,2,3,null,null,3,4,null,null,4]"));
+//        System.out.println(isBalanced(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(4), new TreeNode(4)), new TreeNode(3)), new TreeNode(2, null, null))));
+//        System.out.println(isBalanced(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(4), null), null), new TreeNode(2, null, new TreeNode(3, null, new TreeNode(4))))));
+//        System.out.println(Math.log1p(10));
+//        System.out.println(Math.log1p(11));
+//        System.out.println(Math.log1p(100));
+//        System.out.println(arrayStringToTreeNode("[4,1,null,2,null,3,null]"));
+//        System.out.println(rob(new TreeNode(4, new TreeNode(1, new TreeNode(2, new TreeNode(3), null), null), null)));
+//        System.out.println(check(new StringBuilder("#,#")));
+//        System.out.println(isValidSerialization("9,#"));
+//        System.out.println(isValidSerialization("#,#"));
+//        System.out.println(isValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#"));
+//        System.out.println(isValidSerialization("#,#"));
+//        final VGet vGet = new VGet(new URL("https://www.youtube.com/watch?v=5G5fzf7dyhU"), new File("/test/"));
+//        vGet.empty();
+//        System.out.println(System.getProperty("user.dir"));
+//        System.out.println(isMatch("aa","*"));
+//        printMultiplicationTable(10);
+//        System.out.println(sortedArrayToBST(new int[]{-10, -3, 0, 5, 9}));
+//        System.out.println(sortedArrayToBST(new int[]{3, 5, 8}));
+//        System.out.println(arrayStringToTreeNode("[2,2,1,3,2,1,1,1,1,1,1,2,2,3,4]"));
+//        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(2, new TreeNode(1), new TreeNode(1))), new TreeNode(1, new TreeNode(1, new TreeNode(2), new TreeNode(2)), new TreeNode(1, new TreeNode(3), new TreeNode(4))))));
+        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3), new TreeNode(2)), new TreeNode(1, new TreeNode(1), new TreeNode(1)))));
+        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(2, new TreeNode(1), new TreeNode(1))), new TreeNode(1, new TreeNode(1, new TreeNode(2), new TreeNode(2)), new TreeNode(1, new TreeNode(3), new TreeNode(4))))));
+//        System.out.println(arrayStringToTreeNode());
+    }
+
+    public static int pseudoPalindromicPaths(TreeNode root) {
+        int[] res = new int[1];
+        pseudoPalindromicPaths(root, res, new TreeMap<>());
+        return res[0];
+    }
+
+    public static void pseudoPalindromicPaths(TreeNode root, int[] s, Map<Integer, Integer> num) {
+        num.merge(root.val, 1, Integer::sum);
+        if (root.left == null && root.right == null) {
+            if (pseudoPalindromicPaths(num)) {
+                s[0]++;
+            }
+        } else {
+            if (root.left != null) pseudoPalindromicPaths(root.left, s, new TreeMap<>(num));
+            if (root.right != null) pseudoPalindromicPaths(root.right, s, new TreeMap<>(num));
+        }
+    }
+
+    public static boolean pseudoPalindromicPaths(Map<Integer, Integer> num) {
+        final Map<Boolean, Long> collect = num
+            .values()
+            .stream()
+            .collect(Collectors.partitioningBy(item -> item % 2 == 1, Collectors.counting()));
+        return collect.get(true) <= 1;
+    }
+
+    public static TreeNode sortedArrayToBST(int[] nums) {
+        return getRootForRange(nums, 0, nums.length - 1);
+    }
+
+    private static TreeNode getRootForRange(int[] nums, int low, int high) {
+        if (low > high) return null;
+        int index = low + ((high - low) / 2);
+        return new TreeNode(nums[index], getRootForRange(nums, low, index - 1), getRootForRange(nums, index + 1, high));
+    }
+
+    public static void printMultiplicationTable(int tableSize) {
+        // first print the top header row
+        System.out.format("      ");
+        for (int i = 1; i <= tableSize; i++) {
+            System.out.format("%4d", i);
+        }
+        System.out.println();
+        System.out.println("------" + "----".repeat(tableSize));
+        for (int i = 1; i <= tableSize; i++) {
+            System.out.format("%4d |", i);
+            for (int j = 1; j <= tableSize; j++) {
+                System.out.format("%4d", i * j);
+            }
+            System.out.println();
+        }
+    }
+
+    public static boolean isMatch(String s, String p) {
+        return false;
+    }
+
+    public static int amountOfTime(TreeNode root, int start) {
+        AtomicInteger infected = new AtomicInteger(0);
+        amountOfTime(root, start, 0, infected);
+        return 01;
+    }
+
+    public static int amountOfTime(TreeNode root, int start, int deep, AtomicInteger count) {
+        if (root != null) {
+            if (root.val == start) count.set(deep);
+            return Math.max(amountOfTime(root.left, start, deep + 1, count), amountOfTime(root.right, start, deep + 1, count));
+        } else {
+            return deep - 1;
+        }
+    }
+
+    public static long countFairPairs(int[] nums, int lower, int upper) {
+/*        Arrays.stream(nums).boxed()
+            .collect(Collectors.toMap(item -> item, value -> 1, Integer::sum))
+            .entrySet()
+            .stream();*/
+        Arrays.sort(nums);
+        long som = 0;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                final int num = nums[i] + nums[j];
+                if (lower <= num && num <= upper) {
+                    som++;
+                } else if (som != 0) {
+                    return som;
+                }
+            }
+        }
+        return som;
+    }
+
+    public static int sumNumbers(TreeNode root) {
+        AtomicInteger atomicInteger = new AtomicInteger(0);
+        sumNumbers(root, "", atomicInteger);
+        return atomicInteger.get();
+    }
+
+    public static void sumNumbers(TreeNode root, String number, AtomicInteger som) {
+        if (root.left == null && root.right == null) {
+            som.addAndGet(Integer.parseInt(number + root.val));
+        }
+        if (root.left != null) {
+            sumNumbers(root.left, number + root.val, som);
+        }
+        if (root.right != null) {
+            sumNumbers(root.right, number + root.val, som);
+        }
+    }
+
+    public static boolean isValidSerialization(String preorder) {
+        preorder = preorder.replaceAll("[0-9]", "1").replace(",", "");
+        System.out.println(preorder);
+        if (preorder.length() % 2 == 1 && preorder.indexOf(0) != '#') {
+            return isValidSerialization(new StringBuilder(preorder), 2);
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isValidSerialization(StringBuilder preorder, int som) {
+        if (!preorder.isEmpty()) {
+            final char c = preorder.charAt(0);
+            preorder.deleteCharAt(0);
+            if (c == '#') {
+                som -= 2;
+                isValidSerialization(preorder, som);
+            } else {
+                som--;
+                isValidSerialization(preorder, som + 2);
+            }
+            return som == 0;
+        } else {
+            return true;
+        }
+    }
+
+    List<List<Integer>> pathSum1 = new LinkedList<>();
+
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        pathSum(root, targetSum, new ArrayList<>());
+        return pathSum1;
+    }
+
+    public void pathSum(TreeNode root, int targetSum, ArrayList<Integer> list) {
+        if (root != null) {
+            list.add(root.val);
+            if (root.val == targetSum) {
+                if (root.left == null && root.right == null) {
+                    pathSum1.add(list);
+                } else {
+                    list.clear();
+                }
+            } else if (Math.abs(targetSum) > Math.abs(root.val)) {
+                pathSum(root.left, targetSum - root.val, new ArrayList<>(list));
+                pathSum(root.right, targetSum - root.val, new ArrayList<>(list));
+            } else {
+                list.clear();
+            }
+        }
+    }
+
+    public static boolean isValidSerializationCheck(LinkedList<Integer> preorder) {
+        final Integer integer = preorder.removeFirst();
+        if (integer != null) {
+
+        }
+        return false;
+    }
+
+    public static boolean isValidSerialization2(String preorder) {
+        final StringBuilder res = new StringBuilder(preorder);
+        return isValidSerialization2(res.append(","));
+    }
+
+    public static boolean isValidSerialization2(StringBuilder preorder) {
+        final Integer check = check(preorder);
+        if (check != null) {
+            return check != -1 && isValidSerialization2(preorder) && isValidSerialization2(preorder);
+        } else {
+            return true;
+        }
+//        return check != null ? new TreeNode(check, isValidSerialization2(preorder), isValidSerialization2(preorder)) : null;
+    }
+
+    public static Integer check(StringBuilder preorder) {
+        if (!preorder.isEmpty()) {
+            StringBuilder number = new StringBuilder(5);
+            while (!preorder.isEmpty()) {
+                final char c = preorder.charAt(0);
+                preorder.deleteCharAt(0);
+                if (c == '#') {
+                    if (!preorder.isEmpty()) preorder.deleteCharAt(0);
+                    return null;
+                } else {
+                    if (Character.isDigit(c)) {
+                        number.append(c);
+                    } else {
+                        return Integer.parseInt(number.toString());
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    public static int rob(TreeNode root) {
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        rob(root, map, 0);
+        System.out.println(map);
+        return -1;
+    }
+
+    public static void rob(TreeNode root, Map<Integer, Integer> map, int deep) {
+        if (root != null) {
+            map.put(deep, map.getOrDefault(deep, 0) + root.val);
+            rob(root.left, map, deep + 1);
+            rob(root.right, map, deep + 1);
+        }
     }
 
     public int minDepth(TreeNode root) {
@@ -271,32 +512,6 @@ public class Leetcode {
             return root.val + left + right;
         } else {
             return 0;
-        }
-    }
-
-
-    static List<List<Integer>> pathSum1 = new LinkedList<>();
-
-    public static List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        pathSum(root, targetSum, new ArrayList<>());
-        return pathSum1;
-    }
-
-    public static void pathSum(TreeNode root, int targetSum, ArrayList<Integer> list) {
-        if (root != null) {
-            list.add(root.val);
-            if (root.val == targetSum) {
-                if (root.left == null && root.right == null) {
-                    pathSum1.add(list);
-                } else {
-                    list.clear();
-                }
-            } else if (Math.abs(targetSum) > Math.abs(root.val)) {
-                pathSum(root.left, targetSum - root.val, new ArrayList<>(list));
-                pathSum(root.right, targetSum - root.val, new ArrayList<>(list));
-            } else {
-                list.clear();
-            }
         }
     }
 
@@ -639,23 +854,6 @@ public class Leetcode {
             return sum;
         } else {
             return Integer.parseInt(number, 2);
-        }
-    }
-
-    public static int sumNumbers(TreeNode root) {//https://leetcode.com/problems/sum-root-to-leaf-numbers/description/
-        final LinkedList<Integer> list = new LinkedList<>();
-        sumNumbers(root, list, new StringBuilder(), root.val);
-        System.out.println(list);
-        return list.size();
-    }
-
-    public static void sumNumbers(TreeNode root, List<Integer> numberList, StringBuilder number, Integer last) {
-        if (root != null) {
-            number.append(last);
-            sumNumbers(root.left, numberList, number, root.val);
-            sumNumbers(root.right, numberList, number, root.val);
-        } else {
-            numberList.add(Integer.parseInt(number.toString()));
         }
     }
 
@@ -1515,21 +1713,6 @@ public class Leetcode {
             }
         }
         return false;
-    }
-
-
-    public static TreeNode sortedArrayToBST(int[] nums) {
-        return sortedArrayToBST(nums, new boolean[nums.length], nums.length / 2);
-    }
-
-    public static TreeNode sortedArrayToBST(int[] nums, boolean[] checked, int index) {
-        if (index == checked.length || index == -1) return null;
-        if (!checked[index]) {
-            checked[index] = true;
-            return new TreeNode(nums[index], sortedArrayToBST(nums, checked, index - 1), sortedArrayToBST(nums, checked, index + 1));
-        } else {
-            return null;
-        }
     }
 
     public List<Integer> majorityElement(int[] nums) {
