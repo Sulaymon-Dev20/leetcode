@@ -2,6 +2,7 @@ package uz.leetcode.task;
 
 
 import uz.leetcode.model.ListNode;
+import uz.leetcode.model.Node;
 import uz.leetcode.model.TreeNode;
 
 import java.io.IOException;
@@ -225,7 +226,22 @@ public class Leetcode {
 //        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(2, new TreeNode(1), new TreeNode(1))), new TreeNode(1, new TreeNode(1, new TreeNode(2), new TreeNode(2)), new TreeNode(1, new TreeNode(3), new TreeNode(4))))));
 //        System.out.println(arrayStringToTreeNode());
 //        System.out.println(goodNodes(new TreeNode(3, new TreeNode(1, new TreeNode(3), null), new TreeNode(4, new TreeNode(1), new TreeNode(5)))));
-        System.out.println(goodNodes(new TreeNode(3, new TreeNode(1, new TreeNode(3), null), new TreeNode(6, new TreeNode(1), new TreeNode(5)))));
+//        System.out.println(goodNodes(new TreeNode(3, new TreeNode(1, new TreeNode(3), null), new TreeNode(6, new TreeNode(1), new TreeNode(5)))));
+//        System.out.println(diameterOfBinaryTree());
+    }
+    int max = 0;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        diom(root);
+        return max;
+    }
+
+    private int diom(TreeNode root) {
+        if (root == null) return 0;
+        int left = diom(root.left);
+        int right = diom(root.right);
+        max = Math.max(left + right, max);
+        return Math.max(++left, ++right);
     }
 
     public static int goodNodes(TreeNode root) {
