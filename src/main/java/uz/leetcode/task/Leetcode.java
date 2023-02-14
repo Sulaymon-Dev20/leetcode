@@ -219,37 +219,43 @@ public class Leetcode {
 //        printMultiplicationTable(10);
 //        System.out.println(sortedArrayToBST(new int[]{-10, -3, 0, 5, 9}));
 //        System.out.println(sortedArrayToBST(new int[]{3, 5, 8}));
-//        System.out.println(arrayStringToTreeNode("[2,2,1,3,2,1,1,1,1,1,1,2,2,3,4]"));
+        System.out.println(arrayStringToTreeNode("[3,1,6,3,null,1,5]"));
 //        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(2, new TreeNode(1), new TreeNode(1))), new TreeNode(1, new TreeNode(1, new TreeNode(2), new TreeNode(2)), new TreeNode(1, new TreeNode(3), new TreeNode(4))))));
-        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3), new TreeNode(2)), new TreeNode(1, new TreeNode(1), new TreeNode(1)))));
-        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(2, new TreeNode(1), new TreeNode(1))), new TreeNode(1, new TreeNode(1, new TreeNode(2), new TreeNode(2)), new TreeNode(1, new TreeNode(3), new TreeNode(4))))));
+//        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3), new TreeNode(2)), new TreeNode(1, new TreeNode(1), new TreeNode(1)))));
+//        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(2, new TreeNode(1), new TreeNode(1))), new TreeNode(1, new TreeNode(1, new TreeNode(2), new TreeNode(2)), new TreeNode(1, new TreeNode(3), new TreeNode(4))))));
 //        System.out.println(arrayStringToTreeNode());
+//        System.out.println(goodNodes(new TreeNode(3, new TreeNode(1, new TreeNode(3), null), new TreeNode(4, new TreeNode(1), new TreeNode(5)))));
+        System.out.println(goodNodes(new TreeNode(3, new TreeNode(1, new TreeNode(3), null), new TreeNode(6, new TreeNode(1), new TreeNode(5)))));
     }
 
-    public static int pseudoPalindromicPaths(TreeNode root) {
-        int[] res = new int[1];
-        pseudoPalindromicPaths(root, res, new TreeMap<>());
-        return res[0];
+    public static int goodNodes(TreeNode root) {
+        final AtomicInteger atomicInteger = new AtomicInteger();
+        goodNodes(root, atomicInteger, root.val);
+        return atomicInteger.get();
     }
 
-    public static void pseudoPalindromicPaths(TreeNode root, int[] s, Map<Integer, Integer> num) {
-        num.merge(root.val, 1, Integer::sum);
-        if (root.left == null && root.right == null) {
-            if (pseudoPalindromicPaths(num)) {
-                s[0]++;
-            }
+    public static int goodNodes(TreeNode root, AtomicInteger som, int number) {
+        if (root != null) {
+            if (number <= root.val) som.incrementAndGet();
+            final int max = Math.max(number, root.val);
+            return Math.max(goodNodes(root.left, som, max), goodNodes(root.right, som, max));
         } else {
-            if (root.left != null) pseudoPalindromicPaths(root.left, s, new TreeMap<>(num));
-            if (root.right != null) pseudoPalindromicPaths(root.right, s, new TreeMap<>(num));
+            return Integer.MIN_VALUE;
         }
     }
 
-    public static boolean pseudoPalindromicPaths(Map<Integer, Integer> num) {
-        final Map<Boolean, Long> collect = num
-            .values()
-            .stream()
-            .collect(Collectors.partitioningBy(item -> item % 2 == 1, Collectors.counting()));
-        return collect.get(true) <= 1;
+    public static int pseudoPalindromicPaths(TreeNode root) {
+        return pseudoPalindromicPaths(root, 0);
+    }
+
+    private static int pseudoPalindromicPaths(TreeNode root, int path) {
+        if (root == null) return 0;
+        path ^= 1 << root.val;
+        if (root.left == null && root.right == null) {
+            return (path & (path - 1)) == 0 ? 1 : 0;
+        } else {
+            return pseudoPalindromicPaths(root.left, path) + pseudoPalindromicPaths(root.right, path);
+        }
     }
 
     public static TreeNode sortedArrayToBST(int[] nums) {
