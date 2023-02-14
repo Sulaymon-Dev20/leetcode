@@ -7,6 +7,10 @@ import java.util.Map;
 
 public class Utils {
 
+    public static int treeNodeArrayCapacity(int level) {
+        return level == 0 ? 1 : level * 2;
+    }
+
     public static String arrayIntToChar(int[][] text) {
         return Arrays.stream(text).flatMap(line -> Arrays.stream(line).mapToObj(item -> Character.toString((char) item))).reduce("", String::concat);
     }

@@ -220,7 +220,7 @@ public class Leetcode {
 //        printMultiplicationTable(10);
 //        System.out.println(sortedArrayToBST(new int[]{-10, -3, 0, 5, 9}));
 //        System.out.println(sortedArrayToBST(new int[]{3, 5, 8}));
-        System.out.println(arrayStringToTreeNode("[3,1,6,3,null,1,5]"));
+//        System.out.println(arrayStringToTreeNode("5,3,6,2,4,null,7"));
 //        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(2, new TreeNode(1), new TreeNode(1))), new TreeNode(1, new TreeNode(1, new TreeNode(2), new TreeNode(2)), new TreeNode(1, new TreeNode(3), new TreeNode(4))))));
 //        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3), new TreeNode(2)), new TreeNode(1, new TreeNode(1), new TreeNode(1)))));
 //        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(2, new TreeNode(1), new TreeNode(1))), new TreeNode(1, new TreeNode(1, new TreeNode(2), new TreeNode(2)), new TreeNode(1, new TreeNode(3), new TreeNode(4))))));
@@ -228,7 +228,71 @@ public class Leetcode {
 //        System.out.println(goodNodes(new TreeNode(3, new TreeNode(1, new TreeNode(3), null), new TreeNode(4, new TreeNode(1), new TreeNode(5)))));
 //        System.out.println(goodNodes(new TreeNode(3, new TreeNode(1, new TreeNode(3), null), new TreeNode(6, new TreeNode(1), new TreeNode(5)))));
 //        System.out.println(diameterOfBinaryTree());
+//        System.out.println(1 + 3);
+        System.out.println(deleteNode(new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7))), 3));
     }
+
+    public List<Integer> largestValues(TreeNode root) {
+        final TreeMap<Integer, Integer> tree = new TreeMap<>();
+        largestValues(root, tree, 0);
+        return new ArrayList<>(tree.values());
+    }
+
+    public void largestValues(TreeNode root, Map<Integer, Integer> map, int level) {
+        if (root != null) {
+            map.merge(level, root.val, Integer::max);
+            largestValues(root.left, map, level + 1);
+            largestValues(root.right, map, level + 1);
+        }
+    }
+
+    public static TreeNode deleteNode(TreeNode root, int key) {
+        if (root != null) {
+            if (root.val == key) {
+
+            }
+        }
+        deleteNode(key, root);
+        return root;
+    }
+
+    public static void deleteNode(int key, TreeNode root) {
+        if (root != null) {
+            if (root.val == key) {
+                if (root.left != null) {
+                    root = root.left;
+                } else {
+                    root = root.right;
+                }
+            } else {
+                deleteNode(key, root.left);
+                deleteNode(key, root.right);
+            }
+        }
+    }
+
+    public static Node connect(Node root) {
+        final TreeMap<Integer, List<Integer>> objectObjectTreeMap = new TreeMap<>();
+        connect(root, objectObjectTreeMap, 0);
+        final List<Integer> list = objectObjectTreeMap.values().stream().flatMap(item -> item.stream().skip(1)).toList();
+        return root;
+    }
+
+    public static void connect(Node root, int level, List<Integer> list) {
+        if (root != null) {
+//            root.next = new Node(map.get(level).remove());
+        }
+    }
+
+    public static void connect(Node root, Map<Integer, List<Integer>> map, int level) {
+        if (root != null) {
+            final List<Integer> list = map.computeIfAbsent(level, value -> new ArrayList<>(level * 2));
+            list.add(root.val);
+            connect(root.left, map, level + 1);
+            connect(root.right, map, level + 1);
+        }
+    }
+
     int max = 0;
 
     public int diameterOfBinaryTree(TreeNode root) {
