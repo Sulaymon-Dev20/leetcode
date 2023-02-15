@@ -230,10 +230,23 @@ public class Leetcode {
 //        System.out.println(goodNodes(new TreeNode(3, new TreeNode(1, new TreeNode(3), null), new TreeNode(6, new TreeNode(1), new TreeNode(5)))));
 //        System.out.println(diameterOfBinaryTree());
 //        System.out.println(1 + 3);
-        System.out.println(deleteNode(new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7))), 3));
+//        System.out.println(arrayStringToTreeNode("[1,2,3,2,null,2,4]"));
+//        System.out.println(deleteNode(new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7))), 3));
+        System.out.println(removeLeafNodes(new TreeNode(1, new TreeNode(2, new TreeNode(2), null), new TreeNode(3, new TreeNode(2), new TreeNode(4))), 2));
     }
-    public boolean flipEquiv(TreeNode root1, TreeNode root2) {
-        return root1 == null && root2 == null || root1 != null && root2 != null && root1.val == root2.val && (flipEquiv(root1.left, root2.right)||flipEquiv(root1.left, root2.left)) && (flipEquiv(root1.right, root2.left)||flipEquiv(root1.right, root2.right));
+
+    public static TreeNode removeLeafNodes(TreeNode root, int target) {
+        if (root != null) {
+            root.left = removeLeafNodes(root.left, target);
+            root.right = removeLeafNodes(root.right, target);
+            return root.val == target && root.left == null && root.right == null ? null : root;
+        } else {
+            return root;
+        }
+    }
+
+    public static boolean flipEquiv(TreeNode root1, TreeNode root2) {
+        return root1 == null && root2 == null || root1 != null && root2 != null && root1.val == root2.val && (flipEquiv(root1.left, root2.right) || flipEquiv(root1.left, root2.left)) && (flipEquiv(root1.right, root2.left) || flipEquiv(root1.right, root2.right));
     }
 
     public int findSecondMinimumValue(TreeNode root) {//https://leetcode.com/problems/second-minimum-node-in-a-binary-tree/
