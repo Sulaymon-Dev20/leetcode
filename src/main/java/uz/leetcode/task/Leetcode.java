@@ -232,7 +232,39 @@ public class Leetcode {
 //        System.out.println(1 + 3);
 //        System.out.println(arrayStringToTreeNode("[1,2,3,2,null,2,4]"));
 //        System.out.println(deleteNode(new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7))), 3));
-        System.out.println(removeLeafNodes(new TreeNode(1, new TreeNode(2, new TreeNode(2), null), new TreeNode(3, new TreeNode(2), new TreeNode(4))), 2));
+//        System.out.println(removeLeafNodes(new TreeNode(1, new TreeNode(2, new TreeNode(2), null), new TreeNode(3, new TreeNode(2), new TreeNode(4))), 2));
+//        System.out.println(arrayStringToTreeNode("[-1,-1,-1,-1,-1]"));
+    }
+
+    public boolean isUnivalTree(TreeNode root) {
+        final HashSet<Integer> list = new HashSet<>();
+        isUnivalTree(root, list);
+        return list.size() <= 1;
+    }
+
+    public void isUnivalTree(TreeNode root, HashSet<Integer> list) {
+        if (root != null) {
+            list.add(root.val);
+            isUnivalTree(root.left, list);
+            isUnivalTree(root.right, list);
+        }
+    }
+
+    public TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
+        List<Integer> list = new ArrayList<>();
+        for (int preItem : preorder) {
+            list.add(preItem);
+            for (int postItem : postorder) {
+                if (preItem == postItem) {
+
+                }
+            }
+        }
+        return null;
+    }
+
+    public TreeNode constructFromPrePost(int[] preorder, List<Integer> pre, int[] postorder, List<Integer> post) {
+        return null;
     }
 
     public static TreeNode removeLeafNodes(TreeNode root, int target) {
