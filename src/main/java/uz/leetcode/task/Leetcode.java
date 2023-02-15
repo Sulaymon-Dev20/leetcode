@@ -1,6 +1,7 @@
 package uz.leetcode.task;
 
 
+import com.sun.source.tree.Tree;
 import uz.leetcode.model.ListNode;
 import uz.leetcode.model.Node;
 import uz.leetcode.model.TreeNode;
@@ -230,6 +231,20 @@ public class Leetcode {
 //        System.out.println(diameterOfBinaryTree());
 //        System.out.println(1 + 3);
         System.out.println(deleteNode(new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7))), 3));
+    }
+
+    public int findSecondMinimumValue(TreeNode root) {//https://leetcode.com/problems/second-minimum-node-in-a-binary-tree/
+        final TreeSet<Integer> list = new TreeSet<>();
+        findSecondMinimumValue(root, list);
+        return list.size() == 1 ? -1 : list.stream().skip(1).limit(1).findFirst().orElse(-1);
+    }
+
+    public static void findSecondMinimumValue(TreeNode root, Set<Integer> list) {
+        if (root != null) {
+            list.add(root.val);
+            findSecondMinimumValue(root.left, list);
+            findSecondMinimumValue(root.right, list);
+        }
     }
 
     public List<Integer> largestValues(TreeNode root) {
