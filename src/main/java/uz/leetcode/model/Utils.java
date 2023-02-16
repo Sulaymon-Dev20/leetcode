@@ -7,6 +7,10 @@ import java.util.Map;
 
 public class Utils {
 
+    public static int treeNodeMaxDeepLevel(TreeNode root) {
+        return root != null ? 1 + Math.max(treeNodeMaxDeepLevel(root.left), treeNodeMaxDeepLevel(root.right)) : 0;
+    }
+
     public static int treeNodeArrayCapacity(int level) {
         return level == 0 ? 1 : level * 2;
     }

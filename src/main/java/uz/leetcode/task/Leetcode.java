@@ -1,7 +1,5 @@
 package uz.leetcode.task;
 
-
-import com.sun.source.tree.Tree;
 import uz.leetcode.model.ListNode;
 import uz.leetcode.model.Node;
 import uz.leetcode.model.TreeNode;
@@ -230,11 +228,66 @@ public class Leetcode {
 //        System.out.println(goodNodes(new TreeNode(3, new TreeNode(1, new TreeNode(3), null), new TreeNode(6, new TreeNode(1), new TreeNode(5)))));
 //        System.out.println(diameterOfBinaryTree());
 //        System.out.println(1 + 3);
-//        System.out.println(arrayStringToTreeNode("[1,2,3,2,null,2,4]"));
 //        System.out.println(deleteNode(new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7))), 3));
 //        System.out.println(removeLeafNodes(new TreeNode(1, new TreeNode(2, new TreeNode(2), null), new TreeNode(3, new TreeNode(2), new TreeNode(4))), 2));
 //        System.out.println(arrayStringToTreeNode("[-1,-1,-1,-1,-1]"));
 //        System.out.println(sortedArrayToBST(new int[]{}));
+//        System.out.println(arrayStringToTreeNode("1,2,2,3,3,3,3,1,1,1,1,1,1,1,1"));
+//        System.out.println(printTree(new TreeNode(1, new TreeNode(2), null)));
+//        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(4)), new TreeNode(3))));
+//        System.out.println(printTree(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
+//        System.out.println(arrayStringToTreeNode("1,2,2,null,3,3,3,1,1,1,1,1,1"));
+//        System.out.println(printTree(new TreeNode(9, new TreeNode(2, new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4))), new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4)))), new TreeNode(2, new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4))), new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4)))))));
+        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
+    }
+
+    public static List<List<String>> printTree(TreeNode root) {
+        final int deepLevel = treeNodeMaxDeepLevel(root);
+        final int listCount = printTree(deepLevel);
+        final ArrayList<List<String>> res = new ArrayList<>(deepLevel);
+        final ArrayList<List<String>> collect = new ArrayList<>(deepLevel);
+        for (int i = 0; i < deepLevel; i++) {
+            final ArrayList<String> line = new ArrayList<>(deepLevel);
+            for (int j = 0; j < listCount; j++) {
+                line.add("");
+            }
+            res.add(line);
+            collect.add(new ArrayList<>(i * 2));
+        }
+        printTree(root, collect, 0, deepLevel);
+        System.out.println(collect);
+        printTree(res, collect, 0, listCount / 2, listCount);
+        res.forEach(System.out::println);
+        return res;
+    }
+
+    public static void printTree(TreeNode root, ArrayList<List<String>> collect, int deep, int finalLevel) {
+        if (deep != finalLevel) {
+            if (root != null) {
+                collect.get(deep).add(root.val + "");
+                printTree(root.left, collect, deep + 1, finalLevel);
+                printTree(root.right, collect, deep + 1, finalLevel);
+            } else {
+                collect.get(deep).add("");
+                printTree(null, collect, deep + 1, finalLevel);
+                printTree(null, collect, deep + 1, finalLevel);
+            }
+        }
+    }
+
+    public static void printTree(ArrayList<List<String>> res, ArrayList<List<String>> collect, int deep, int begin, int loop) {
+        final List<String> list = res.get(deep);
+        if (res.size() - 1 != deep) {
+            for (int i = begin; i < list.size(); i += loop) list.set(i, collect.get(deep).remove(0));
+            printTree(res, collect, deep + 1, begin / 2, begin + 1);
+        } else {
+            for (int i = 0; i < list.size(); i += 2) list.set(i, collect.get(deep).remove(0));
+        }
+    }
+
+    public static int printTree(int deepLevel) {
+        final int lastLevelItemsCount = (int) Math.pow(2, deepLevel - 1);
+        return lastLevelItemsCount + lastLevelItemsCount - 1;
     }
 
     public TreeNode addOneRow(TreeNode root, int val, int depth) {
@@ -420,13 +473,6 @@ public class Leetcode {
                 deleteNode(key, root.right);
             }
         }
-    }
-
-    public static Node connect(Node root) {
-        final TreeMap<Integer, List<Integer>> objectObjectTreeMap = new TreeMap<>();
-        connect(root, objectObjectTreeMap, 0);
-        final List<Integer> list = objectObjectTreeMap.values().stream().flatMap(item -> item.stream().skip(1)).toList();
-        return root;
     }
 
     public static void connect(Node root, int level, List<Integer> list) {
