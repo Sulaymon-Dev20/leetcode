@@ -115,7 +115,7 @@ public class Utils {
         return "";
     }
 
-    public static void printTreeHelper(TreeNode root, ArrayList<List<Character>> collect, int deep, int finalLevel) {
+    private static void printTreeHelper(TreeNode root, ArrayList<List<Character>> collect, int deep, int finalLevel) {
         if (deep != finalLevel) {
             if (root != null) {
                 collect.get(deep).add((char) (root.val + 48));
@@ -129,7 +129,7 @@ public class Utils {
         }
     }
 
-    public static void printTreeHelper(ArrayList<StringBuilder> res, ArrayList<List<Character>> collect, int deep, int begin, int loop) {
+    private static void printTreeHelper(ArrayList<StringBuilder> res, ArrayList<List<Character>> collect, int deep, int begin, int loop) {
         final StringBuilder stringBuilder = res.get(deep);
         if (res.size() - 1 != deep) {
             for (int i = begin; i < stringBuilder.length(); i += loop) stringBuilder.setCharAt(i, collect.get(deep).remove(0));
@@ -139,7 +139,7 @@ public class Utils {
         }
     }
 
-    public static int lastLevelItemCount(int deepLevel) {
+    private static int lastLevelItemCount(int deepLevel) {
         final int lastLevelItemsCount = (int) Math.pow(2, deepLevel - 1);
         return lastLevelItemsCount + lastLevelItemsCount - 1;
     }

@@ -241,6 +241,17 @@ public class Leetcode {
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
     }
 
+    public List<Integer> pathInZigZagTree(int label) {
+        final LinkedList<Integer> res = new LinkedList<>();
+        int count = 0;
+        while (count != label) {
+            count++;
+            final int lastLevelItemsCount = (int) Math.pow(2, 1);
+        }
+        res.add(label);
+        return res;
+    }
+
     public boolean isValidSerialization(String preorder) {
         final StringBuilder stringBuilder = new StringBuilder(preorder).append(',');
         deserialize(stringBuilder);
@@ -371,24 +382,6 @@ public class Leetcode {
         } else {
             return new TreeNode(number);
         }
-    }
-
-    public List<Integer> pathInZigZagTree(int label) {//https://leetcode.com/problems/path-in-zigzag-labelled-binary-tree/
-        final ArrayList<Integer> list = new ArrayList<>();
-        int label2 = label, deep = 0;
-        boolean status = true;
-        while (label > 1) {
-            final int number = deep * 2;
-            if (status) {
-                list.add(number);
-            } else {
-                list.add(number + 1);
-            }
-            deep++;
-            label -= number;
-            status = !status;
-        }
-        return null;
     }
 
     Map.Entry<Integer, String> smallestFromLeaf = Map.entry(Integer.MAX_VALUE, "");
