@@ -234,8 +234,35 @@ public class Leetcode {
 //        System.out.println(deleteNode(new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7))), 3));
 //        System.out.println(removeLeafNodes(new TreeNode(1, new TreeNode(2, new TreeNode(2), null), new TreeNode(3, new TreeNode(2), new TreeNode(4))), 2));
 //        System.out.println(arrayStringToTreeNode("[-1,-1,-1,-1,-1]"));
+//        System.out.println(sortedArrayToBST(new int[]{}));
     }
 
+    public TreeNode addOneRow(TreeNode root, int val, int depth) {
+        return depth == 1 ? new TreeNode(val, root, null) : addOneRow2(root, val, depth);
+    }
+
+    public TreeNode addOneRow2(TreeNode root, int val, int depth) {
+        if (root != null) {
+            if (--depth == 1) {
+                root.left = new TreeNode(val, root.left, null);
+                root.right = new TreeNode(val, null, root.right);
+            } else {
+                root.left = addOneRow2(root.left, val, depth - 1);
+                root.right = addOneRow2(root.right, val, depth - 1);
+            }
+        }
+        return root;
+    }
+
+    public static TreeNode sortedArrayToBST(int[] nums) {
+        return getRootForRange(nums, 0, nums.length - 1);
+    }
+
+    private static TreeNode getRootForRange(int[] nums, int low, int high) {
+        if (low > high) return null;
+        int index = low + ((high - low) / 2);
+        return new TreeNode(nums[index], getRootForRange(nums, low, index - 1), getRootForRange(nums, index + 1, high));
+    }
 
     public TreeNode bstFromPreorder(int[] preorder) {
         final TreeNode treeNode = new TreeNode(preorder[0]);
@@ -460,16 +487,6 @@ public class Leetcode {
         } else {
             return pseudoPalindromicPaths(root.left, path) + pseudoPalindromicPaths(root.right, path);
         }
-    }
-
-    public static TreeNode sortedArrayToBST(int[] nums) {
-        return getRootForRange(nums, 0, nums.length - 1);
-    }
-
-    private static TreeNode getRootForRange(int[] nums, int low, int high) {
-        if (low > high) return null;
-        int index = low + ((high - low) / 2);
-        return new TreeNode(nums[index], getRootForRange(nums, low, index - 1), getRootForRange(nums, index + 1, high));
     }
 
     public static void printMultiplicationTable(int tableSize) {
