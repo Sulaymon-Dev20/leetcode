@@ -241,6 +241,38 @@ public class Leetcode {
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
     }
 
+    public boolean isValidSerialization(String preorder) {
+        final StringBuilder stringBuilder = new StringBuilder(preorder).append(',');
+        deserialize(stringBuilder);
+        return aBoolean.get() && stringBuilder.isEmpty();
+    }
+
+    AtomicBoolean aBoolean = new AtomicBoolean(true);
+
+    public TreeNode deserialize(StringBuilder data) {
+        final Integer number = getNumber(data);
+        return number != null ? new TreeNode(number, deserialize(data), deserialize(data)) : null;
+    }
+
+    public Integer getNumber(StringBuilder data) {
+        StringBuilder number = new StringBuilder();
+        while (!data.isEmpty()) {
+            char letter = data.charAt(0);
+            data.deleteCharAt(0);
+            if (Character.isDigit(letter)) {
+                number.append(letter);
+            } else if (letter == '#') {
+                data.deleteCharAt(0);
+                return null;
+            } else if (letter == ',') {
+                return Integer.parseInt(number.toString());
+            }
+        }
+        aBoolean.compareAndSet(true, false);
+        return null;
+    }
+
+
 /*
     public static List<List<String>> printTree(TreeNode root) {
         final int deepLevel = treeNodeMaxDeepLevel(root);
@@ -611,33 +643,6 @@ public class Leetcode {
         }
     }
 
-    public static boolean isValidSerialization(String preorder) {
-        preorder = preorder.replaceAll("[0-9]", "1").replace(",", "");
-        System.out.println(preorder);
-        if (preorder.length() % 2 == 1 && preorder.indexOf(0) != '#') {
-            return isValidSerialization(new StringBuilder(preorder), 2);
-        } else {
-            return false;
-        }
-    }
-
-    public static boolean isValidSerialization(StringBuilder preorder, int som) {
-        if (!preorder.isEmpty()) {
-            final char c = preorder.charAt(0);
-            preorder.deleteCharAt(0);
-            if (c == '#') {
-                som -= 2;
-                isValidSerialization(preorder, som);
-            } else {
-                som--;
-                isValidSerialization(preorder, som + 2);
-            }
-            return som == 0;
-        } else {
-            return true;
-        }
-    }
-
     List<List<Integer>> pathSum1 = new LinkedList<>();
 
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
@@ -661,29 +666,6 @@ public class Leetcode {
                 list.clear();
             }
         }
-    }
-
-    public static boolean isValidSerializationCheck(LinkedList<Integer> preorder) {
-        final Integer integer = preorder.removeFirst();
-        if (integer != null) {
-
-        }
-        return false;
-    }
-
-    public static boolean isValidSerialization2(String preorder) {
-        final StringBuilder res = new StringBuilder(preorder);
-        return isValidSerialization2(res.append(","));
-    }
-
-    public static boolean isValidSerialization2(StringBuilder preorder) {
-        final Integer check = check(preorder);
-        if (check != null) {
-            return check != -1 && isValidSerialization2(preorder) && isValidSerialization2(preorder);
-        } else {
-            return true;
-        }
-//        return check != null ? new TreeNode(check, isValidSerialization2(preorder), isValidSerialization2(preorder)) : null;
     }
 
     public static Integer check(StringBuilder preorder) {
