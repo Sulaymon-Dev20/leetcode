@@ -236,6 +236,67 @@ public class Leetcode {
 //        System.out.println(arrayStringToTreeNode("[-1,-1,-1,-1,-1]"));
     }
 
+
+    public TreeNode bstFromPreorder(int[] preorder) {
+        final TreeNode treeNode = new TreeNode(preorder[0]);
+        for (int i = 1; i < preorder.length; i++) {
+            bstFromPreorder(treeNode, preorder[i]);
+        }
+        System.out.println(treeNode);
+        return treeNode;
+    }
+
+    public TreeNode bstFromPreorder(TreeNode root, int number) {
+        if (root != null) {
+            if (root.val > number) {
+                root.left = bstFromPreorder(root.left, number);
+            } else {
+                root.right = bstFromPreorder(root.right, number);
+            }
+            return root;
+        } else {
+            return new TreeNode(number);
+        }
+    }
+
+    public List<Integer> pathInZigZagTree(int label) {//https://leetcode.com/problems/path-in-zigzag-labelled-binary-tree/
+        final ArrayList<Integer> list = new ArrayList<>();
+        int label2 = label, deep = 0;
+        boolean status = true;
+        while (label > 1) {
+            final int number = deep * 2;
+            if (status) {
+                list.add(number);
+            } else {
+                list.add(number + 1);
+            }
+            deep++;
+            label -= number;
+            status = !status;
+        }
+        return null;
+    }
+
+    Map.Entry<Integer, String> smallestFromLeaf = Map.entry(Integer.MAX_VALUE, "");
+
+    public String smallestFromLeaf(TreeNode root) {
+        smallestFromLeaf(root, "");
+        return smallestFromLeaf.getValue();
+    }
+
+    public void smallestFromLeaf(TreeNode root, String text) {
+        final String res = Character.toString(root.val + 97) + text;
+        if (root.left == null && root.right == null) {
+            final int reduce = res.chars().reduce(0, Integer::sum);
+            if (reduce <= smallestFromLeaf.getKey()) {
+                smallestFromLeaf = Map.entry(reduce, res);
+            }
+        } else {
+            if (root.left != null) smallestFromLeaf(root.left, res);
+            if (root.right != null) smallestFromLeaf(root.right, res);
+        }
+    }
+
     public boolean isUnivalTree(TreeNode root) {
         final HashSet<Integer> list = new HashSet<>();
         isUnivalTree(root, list);
