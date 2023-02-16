@@ -1,9 +1,6 @@
 package uz.leetcode.model;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Utils {
 
@@ -101,5 +98,49 @@ public class Utils {
 
     private static String checkStringNull(String text, int k) {
         return text.equals("null") ? text : "<" + k + ">";
+    }
+
+    public static String printTree(TreeNode root) {
+        final int deepLevel = treeNodeMaxDeepLevel(root);
+        final int listCount = lastLevelItemCount(deepLevel);
+        final ArrayList<StringBuilder> res = new ArrayList<>(deepLevel);
+        final ArrayList<List<Character>> collect = new ArrayList<>(deepLevel);
+        for (int i = 0; i < deepLevel; i++) {
+            res.add(new StringBuilder("   ".repeat(deepLevel)));
+            collect.add(new ArrayList<>(i * 2));
+        }
+        printTreeHelper(root, collect, 0, deepLevel);
+        printTreeHelper(res, collect, 0, listCount / 2, listCount);
+        res.forEach(System.out::println);
+        return "";
+    }
+
+    public static void printTreeHelper(TreeNode root, ArrayList<List<Character>> collect, int deep, int finalLevel) {
+        if (deep != finalLevel) {
+            if (root != null) {
+                collect.get(deep).add((char) (root.val + 48));
+                printTreeHelper(root.left, collect, deep + 1, finalLevel);
+                printTreeHelper(root.right, collect, deep + 1, finalLevel);
+            } else {
+                collect.get(deep).add(' ');
+                printTreeHelper(null, collect, deep + 1, finalLevel);
+                printTreeHelper(null, collect, deep + 1, finalLevel);
+            }
+        }
+    }
+
+    public static void printTreeHelper(ArrayList<StringBuilder> res, ArrayList<List<Character>> collect, int deep, int begin, int loop) {
+        final StringBuilder stringBuilder = res.get(deep);
+        if (res.size() - 1 != deep) {
+            for (int i = begin; i < stringBuilder.length(); i += loop) stringBuilder.setCharAt(i, collect.get(deep).remove(0));
+            printTreeHelper(res, collect, deep + 1, begin / 2, begin + 1);
+        } else {
+            for (int i = 0; i < stringBuilder.length(); i += 2) stringBuilder.setCharAt(i, collect.get(deep).remove(0));
+        }
+    }
+
+    public static int lastLevelItemCount(int deepLevel) {
+        final int lastLevelItemsCount = (int) Math.pow(2, deepLevel - 1);
+        return lastLevelItemsCount + lastLevelItemsCount - 1;
     }
 }

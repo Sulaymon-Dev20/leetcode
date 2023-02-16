@@ -238,9 +238,10 @@ public class Leetcode {
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
 //        System.out.println(arrayStringToTreeNode("1,2,2,null,3,3,3,1,1,1,1,1,1"));
 //        System.out.println(printTree(new TreeNode(9, new TreeNode(2, new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4))), new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4)))), new TreeNode(2, new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4))), new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4)))))));
-        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
+//        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
     }
 
+/*
     public static List<List<String>> printTree(TreeNode root) {
         final int deepLevel = treeNodeMaxDeepLevel(root);
         final int listCount = printTree(deepLevel);
@@ -289,6 +290,7 @@ public class Leetcode {
         final int lastLevelItemsCount = (int) Math.pow(2, deepLevel - 1);
         return lastLevelItemsCount + lastLevelItemsCount - 1;
     }
+*/
 
     public TreeNode addOneRow(TreeNode root, int val, int depth) {
         return depth == 1 ? new TreeNode(val, root, null) : addOneRow2(root, val, depth);
