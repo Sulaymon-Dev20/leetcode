@@ -241,6 +241,51 @@ public class Leetcode {
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
     }
 
+    public int minDiffInBST(TreeNode root) {
+        final ArrayList<Integer> list = new ArrayList<>();
+        minDiffInBST(root, list);
+        int distance = Integer.MAX_VALUE;
+        for (int i = 0; i < list.size() - 1; i++) {
+            distance = Math.min(list.get(i) - list.get(i + 1), distance);
+        }
+        return distance;
+    }
+
+    public void minDiffInBST(TreeNode root, List<Integer> list) {
+        if (root != null) {
+            list.add(root.val);
+            minDiffInBST(root.left, list);
+            minDiffInBST(root.right, list);
+        }
+    }
+
+    public boolean isCompleteTree(TreeNode root) {
+        final int i = treeNodeMaxDeepLevel(root);
+        final ArrayList<ArrayList<Integer>> list = new ArrayList<>(i);
+        for (int index = 0; index < i; index++) {
+            list.add(new ArrayList<>(index * 2));
+        }
+        return false;
+    }
+
+    public boolean isCompleteTree(TreeNode root, Map<Integer, List<Integer>> map) {
+        return true;
+    }
+
+    public Node connect(Node root) {
+        final TreeMap<Integer, List<Integer>> map = new TreeMap<>();
+        connect(root, map, 0);
+        return root;
+    }
+
+    public void connect(Node root, Map<Integer, List<Integer>> map, int deep) {
+        if (root != null) {
+            map.computeIfAbsent(deep, value -> new ArrayList<>(deep * 2)).add(root.val);
+            connect(root.left, map, deep + 1);
+            connect(root.right, map, deep + 1);
+        }
+    }
+
     public List<Integer> pathInZigZagTree(int label) {
         final LinkedList<Integer> res = new LinkedList<>();
         int count = 0;
@@ -502,20 +547,6 @@ public class Leetcode {
         }
     }
 
-    public static void connect(Node root, int level, List<Integer> list) {
-        if (root != null) {
-//            root.next = new Node(map.get(level).remove());
-        }
-    }
-
-    public static void connect(Node root, Map<Integer, List<Integer>> map, int level) {
-        if (root != null) {
-            final List<Integer> list = map.computeIfAbsent(level, value -> new ArrayList<>(level * 2));
-            list.add(root.val);
-            connect(root.left, map, level + 1);
-            connect(root.right, map, level + 1);
-        }
-    }
 
     int max = 0;
 

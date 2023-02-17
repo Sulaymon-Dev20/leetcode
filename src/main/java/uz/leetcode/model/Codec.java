@@ -1,10 +1,5 @@
 package uz.leetcode.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 public class Codec {
     public String serialize(TreeNode root) {
         return root != null ? root.val + "," + serialize(root.left) + serialize(root.right) : "#,";
