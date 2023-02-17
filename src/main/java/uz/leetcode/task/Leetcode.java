@@ -241,6 +241,10 @@ public class Leetcode {
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
     }
 
+    public boolean evaluateTree(TreeNode root) {
+        return root.val == 1 || root.val == 0 ? root.val == 1 : root.val == 2 ? evaluateTree(root.left) || evaluateTree(root.right) : evaluateTree(root.left) && evaluateTree(root.right);
+    }
+
     List<Map.Entry<Integer, Integer>> cousin;
 
     public void getCousins(TreeNode root, int x, int y, int depth, TreeNode parent) {
