@@ -241,6 +241,28 @@ public class Leetcode {
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
     }
 
+    List<Map.Entry<Integer, Integer>> cousin;
+
+    public void getCousins(TreeNode root, int x, int y, int depth, TreeNode parent) {
+        if (root == null || cousin.size() == 2) {
+            return;
+        }
+
+        if (root.val == x || root.val == y) {
+            cousin.add(Map.entry(parent != null ? parent.val : (int) (Math.random() * 1000000), depth));
+            return;
+        }
+        getCousins(root.left, x, y, depth + 1, root);
+        getCousins(root.right, x, y, depth + 1, root);
+    }
+
+    public boolean isCousins(TreeNode root, int x, int y) {
+        cousin = new ArrayList<>();
+        getCousins(root, x, y, 0, null);
+
+        return (cousin.size() == 2) && (!Objects.equals(cousin.get(0).getKey(), cousin.get(1).getKey())) && (Objects.equals(cousin.get(0).getValue(), cousin.get(1).getValue()));
+    }
+
     public int minDiffInBST(TreeNode root) {
         final ArrayList<Integer> list = new ArrayList<>();
         minDiffInBST(root, list);
