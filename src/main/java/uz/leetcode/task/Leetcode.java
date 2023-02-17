@@ -241,6 +241,10 @@ public class Leetcode {
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
     }
 
+    public TreeNode deleteNode(TreeNode root, int key) {
+        return null;
+    }
+
     public boolean evaluateTree(TreeNode root) {
         return root.val == 1 || root.val == 0 ? root.val == 1 : root.val == 2 ? evaluateTree(root.left) || evaluateTree(root.right) : evaluateTree(root.left) && evaluateTree(root.right);
     }
@@ -545,31 +549,6 @@ public class Leetcode {
             map.merge(level, root.val, Integer::max);
             largestValues(root.left, map, level + 1);
             largestValues(root.right, map, level + 1);
-        }
-    }
-
-    public static TreeNode deleteNode(TreeNode root, int key) {
-        if (root != null) {
-            if (root.val == key) {
-
-            }
-        }
-        deleteNode(key, root);
-        return root;
-    }
-
-    public static void deleteNode(int key, TreeNode root) {
-        if (root != null) {
-            if (root.val == key) {
-                if (root.left != null) {
-                    root = root.left;
-                } else {
-                    root = root.right;
-                }
-            } else {
-                deleteNode(key, root.left);
-                deleteNode(key, root.right);
-            }
         }
     }
 
