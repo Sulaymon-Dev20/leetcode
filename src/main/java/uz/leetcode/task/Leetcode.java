@@ -241,6 +241,19 @@ public class Leetcode {
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
     }
 
+    public TreeNode trimBST(TreeNode root, int low, int high) {
+        if (root != null) {
+            root.left = trimBST(root.left, low, high);
+            root.right = trimBST(root.right, low, high);
+            if (low <= root.val && root.val <= high) {
+                return root;
+            } else {
+                return root.left != null ? root.left : root.right;
+            }
+        }
+        return root;
+    }
+
     public TreeNode deleteNode(TreeNode root, int key) {
         return null;
     }
