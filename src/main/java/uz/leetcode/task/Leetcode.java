@@ -242,16 +242,10 @@ public class Leetcode {
     }
 
     public TreeNode trimBST(TreeNode root, int low, int high) {
-        if (root != null) {
-            root.left = trimBST(root.left, low, high);
-            root.right = trimBST(root.right, low, high);
-            if (low <= root.val && root.val <= high) {
-                return root;
-            } else {
-                return root.left != null ? root.left : root.right;
-            }
-        }
-        return root;
+        if (root == null) return root;
+        root.left = trimBST(root.left, low, high);
+        root.right = trimBST(root.right, low, high);
+        return low <= root.val && root.val <= high ? root : root.left != null ? root.left : root.right;
     }
 
     public TreeNode deleteNode(TreeNode root, int key) {

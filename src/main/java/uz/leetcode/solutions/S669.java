@@ -15,4 +15,11 @@ public class S669 {
         }
         return root;
     }
+
+    public TreeNode trimBST2(TreeNode root, int low, int high) {
+        if (root == null) return root;
+        root.left = trimBST(root.left, low, high);
+        root.right = trimBST(root.right, low, high);
+        return low <= root.val && root.val <= high ? root : root.left != null ? root.left : root.right;
+    }
 }
