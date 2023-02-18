@@ -1,6 +1,7 @@
 package uz.leetcode.model;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
 
@@ -56,7 +57,11 @@ public class Utils {
     }
 
     public static String arrayStringToTreeNode(String root) {
-        return arrayStringToTreeNode(Arrays.stream(root.replaceAll("[\\[\\] ]", "").split(",")).toList()).toString().replace("  ", " ").trim();
+        final List<String> list = new ArrayList<>(Arrays.stream(root.replaceAll("[\\[\\] ]", "").split(",")).toList());
+        if (list.size() % 2 == 0) {
+            list.add("null");
+        }
+        return arrayStringToTreeNode(list).toString().replace("  ", " ").trim();
     }
 
     public static StringBuilder arrayStringToTreeNode(List<String> root) {
@@ -100,42 +105,62 @@ public class Utils {
         return text.equals("null") ? text : "<" + k + ">";
     }
 
-    public static String printTree(TreeNode root) {
+    private static List<List<String>> printTree(TreeNode root) {
         final int deepLevel = treeNodeMaxDeepLevel(root);
         final int listCount = lastLevelItemCount(deepLevel);
-        final ArrayList<StringBuilder> res = new ArrayList<>(deepLevel);
-        final ArrayList<List<Character>> collect = new ArrayList<>(deepLevel);
+        final ArrayList<List<String>> res = new ArrayList<>(deepLevel);
+        final ArrayList<List<String>> collect = new ArrayList<>(deepLevel);
         for (int i = 0; i < deepLevel; i++) {
-            res.add(new StringBuilder("   ".repeat(deepLevel)));
+            final ArrayList<String> line = new ArrayList<>(deepLevel);
+            for (int j = 0; j < listCount; j++) {
+                line.add(" ");
+            }
+            res.add(line);
             collect.add(new ArrayList<>(i * 2));
         }
-        printTreeHelper(root, collect, 0, deepLevel);
-        printTreeHelper(res, collect, 0, listCount / 2, listCount);
-        res.forEach(System.out::println);
-        return "";
+        printTree(root, collect, 0, deepLevel);
+        printTree(res, collect, 0, listCount / 2, listCount);
+//        res.forEach(System.out::println);
+        return res;
     }
 
-    private static void printTreeHelper(TreeNode root, ArrayList<List<Character>> collect, int deep, int finalLevel) {
+    public static String printTreeTrim(TreeNode root) {
+        final List<List<String>> lists = printTree(root);
+        final AtomicInteger length = new AtomicInteger(Integer.MAX_VALUE);
+        lists.stream()
+            .map(item -> item.toString().replaceAll("[\\[\\],]", ""))
+            .map(item -> Map.entry(item.length() - item.trim().length(), item))
+            .peek(item -> length.getAndUpdate((a) -> Math.min(a, item.getKey())))
+            .forEach(item -> System.out.println(item.getValue().substring(length.get())));
+//            .forEach(item -> System.out.println(item.getValue().substring(0)));
+        return "-----------------------------------------------";
+    }
+    public static String printTreeBox(TreeNode root) {
+        printTree(root).forEach(System.out::println);
+        return "-----------------------------------------------";
+    }
+
+    private static void printTree(TreeNode root, ArrayList<List<String>> collect, int deep, int finalLevel) {
         if (deep != finalLevel) {
             if (root != null) {
-                collect.get(deep).add((char) (root.val + 48));
-                printTreeHelper(root.left, collect, deep + 1, finalLevel);
-                printTreeHelper(root.right, collect, deep + 1, finalLevel);
+                collect.get(deep).add(root.val + "");
+                printTree(root.left, collect, deep + 1, finalLevel);
+                printTree(root.right, collect, deep + 1, finalLevel);
             } else {
-                collect.get(deep).add(' ');
-                printTreeHelper(null, collect, deep + 1, finalLevel);
-                printTreeHelper(null, collect, deep + 1, finalLevel);
+                collect.get(deep).add(" ");
+                printTree(null, collect, deep + 1, finalLevel);
+                printTree(null, collect, deep + 1, finalLevel);
             }
         }
     }
 
-    private static void printTreeHelper(ArrayList<StringBuilder> res, ArrayList<List<Character>> collect, int deep, int begin, int loop) {
-        final StringBuilder stringBuilder = res.get(deep);
+    private static void printTree(ArrayList<List<String>> res, ArrayList<List<String>> collect, int deep, int begin, int loop) {
+        final List<String> list = res.get(deep);
         if (res.size() - 1 != deep) {
-            for (int i = begin; i < stringBuilder.length(); i += loop) stringBuilder.setCharAt(i, collect.get(deep).remove(0));
-            printTreeHelper(res, collect, deep + 1, begin / 2, begin + 1);
+            for (int i = begin; i < list.size(); i += loop) list.set(i, collect.get(deep).remove(0));
+            printTree(res, collect, deep + 1, begin / 2, begin + 1);
         } else {
-            for (int i = 0; i < stringBuilder.length(); i += 2) stringBuilder.setCharAt(i, collect.get(deep).remove(0));
+            for (int i = 0; i < list.size(); i += 2) list.set(i, collect.get(deep).remove(0));
         }
     }
 

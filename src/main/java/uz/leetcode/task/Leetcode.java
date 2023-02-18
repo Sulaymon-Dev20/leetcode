@@ -236,9 +236,175 @@ public class Leetcode {
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2), null)));
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(4)), new TreeNode(3))));
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
-//        System.out.println(arrayStringToTreeNode("1,2,2,null,3,3,3,1,1,1,1,1,1"));
+//        System.out.println(arrayStringToTreeNode("3,1,4,null,null,2,null"));
 //        System.out.println(printTree(new TreeNode(9, new TreeNode(2, new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4))), new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4)))), new TreeNode(2, new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4))), new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4)))))));
 //        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
+//        recoverTree(new TreeNode(1, new TreeNode(3, null, new TreeNode(2)), null));
+//        recoverTree(new TreeNode(3, new TreeNode(1, null, null), new TreeNode(4, new TreeNode(2), null)));
+//        final TreeNode treeNode = new TreeNode(2, new TreeNode(3), new TreeNode(1));
+//        recoverTree(treeNode);
+//        System.out.println(treeNode);
+//        System.out.println(arrayStringToTreeNode("1,3,2,5,null,null,9,6,null,7"));
+//        System.out.println(arrayStringToTreeNode("[1,1,1,1,1,1,1,null,null,null,1,null,null,null,null,2,2,2,2,2,2,2,null,2,null,null,2,null,2]"));
+//        System.out.println(3001 - 2997);
+//        System.out.println(widthOfBinaryTree(new TreeNode(1, new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, null, new TreeNode(1, new TreeNode(2, new TreeNode(2, new TreeNode(2), null), new TreeNode(2, new TreeNode(2), null)), new TreeNode(2, new TreeNode(2, null, new TreeNode(2)), new TreeNode(2, null, new TreeNode(2)))))), new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, null, null)))));
+//        System.out.println(widthOfBinaryTree(new TreeNode(1, new TreeNode(3, new TreeNode(5), null), new TreeNode(2))));
+//        System.out.println(widthOfBinaryTree(new TreeNode(1, new TreeNode(3, new TreeNode(5), new TreeNode(3)), new TreeNode(2, null, new TreeNode(9)))));
+//        System.out.println(widthOfBinaryTree(new TreeNode(1, new TreeNode(3, new TreeNode(5, new TreeNode(6), null), null), new TreeNode(2, null, new TreeNode(9, new TreeNode(7), null)))));
+//        System.out.println(printTreeBox(new TreeNode(1, new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, null, new TreeNode(1, new TreeNode(2, new TreeNode(2, new TreeNode(2), null), new TreeNode(2, new TreeNode(2), null)), new TreeNode(2, new TreeNode(2, null, new TreeNode(2)), new TreeNode(2, null, new TreeNode(2)))))), new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, null, null)))));
+//        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, null, new TreeNode(7)))));
+        System.out.println(arrayStringToTreeNode("[1,2,3,4,5,6]"));
+//        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), null), new TreeNode(3, new TreeNode(9), null))));
+//        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), null))));
+        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), null))));
+    }
+
+    public int averageOfSubtree(TreeNode root) {
+        return root != null ? averageOfSubtree(root, new int[]{0, 0}) + averageOfSubtree(root.left) + averageOfSubtree(root.right) : 0;
+    }
+
+    public int averageOfSubtree(TreeNode root, int[] ints) {
+        if (root != null) {
+            ints[0] += root.val;
+            ints[1]++;
+            averageOfSubtree(root.left, ints);
+            averageOfSubtree(root.right, ints);
+            return ints[0] / ints[1] == root.val ? 1 : 0;
+        } else {
+            return 0;
+        }
+    }
+
+    public static boolean isCompleteTree(TreeNode root) {
+        final TreeMap<Integer, List<Integer>> map = new TreeMap<>();
+        final boolean completeTree = isCompleteTree(root, map, 0, treeNodeMaxDeepLevel(root));
+        final List<Integer> list = map.pollLastEntry().getValue();
+        return completeTree && (!list.contains(null) || list.indexOf(null) > list.lastIndexOf(1)) && map.values().stream().noneMatch(item -> item.contains(null));
+    }
+
+    public static boolean isCompleteTree(TreeNode root, Map<Integer, List<Integer>> map, int deep, int lastItem) {
+        if (deep != lastItem) {
+            final List<Integer> list = map.computeIfAbsent(deep, value -> new ArrayList<>());
+            if (root != null) {
+                list.add(1);
+                if (root.right != null && root.left == null) {
+                    return false;
+                }
+                return isCompleteTree(root.left, map, deep + 1, lastItem) && isCompleteTree(root.right, map, deep + 1, lastItem);
+            } else {
+                list.add(null);
+                return isCompleteTree(root, map, deep + 1, lastItem) && isCompleteTree(root, map, deep + 1, lastItem);
+            }
+        } else {
+            return true;
+        }
+    }
+
+    public int longestUnivaluePath(TreeNode root) {
+        if (root != null) {
+            return Math.max(longestUnivaluePath(root, root.val, true), longestUnivaluePath(root, root.val, false));
+        } else {
+            return 0;
+        }
+    }
+
+    public int longestUnivaluePath(TreeNode root, int parent, boolean b) {
+        if (root != null) {
+            if (root.val != parent) {
+                return 1 + Math.max(longestUnivaluePath(root.left, root.val, false), longestUnivaluePath(root.right, root.val, true));
+            } else {
+                return 1 + (b ? longestUnivaluePath(root.right, parent, false) : longestUnivaluePath(root.left, parent, true));
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    public static int widthOfBinaryTree(TreeNode root) {
+        final TreeMap<Integer, int[]> map = new TreeMap<>();
+//        widthOfBinaryTree(root.left, map, 1, 3001);
+//        widthOfBinaryTree(root.right, map, 1, 2999);
+        widthOfBinaryTree(root.left, map, 1, 2998);
+        widthOfBinaryTree(root.right, map, 1, 3002);
+        System.out.println(map);
+        return -1;
+    }
+
+    public static void widthOfBinaryTree(TreeNode root, Map<Integer, int[]> map, int level, int number) {
+        if (root != null) {
+            final int[] ints = map.computeIfAbsent(level, value -> new int[]{Integer.MAX_VALUE, Integer.MIN_VALUE});
+            ints[0] = Math.min(number, ints[0]);
+            ints[1] = Math.max(number, ints[1]);
+            widthOfBinaryTree(root.left, map, level + 1, number - 1);
+            widthOfBinaryTree(root.right, map, level + 1, number + 1);
+        }
+    }
+
+    public static TreeNode sortedArrayToBST(int[] nums) {
+        return getRootForRange(nums, 0, nums.length - 1);
+    }
+
+    private static TreeNode getRootForRange(int[] nums, int low, int high) {
+        if (low > high) return null;
+        int index = low + ((high - low) / 2);
+        return new TreeNode(nums[index], getRootForRange(nums, low, index - 1), getRootForRange(nums, index + 1, high));
+    }
+
+    TreeNode prev = null, first = null, second = null;
+
+    void inorder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inorder(root.left);
+        if (prev != null && root.val < prev.val) {
+            if (first == null) {
+                first = prev;
+            }
+            second = root;
+        }
+        prev = root;
+        inorder(root.right);
+    }
+
+    public void recoverTree2(TreeNode root) {
+        if (root == null)
+            return;
+        inorder(root);
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
+    }
+
+    public static void recoverTree(TreeNode root) {
+        if (root != null) {
+            final int i4 = recoverTree(root.left, recoverTree(root.right, recoverTree(root.left, recoverTree(root.right, recoverTree(root.left, root.val, false), true), false), true), false);
+            root.val = recoverTree(root.left, i4, false);
+            recoverTree(root.left);
+            recoverTree(root.right);
+        }
+    }
+
+    public static int recoverTree(TreeNode root, int parent, boolean isBigger) {
+        if (root != null) {
+            final int value = root.val;
+            if (isBigger) {
+                if (value < parent) {
+                    root.val = parent;
+                    return value;
+                } else {
+                    return Math.min(recoverTree(root.left, parent, true), recoverTree(root.right, parent, true));
+                }
+            } else {
+                if (value > parent) {
+                    root.val = parent;
+                    return value;
+                } else {
+                    return Math.max(recoverTree(root.left, parent, false), recoverTree(root.right, parent, false));
+                }
+            }
+        }
+        return parent;
     }
 
     public TreeNode trimBST(TreeNode root, int low, int high) {
@@ -294,19 +460,6 @@ public class Leetcode {
             minDiffInBST(root.left, list);
             minDiffInBST(root.right, list);
         }
-    }
-
-    public boolean isCompleteTree(TreeNode root) {
-        final int i = treeNodeMaxDeepLevel(root);
-        final ArrayList<ArrayList<Integer>> list = new ArrayList<>(i);
-        for (int index = 0; index < i; index++) {
-            list.add(new ArrayList<>(index * 2));
-        }
-        return false;
-    }
-
-    public boolean isCompleteTree(TreeNode root, Map<Integer, List<Integer>> map) {
-        return true;
     }
 
     public Node connect(Node root) {
@@ -432,16 +585,6 @@ public class Leetcode {
             }
         }
         return root;
-    }
-
-    public static TreeNode sortedArrayToBST(int[] nums) {
-        return getRootForRange(nums, 0, nums.length - 1);
-    }
-
-    private static TreeNode getRootForRange(int[] nums, int low, int high) {
-        if (low > high) return null;
-        int index = low + ((high - low) / 2);
-        return new TreeNode(nums[index], getRootForRange(nums, low, index - 1), getRootForRange(nums, index + 1, high));
     }
 
     public TreeNode bstFromPreorder(int[] preorder) {
