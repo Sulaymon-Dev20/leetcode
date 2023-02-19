@@ -253,10 +253,61 @@ public class Leetcode {
 //        System.out.println(widthOfBinaryTree(new TreeNode(1, new TreeNode(3, new TreeNode(5, new TreeNode(6), null), null), new TreeNode(2, null, new TreeNode(9, new TreeNode(7), null)))));
 //        System.out.println(printTreeBox(new TreeNode(1, new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, null, new TreeNode(1, new TreeNode(2, new TreeNode(2, new TreeNode(2), null), new TreeNode(2, new TreeNode(2), null)), new TreeNode(2, new TreeNode(2, null, new TreeNode(2)), new TreeNode(2, null, new TreeNode(2)))))), new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, null, null)))));
 //        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, null, new TreeNode(7)))));
-        System.out.println(arrayStringToTreeNode("[1,2,3,4,5,6]"));
+        System.out.println(arrayStringToTreeNode("1,2,3,4,null,2,4,null,null,4"));
 //        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), null), new TreeNode(3, new TreeNode(9), null))));
 //        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), null))));
-        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), null))));
+//        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), null))));
+//        System.out.println(recoverFromPreorder("1-2--3--4-5--6--7"));
+        System.out.println(findDuplicateSubtrees(new TreeNode(1, new TreeNode(2, new TreeNode(4, null, null), null), new TreeNode(3, new TreeNode(2, new TreeNode(4), null), new TreeNode(4)))));
+    }
+//    1
+//    -2
+//    --3
+//    --4
+//    -5
+//    --6
+//    --7
+
+    public static List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        final TreeMap<String, List<TreeNode>> map = new TreeMap<>();
+        findDuplicateSubtrees(root, map);
+        return map.values().stream().filter(item -> item.size() > 1).map(item -> item.get(0)).toList();
+    }
+
+        public static void findDuplicateSubtrees(TreeNode root, TreeMap<String, List<TreeNode>> map) {
+        if (root != null) {
+            final String s = treeNodeString(root);
+            final List<TreeNode> treeNodes = map.computeIfAbsent(s, value -> new LinkedList<>());
+            treeNodes.add(root);
+            root.hashCode();
+            findDuplicateSubtrees(root.left, map);
+            findDuplicateSubtrees(root.right, map);
+        }
+    }
+
+    public static String treeNodeString(TreeNode root) {
+        if (root != null) {
+            return '(' + treeNodeString(root.left) + ')' + root.val + '(' + treeNodeString(root.right) + ')';
+        } else {
+            return "#";
+        }
+    }
+
+    public static TreeNode recoverFromPreorder(String traversal) {
+        final StringBuilder stringBuilder = new StringBuilder(traversal.substring(traversal.indexOf('-')));
+        return new TreeNode(Integer.parseInt(traversal.substring(0, traversal.indexOf('-'))), recoverFromPreorder(stringBuilder, 1), recoverFromPreorder(stringBuilder, 1));
+    }
+
+    //-2--3--4-5--6--7
+    public static TreeNode recoverFromPreorder(StringBuilder traversal, int i) {
+        final String number = traversal.substring(0, Math.min(i, traversal.length() - 1));
+        final String substring = traversal.substring(number.length());
+        if (substring.startsWith("-")) {
+            return null;
+        } else {
+            traversal.delete(0, number.length() + 1);
+            return new TreeNode(Integer.parseInt(number), recoverFromPreorder(traversal, i + 1), recoverFromPreorder(traversal, i + 1));
+        }
     }
 
     public int averageOfSubtree(TreeNode root) {
@@ -1235,10 +1286,6 @@ public class Leetcode {
             findMode(root.left, map);
             findMode(root.right, map);
         }
-    }
-
-    public TreeNode recoverFromPreorder(String traversal) {
-        return null;
     }
 
     public static boolean isSubtree(TreeNode root, TreeNode subRoot) {//https://leetcode.com/problems/subtree-of-another-tree/submissions/
