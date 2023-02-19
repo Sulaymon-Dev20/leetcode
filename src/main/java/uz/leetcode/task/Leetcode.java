@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -258,7 +259,7 @@ public class Leetcode {
 //        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), null))));
 //        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), null))));
 //        System.out.println(recoverFromPreorder("1-2--3--4-5--6--7"));
-        System.out.println(findDuplicateSubtrees(new TreeNode(1, new TreeNode(2, new TreeNode(4, null, null), null), new TreeNode(3, new TreeNode(2, new TreeNode(4), null), new TreeNode(4)))));
+//        System.out.println(findDuplicateSubtrees(new TreeNode(1, new TreeNode(2, new TreeNode(4, null, null), null), new TreeNode(3, new TreeNode(2, new TreeNode(4), null), new TreeNode(4)))));
     }
 //    1
 //    -2
@@ -268,28 +269,46 @@ public class Leetcode {
 //    --6
 //    --7
 
-    public static List<TreeNode> findDuplicateSubtrees(TreeNode root) {
-        final TreeMap<String, List<TreeNode>> map = new TreeMap<>();
-        findDuplicateSubtrees(root, map);
-        return map.values().stream().filter(item -> item.size() > 1).map(item -> item.get(0)).toList();
+    public int kthSmallest(TreeNode root, int k) {
+        final TreeSet<Integer> values = new TreeSet<>();
+        kthSmallest(root, values);
+        for (Integer value : values) {
+            if (--k == 0) {
+                return value;
+            }
+        }
+        return -1;
     }
 
-        public static void findDuplicateSubtrees(TreeNode root, TreeMap<String, List<TreeNode>> map) {
+    public void kthSmallest(TreeNode root, TreeSet<Integer> list) {
         if (root != null) {
-            final String s = treeNodeString(root);
-            final List<TreeNode> treeNodes = map.computeIfAbsent(s, value -> new LinkedList<>());
-            treeNodes.add(root);
-            root.hashCode();
-            findDuplicateSubtrees(root.left, map);
-            findDuplicateSubtrees(root.right, map);
+            list.add(root.val);
+            kthSmallest(root.left, list);
+            kthSmallest(root.right, list);
         }
     }
 
-    public static String treeNodeString(TreeNode root) {
+    public int maxAncestorDiff(TreeNode root) {
+        return Math.max(maxAncestorDiff2(root.left, root.val), maxAncestorDiff2(root.right, root.val));
+    }
+
+    public int maxAncestorDiff2(TreeNode root, int number) {
+        return Math.max(getMaxValueTreeNode(root), number) - Math.min(getMinValueTreeNode(root), number);
+    }
+
+    public int getMinValueTreeNode(TreeNode root) {
         if (root != null) {
-            return '(' + treeNodeString(root.left) + ')' + root.val + '(' + treeNodeString(root.right) + ')';
+            return Math.min(root.val, Math.min(getMinValueTreeNode(root.left), getMinValueTreeNode(root.right)));
         } else {
-            return "#";
+            return Integer.MAX_VALUE;
+        }
+    }
+
+    public int getMaxValueTreeNode(TreeNode root) {
+        if (root != null) {
+            return Math.max(root.val, Math.max(getMaxValueTreeNode(root.left), getMaxValueTreeNode(root.right)));
+        } else {
+            return Integer.MIN_VALUE;
         }
     }
 
@@ -308,6 +327,26 @@ public class Leetcode {
             traversal.delete(0, number.length() + 1);
             return new TreeNode(Integer.parseInt(number), recoverFromPreorder(traversal, i + 1), recoverFromPreorder(traversal, i + 1));
         }
+    }
+
+    public static List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        final TreeMap<String, List<TreeNode>> map = new TreeMap<>();
+        findDuplicateSubtrees(root, map);
+        return map.values().stream().filter(item -> item.size() > 1).map(item -> item.get(0)).toList();
+    }
+
+    public static void findDuplicateSubtrees(TreeNode root, TreeMap<String, List<TreeNode>> map) {
+        if (root != null) {
+            final String s = treeNodeString(root);
+            final List<TreeNode> treeNodes = map.computeIfAbsent(s, value -> new LinkedList<>());
+            treeNodes.add(root);
+            findDuplicateSubtrees(root.left, map);
+            findDuplicateSubtrees(root.right, map);
+        }
+    }
+
+    public static String treeNodeString(TreeNode root) {
+        return root != null ? '(' + treeNodeString(root.left) + ')' + root.val + '(' + treeNodeString(root.right) + ')' : "#";
     }
 
     public int averageOfSubtree(TreeNode root) {
