@@ -20,7 +20,8 @@ public class Leetcode {
 //        System.out.println(arrayStringToTreeNode("1,2,3,4,5,6,7"));
 //        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
 //        System.out.println("1-2--3--4-5--6--7");
-        System.out.println(recoverFromPreorder(new StringBuilder("1-2--3--4-5--6--7"), 0, 0));
+//        System.out.println(recoverFromPreorder(new StringBuilder("1-2--3--4-5--6--7"), 0, 0));
+        System.out.println(sortedListToBST(null));
     }
 //1
 // -2
@@ -37,6 +38,25 @@ public class Leetcode {
 //  -5
 //  --6
 //  ---7
+    public static TreeNode sortedListToBST(ListNode head) {
+        final List<Integer> list = listNodeToList(head, new ArrayList<>());
+        return listNodeToList(list, 0, list.size() - 1);
+    }
+
+    public static TreeNode listNodeToList(List<Integer> list, int low, int high) {
+        if (low > high) return null;
+        final int index = low + ((high - low) / 2);
+        return new TreeNode(list.get(index), listNodeToList(list, low, index - 1), listNodeToList(list, index + 1, high));
+    }
+
+    public static List<Integer> listNodeToList(ListNode head, List<Integer> list) {
+        if (head != null) {
+            list.add(head.val);
+            return listNodeToList(head.next, list);
+        } else {
+            return list;
+        }
+    }
 
     public static TreeNode balanceBST(TreeNode root) {
         final LinkedList<Integer> numbers = new LinkedList<>();
