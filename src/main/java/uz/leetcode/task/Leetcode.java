@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -18,256 +17,158 @@ import static uz.leetcode.model.Utils.*;
 
 public class Leetcode {
     public static void main(String[] args) throws IOException {
-//        System.out.println(minTime2(7, new int[][]{{0, 1}, {0, 2}, {1, 4}, {1, 5}, {2, 3}, {2, 6}}, List.of(false, false, true, false, false, true, false)));
-//        System.out.println(minTime2(7, new int[][]{{0, 1}, {0, 2}, {1, 4}, {1, 5}, {2, 3}, {2, 6}}, List.of(false, false, true, false, true, true, false)));
-//        System.out.println(Arrays.toString(countSubTrees(7, new int[][]{{0, 1}, {0, 2}, {1, 4}, {1, 5}, {2, 3}, {2, 6}}, "abaedcd")));
-//        System.out.println(Arrays.toString(countSubTrees(4, new int[][]{{0, 1}, {1, 2}, {0, 3}}, "bbbb")));
-//        System.out.println(Arrays.toString(countSubTrees(5, new int[][]{{0, 1}, {0, 2}, {1, 3}, {0, 4}}, "aabab")));
-//        System.out.println(Arrays.toString(countSubTrees(4, new int[][]{{0, 2}, {0, 3}, {1, 2}}, "aeed")));
-//        System.out.println(differenceOfSum(new int[]{1, 15, 6, 3}));
-//        System.out.println(differenceOfSum(new int[]{1, 2, 3, 4}));
-//        System.out.println(buildArray(new int[]{1, 2}, 3));
-//        System.out.println(haveConflict(new String[]{"01:15", "02:00"}, new String[]{"02:00", "03:00"}));
-//        System.out.println(haveConflict(new String[]{"10:00", "11:00"}, new String[]{"14:00", "15:00"}));
-//        System.out.println(haveConflict(new String[]{"15:19", "17:56"}, new String[]{"14:11", "20:02"}));
-//        System.out.println(minMaxGame(new int[]{1, 3, 5, 2, 4, 8, 2, 2}));
-//        System.out.println(minMaxGame(new int[]{3}));
-//        System.out.println(spiralOrder(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}));
-//        System.out.println("[1, 2, 3, 6, 9, 8, 7, 4, 5]");
-//        System.out.println(spiralOrder(new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}}));
-//        System.out.println("[1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7]");
-//        System.out.println(spiralOrder(new int[][]{{1, 2, 3, 4}}));
-//        System.out.println(spiralOrder(new int[][]{{1}, {2}, {3}, {4}}));
-//        System.out.println(Arrays.deepToString(spiralMatrix(3, 5, new ListNode(1, new ListNode(2)))));
-//        System.out.println(Arrays.deepToString(generateMatrix(3)));
-//        System.out.println(Arrays.deepToString(spiralMatrixIII(1, 4, 0, 0)));
-//        System.out.println(Arrays.deepToString(spiralMatrixIII(5, 6, 1, 4)));
-//        System.out.println("[[1,4],[1,5],[2,5],[2,4],[2,3],[1,3],[0,3],[0,4],[0,5],[3,5],[3,4],[3,3],[3,2],[2,2],[1,2],[0,2],[4,5],[4,4],[4,3],[4,2],[4,1],[3,1],[2,1],[1,1],[0,1],[4,0],[3,0],[2,0],[1,0],[0,0]]");
-//        System.out.println(deleteGreatestValue(new int[][]{{1, 2, 4}, {3, 3, 1}}));
-//        System.out.println(deleteGreatestValue(new int[][]{{10}}));
-//        System.out.println(Arrays.toString(findRelativeRanks(new int[]{10, 3, 8, 9, 4})));
-//        System.out.println(replaceWords(List.of("cat", "bat", "rat"), "the cattle was rattled by the battery"));
-//        System.out.println(replaceWords(List.of("catt", "cat", "bat", "rat"), "the cattle was rattled by the battery"));
-//        System.out.println(Arrays.toString(maxSlidingWindow(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3)));
-//        System.out.println(Arrays.toString(maxSlidingWindow(new int[]{1}, 1)));
-//        System.out.println(projectionArea(new int[][]{{1, 2}, {3, 4}}));
-//        System.out.println(projectionArea(new int[][]{{1, 2, 3}, {3, 4, 5}}));
-//        System.out.println(summaryRanges(new int[]{0, 1, 2, 4, 5, 7}));
-//        System.out.println(summaryRanges(new int[]{0, 2, 3, 4, 6, 8, 9}));
-//        System.out.println(arithmeticThree(new int[]{3, 6, 9, 12}, 4));
-//        System.out.println(Arrays.toString(findRelativeRanks(new int[]{10, 3, 8, 9, 4})));
-//        maximumProduct(new int[]{1,0,2,3,0,4,5,0});
-//        System.out.println(maximumProduct(new int[]{-100, -2, -3, 1}));
-//        System.out.println(findMaxAverage(new int[]{1, 12, -5, -6, 50, 3}, 4));
-//        System.out.println(findMaxAverage(new int[]{1, 12, -5, -6, 50, 3}, 1));
-//        System.out.println(findMaxAverage(new int[]{5}, 1));
-//        System.out.println(Arrays.toString(findErrorNums(new int[]{2, 2})));
-//        System.out.println(commonChars(new String[]{"bella", "label", "roller"}));
-//        System.out.println(numEquivDominoPairs(new int[][]{{1, 2}, {1, 2}, {1, 1}, {1, 2}, {2, 2}}));
-//        System.out.println(tictactoe(new int[][]{{0, 0}, {2, 0}, {1, 1}, {2, 1}, {2, 2}}));
-//        soutArray(Arrays.deepToString(updateBoard(new char[][]{{'E', 'E', 'E', 'E', 'E'}, {'E', 'E', 'M', 'E', 'E'}, {'E', 'E', 'E', 'E', 'E'}, {'E', 'E', 'E', 'E', 'E'}}, new int[]{3, 0})));
-//        soutArray(Arrays.deepToString(updateBoard(new char[][]{{'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'}, {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'M'}, {'E', 'E', 'M', 'E', 'E', 'E', 'E', 'E'}, {'M', 'E', 'E', 'E', 'E', 'E', 'E', 'E'}, {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'}, {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'}, {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'}, {'E', 'E', 'M', 'M', 'E', 'E', 'E', 'E'}}, new int[]{0, 0})));
-//        soutArray("[[\"E\",\"E\",\"E\",\"E\",\"E\",\"E\",\"E\",\"E\"],[\"E\",\"E\",\"E\",\"E\",\"E\",\"E\",\"E\",\"M\"],[\"E\",\"E\",\"M\",\"E\",\"E\",\"E\",\"E\",\"E\"],[\"M\",\"E\",\"E\",\"E\",\"E\",\"E\",\"E\",\"E\"],[\"E\",\"E\",\"E\",\"E\",\"E\",\"E\",\"E\",\"E\"],[\"E\",\"E\",\"E\",\"E\",\"E\",\"E\",\"E\",\"E\"],[\"E\",\"E\",\"E\",\"E\",\"E\",\"E\",\"E\",\"E\"],[\"E\",\"E\",\"M\",\"M\",\"E\",\"E\",\"E\",\"E\"]]");
-//        soutArray("[[\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"1\",\"E\"],[\"B\",\"1\",\"1\",\"1\",\"B\",\"B\",\"1\",\"M\"],[\"1\",\"E\",\"M\",\"1\",\"B\",\"B\",\"1\",\"1\"],[\"M\",\"E\",\"1\",\"1\",\"B\",\"B\",\"B\",\"B\"],[\"1\",\"1\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\"],[\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\"],[\"B\",\"1\",\"2\",\"2\",\"1\",\"B\",\"B\",\"B\"],[\"B\",\"1\",\"M\",\"M\",\"1\",\"B\",\"B\",\"B\"]]");
-//        soutArray("[[\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"1\",\"E\"],[\"B\",\"1\",\"1\",\"1\",\"B\",\"B\",\"1\",\"M\"],[\"1\",\"2\",\"M\",\"1\",\"B\",\"B\",\"1\",\"1\"],[\"M\",\"2\",\"1\",\"1\",\"B\",\"B\",\"B\",\"B\"],[\"1\",\"1\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\"],[\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\"],[\"B\",\"1\",\"2\",\"2\",\"1\",\"B\",\"B\",\"B\"],[\"B\",\"1\",\"M\",\"M\",\"1\",\"B\",\"B\",\"B\"]]");
-//        System.out.println(Arrays.deepToString(rotateTheBox(new char[][]{{'#', '.', '#'}})));
-//        System.out.println(insertIntoBST(new TreeNode(4, new TreeNode(2), new TreeNode(7)), 5));
-//        System.out.println(climbStairs(3));
-//        System.out.println(climbStairs(4));
-//        System.out.println(climbStairs(5));
-//        System.out.println(findCheapestPrice(3, new int[][]{{0, 1, 100}, {1, 2, 100}, {0, 2, 500}}, 0, 2, 0));
-//        System.out.println(findCheapestPrice(3, new int[][]{{0, 1, 100}, {1, 2, 100}, {0, 2, 500}}, 0, 2, 1));
-//        System.out.println(findCheapestPrice(3, new int[][]{{0, 1, 100}, {1, 2, 100}, {2, 0, 100}, {1, 3, 600}, {2, 3, 200}}, 0, 3, 1));
-//        System.out.println(findCheapestPrice(5, new int[][]{{4, 1, 1}, {1, 2, 3}, {0, 3, 2}, {0, 4, 10}, {3, 1, 1}, {1, 4, 3}}, 2, 1, 1));
-//        final Date date = new Date();
-//        System.out.println(findCheapestPrice1(17, new int[][]{{0, 12, 28}, {5, 6, 39}, {8, 6, 59}, {13, 15, 7}, {13, 12, 38}, {10, 12, 35}, {15, 3, 23}, {7, 11, 26}, {9, 4, 65}, {10, 2, 38}, {4, 7, 7}, {14, 15, 31}, {2, 12, 44}, {8, 10, 34}, {13, 6, 29}, {5, 14, 89}, {11, 16, 13}, {7, 3, 46}, {10, 15, 19}, {12, 4, 58}, {13, 16, 11}, {16, 4, 76}, {2, 0, 12}, {15, 0, 22}, {16, 12, 13}, {7, 1, 29}, {7, 14, 100}, {16, 1, 14}, {9, 6, 74}, {11, 1, 73}, {2, 11, 60}, {10, 11, 85}, {2, 5, 49}, {3, 4, 17}, {4, 9, 77}, {16, 3, 47}, {15, 6, 78}, {14, 1, 90}, {10, 5, 95}, {1, 11, 30}, {11, 0, 37}, {10, 4, 86}, {0, 8, 57}, {6, 14, 68}, {16, 8, 3}, {13, 0, 65}, {2, 13, 6}, {5, 13, 5}, {8, 11, 31}, {6, 10, 20}, {6, 2, 33}, {9, 1, 3}, {14, 9, 58}, {12, 3, 19}, {11, 2, 74}, {12, 14, 48}, {16, 11, 100}, {3, 12, 38}, {12, 13, 77}, {10, 9, 99}, {15, 13, 98}, {15, 12, 71}, {1, 4, 28}, {7, 0, 83}, {3, 5, 100}, {8, 9, 14}, {15, 11, 57}, {3, 6, 65}, {1, 3, 45}, {14, 7, 74}, {2, 10, 39}, {4, 8, 73}, {13, 5, 77}, {10, 0, 43}, {12, 9, 92}, {8, 2, 26}, {1, 7, 7}, {9, 12, 10}, {13, 11, 64}, {8, 13, 80}, {6, 12, 74}, {9, 7, 35}, {0, 15, 48}, {3, 7, 87}, {16, 9, 42}, {5, 16, 64}, {4, 5, 65}, {15, 14, 70}, {12, 0, 13}, {16, 14, 52}, {3, 10, 80}, {14, 11, 85}, {15, 2, 77}, {4, 11, 19}, {2, 7, 49}, {10, 7, 78}, {14, 6, 84}, {13, 7, 50}, {11, 6, 75}, {5, 10, 46}, {13, 8, 43}, {9, 10, 49}, {7, 12, 64}, {0, 10, 76}, {5, 9, 77}, {8, 3, 28}, {11, 9, 28}, {12, 16, 87}, {12, 6, 24}, {9, 15, 94}, {5, 7, 77}, {4, 10, 18}, {7, 2, 11}, {9, 5, 41}}, 13, 4, 13));
-//        final Date date2 = new Date();
-//        System.out.println(date2.getTime() - date.getTime());
-//        System.out.println(findCheapestPrice2(17, new int[][]{{0, 12, 28}, {5, 6, 39}, {8, 6, 59}, {13, 15, 7}, {13, 12, 38}, {10, 12, 35}, {15, 3, 23}, {7, 11, 26}, {9, 4, 65}, {10, 2, 38}, {4, 7, 7}, {14, 15, 31}, {2, 12, 44}, {8, 10, 34}, {13, 6, 29}, {5, 14, 89}, {11, 16, 13}, {7, 3, 46}, {10, 15, 19}, {12, 4, 58}, {13, 16, 11}, {16, 4, 76}, {2, 0, 12}, {15, 0, 22}, {16, 12, 13}, {7, 1, 29}, {7, 14, 100}, {16, 1, 14}, {9, 6, 74}, {11, 1, 73}, {2, 11, 60}, {10, 11, 85}, {2, 5, 49}, {3, 4, 17}, {4, 9, 77}, {16, 3, 47}, {15, 6, 78}, {14, 1, 90}, {10, 5, 95}, {1, 11, 30}, {11, 0, 37}, {10, 4, 86}, {0, 8, 57}, {6, 14, 68}, {16, 8, 3}, {13, 0, 65}, {2, 13, 6}, {5, 13, 5}, {8, 11, 31}, {6, 10, 20}, {6, 2, 33}, {9, 1, 3}, {14, 9, 58}, {12, 3, 19}, {11, 2, 74}, {12, 14, 48}, {16, 11, 100}, {3, 12, 38}, {12, 13, 77}, {10, 9, 99}, {15, 13, 98}, {15, 12, 71}, {1, 4, 28}, {7, 0, 83}, {3, 5, 100}, {8, 9, 14}, {15, 11, 57}, {3, 6, 65}, {1, 3, 45}, {14, 7, 74}, {2, 10, 39}, {4, 8, 73}, {13, 5, 77}, {10, 0, 43}, {12, 9, 92}, {8, 2, 26}, {1, 7, 7}, {9, 12, 10}, {13, 11, 64}, {8, 13, 80}, {6, 12, 74}, {9, 7, 35}, {0, 15, 48}, {3, 7, 87}, {16, 9, 42}, {5, 16, 64}, {4, 5, 65}, {15, 14, 70}, {12, 0, 13}, {16, 14, 52}, {3, 10, 80}, {14, 11, 85}, {15, 2, 77}, {4, 11, 19}, {2, 7, 49}, {10, 7, 78}, {14, 6, 84}, {13, 7, 50}, {11, 6, 75}, {5, 10, 46}, {13, 8, 43}, {9, 10, 49}, {7, 12, 64}, {0, 10, 76}, {5, 9, 77}, {8, 3, 28}, {11, 9, 28}, {12, 16, 87}, {12, 6, 24}, {9, 15, 94}, {5, 7, 77}, {4, 10, 18}, {7, 2, 11}, {9, 5, 41}}, 13, 4, 13));
-//        final Date date3 = new Date();
-//        System.out.println(date3.getTime() - date2.getTime());
-//        System.out.println(findCheapestPrice(17, new int[][]{{0, 12, 28}, {5, 6, 39}, {8, 6, 59}, {13, 15, 7}, {13, 12, 38}, {10, 12, 35}, {15, 3, 23}, {7, 11, 26}, {9, 4, 65}, {10, 2, 38}, {4, 7, 7}, {14, 15, 31}, {2, 12, 44}, {8, 10, 34}, {13, 6, 29}, {5, 14, 89}, {11, 16, 13}, {7, 3, 46}, {10, 15, 19}, {12, 4, 58}, {13, 16, 11}, {16, 4, 76}, {2, 0, 12}, {15, 0, 22}, {16, 12, 13}, {7, 1, 29}, {7, 14, 100}, {16, 1, 14}, {9, 6, 74}, {11, 1, 73}, {2, 11, 60}, {10, 11, 85}, {2, 5, 49}, {3, 4, 17}, {4, 9, 77}, {16, 3, 47}, {15, 6, 78}, {14, 1, 90}, {10, 5, 95}, {1, 11, 30}, {11, 0, 37}, {10, 4, 86}, {0, 8, 57}, {6, 14, 68}, {16, 8, 3}, {13, 0, 65}, {2, 13, 6}, {5, 13, 5}, {8, 11, 31}, {6, 10, 20}, {6, 2, 33}, {9, 1, 3}, {14, 9, 58}, {12, 3, 19}, {11, 2, 74}, {12, 14, 48}, {16, 11, 100}, {3, 12, 38}, {12, 13, 77}, {10, 9, 99}, {15, 13, 98}, {15, 12, 71}, {1, 4, 28}, {7, 0, 83}, {3, 5, 100}, {8, 9, 14}, {15, 11, 57}, {3, 6, 65}, {1, 3, 45}, {14, 7, 74}, {2, 10, 39}, {4, 8, 73}, {13, 5, 77}, {10, 0, 43}, {12, 9, 92}, {8, 2, 26}, {1, 7, 7}, {9, 12, 10}, {13, 11, 64}, {8, 13, 80}, {6, 12, 74}, {9, 7, 35}, {0, 15, 48}, {3, 7, 87}, {16, 9, 42}, {5, 16, 64}, {4, 5, 65}, {15, 14, 70}, {12, 0, 13}, {16, 14, 52}, {3, 10, 80}, {14, 11, 85}, {15, 2, 77}, {4, 11, 19}, {2, 7, 49}, {10, 7, 78}, {14, 6, 84}, {13, 7, 50}, {11, 6, 75}, {5, 10, 46}, {13, 8, 43}, {9, 10, 49}, {7, 12, 64}, {0, 10, 76}, {5, 9, 77}, {8, 3, 28}, {11, 9, 28}, {12, 16, 87}, {12, 6, 24}, {9, 15, 94}, {5, 7, 77}, {4, 10, 18}, {7, 2, 11}, {9, 5, 41}}, 13, 4, 13));
-//        System.out.println(new Date().getTime() - date3.getTime());
-//        System.out.println(getCommon2(new int[]{1, 2, 3}, new int[]{2, 4}));
-//        System.out.println(minimumOperations(new int[]{1, 2, 2, 2, 2}));
-//        System.out.println(Arrays.deepToString(construct2DArray(new int[]{1, 2, 3, 4}, 2, 2)));
-//        System.out.println(Arrays.deepToString(construct2DArray(new int[]{1, 2, 3}, 1, 3)));
-//        System.out.println(Arrays.deepToString(construct2DArray(new int[]{1, 1, 1, 1}, 4, 1)));
-//        System.out.println(containsCycle(new char[][]{{'b', 'b'}}));
-//        System.out.println(containsCycle(new char[][]{{'a', 'b', 'b'}, {'b', 'z', 'b'}, {'b', 'b', 'a'}}));
-//        System.out.println(containsCycle(new char[][]{{'c', 'c', 'c', 'a'}, {'c', 'd', 'c', 'c'}, {'c', 'c', 'e', 'c'}, {'f', 'c', 'c', 'c'}}));
-//        System.out.println(Arrays.toString(splitMessage("short message", 5)));
-//        System.out.println(Arrays.toString(splitMessage("short message asdf asdf asdf asdf lkjaa asdf lkja ", 6)));
-//        System.out.println(closedIsland(new int[][]{{1, 1, 1, 1, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 1, 0}, {1, 0, 1, 0, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 0}}));
-//        soutArray("[[0,0,1,1,0,1,0,0,1,0],[1,1,0,1,1,0,1,1,1,0],[1,0,1,1,1,0,0,1,1,0],[0,1,1,0,0,0,0,1,0,1],[0,0,0,0,0,0,1,1,1,0],[0,1,0,1,0,1,0,1,1,1],[1,0,1,0,1,1,0,0,0,1],[1,1,1,1,1,1,0,0,0,0],[1,1,1,0,0,1,0,1,0,1],[1,1,1,0,1,1,0,1,1,0]]");
-//        System.out.println(closedIsland(new int[][]{{0, 0, 1, 1, 0, 1, 0, 0, 1, 0}, {1, 1, 0, 1, 1, 0, 1, 1, 1, 0}, {1, 0, 1, 1, 1, 0, 0, 1, 1, 0}, {0, 1, 1, 0, 0, 0, 0, 1, 0, 1}, {0, 0, 0, 0, 0, 0, 1, 1, 1, 0}, {0, 1, 0, 1, 0, 1, 0, 1, 1, 1}, {1, 0, 1, 0, 1, 1, 0, 0, 0, 1}, {1, 1, 1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 0, 0, 1, 0, 1, 0, 1}, {1, 1, 1, 0, 1, 1, 0, 1, 1, 0}}));
-//        System.out.println(decodeString("3[a]2[c]"));
-//        System.out.println(decodeString("3[a2[c]]"));
-//        System.out.println(decodeString("3a2c"));
-//        System.out.println(smallestSubsequence("nuriddinbobonorov"));
-//        System.out.println(longestPalindrome(new String[]{"ll", "lb", "bb", "bx", "uk", "xx", "lx", "xx", "lx", "ll", "xb", "bx", "lb", "bb", "lb", "bl", "bb", "bx", "xl", "lb", "xx"}));
-//        System.out.println(palindromePairs(new String[]{"abcd", "dcba", "dcba", "lls", "s", "sssll"}));
-//        System.out.println(alternateDigitSum(521));
-//        System.out.println(alternateDigitSum(111));
-//        System.out.println(alternateDigitSum(886996));
-//        System.out.println(distinctIntegers(5));
-//        System.out.println(distinctIntegers(3));
-//        System.out.println(isSubPath(new ListNode(1, new ListNode(10)), new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(10), new TreeNode(9))))));
-//        System.out.println(isSubPath(new ListNode(1, new ListNode(1, new ListNode(10))), new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(10), new TreeNode(9))))));
-//        System.out.println(arrayStringToListNode("2,1,2,1,2,2,2,2,1,2,1,2,2,2,1,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,1,2,1,2,2,2,2,2,2,1,2,1,1,1,2,1,2,2,1,1,2,1,2,1,1,2,2,2,1,1,2,2,2,1,1,2,2,2,2,2,2,2,1,1,1,2,1,2,2,1,1,2,1,2,1,1,2,1,1,2,2,2,2,1,2,1,2,1,1,1"));
-//        System.out.println(arrayStringToListNode(new int[]{2, 1, 2, 1, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 1, 2, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1, 2, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 1, 2, 1, 2, 1, 1, 1}));
-//        System.out.println(Arrays.toString(dailyTemperatures(new int[]{73, 74, 75, 71, 69, 72, 76, 73})));
-//        System.out.println(convertToTitle(701));
-//        System.out.println(convertToTitle(2147483647));
-//        System.out.println(calculate("300+2*2*4/3/3-2"));
-//        System.out.println(300 + 2 * 2 * 4 / 3 / 3 - 2);
-//        System.out.println("--------------");
-//        System.out.println(calculate("3+5 / 2"));
-//        System.out.println(3 + 5 / 2);
-//        System.out.println(sumNumbers(new TreeNode(1, new TreeNode(2), new TreeNode(3))));
-//        System.out.println(stringToObject("[2,3,5,8,13,21,34,11,12, 13,14,  15,null]"));
-//        String s = "Hi(friends)and(family)";
-//        System.out.println("<23>,1234".replaceAll("<.*?>",""));
-//        System.out.println(s.replaceAll("\\[.*?]", ""));
-//        System.out.println("This is a test string (more or less)".replaceAll("\\(.*?\\)", ""));
-//        System.out.println(s.replaceAll(".*\\(|\\).*", ""));
-//        System.out.println(s.replaceAll("..\\(|\\).", ""));
-//        System.out.println(stringToObject("[2,3,null,8,13,21,34,11,12, 13,14,  15,null,17,18]"));
-//        System.out.println("4 new TreeNode(13, <7>, <8>)".replaceAll("<.*?>","f"));
-//        System.out.println("4 new TreeNode(13, <7>, <8>)".replaceAll("^<.*?>",""));
-//        System.out.println(stringToObject("[1,null,2,null,3,null,4]"));
-//        final StringBuilder stringBuilder = new StringBuilder("Assalamu alaykum qonday ");
-//        System.out.println(stringBuilder);
-//        System.out.println(sumRootToLeaf(new TreeNode(1, new TreeNode(0, new TreeNode(0), new TreeNode(1)), new TreeNode(1, new TreeNode(0), new TreeNode(1)))));
-//        System.out.println("---------------------------");
-//        System.out.println(sumRootToLeaf(new TreeNode(1, new TreeNode(0, new TreeNode(0, new TreeNode(1), null), new TreeNode(1)), new TreeNode(1, new TreeNode(0), new TreeNode(1)))));
-//        System.out.println(stringToObject("[2,1,4]"));
-//        System.out.println(stringToObject("[1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,2,null]"));
-//        System.out.println(stringToObject("[1,null,1,null,1,null,1,null,1,null,1,2,null]"));
-//        System.out.println(getAllElements(new TreeNode(2, new TreeNode(1), new TreeNode(4)), new TreeNode(1, new TreeNode(0), new TreeNode(3))));
-//        System.out.println(treeNodeEquals(new TreeNode(2, new TreeNode(1), new TreeNode(4)), new TreeNode(2, new TreeNode(1), new TreeNode(4))));
-//        final TreeNode treeNode = new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(2), null)))))))))));
-//        final TreeNode treeNode1 = new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, new TreeNode(2), null))))));
-//        System.out.println(isSubtree(treeNode, treeNode1));
-//        System.out.println(minSubArrayLen(7, new int[]{2, 3, 1, 2, 4, 3}));
-//        System.out.println(minSubArrayLen(4, new int[]{1, 4, 4}));
-//        reorderList(null);
-//        System.out.println(arrayStringToListNode("4,9,3"));
-//        reorderList(new ListNode(4, new ListNode(9, new ListNode(3))));
-//        System.out.println(minRemoveToMakeValid("lee(t(c)o)de)"));
-//        System.out.println(minRemoveToMakeValid("lee((t(c)o)de)"));
-//        System.out.println(minRemoveToMakeValid("lee((((((((((((t(c)o)de)"));
-//        System.out.println(minRemoveToMakeValid("a)b(c)d"));
-//        System.out.println(minRemoveToMakeValid("))(("));
-//        System.out.println(stringArrayToInputForm("[[1,1,1,1,1,1,1,0],[1,0,0,0,0,1,1,0],[1,0,1,0,1,1,1,0],[1,0,0,0,0,1,0,1],[1,1,1,1,1,1,1,0]]"));
-//        System.out.println(closedIsland(new int[][]{{1, 1, 1, 1, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 1, 0}, {1, 0, 1, 0, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 0}}));
-//        System.out.println(shortestPathBinaryMatrix());
-//        System.out.println(stringArrayToInputForm("[[0,0,0],[0,0,0],[0,1,0]]"));
-//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 0, 0}, {1, 1, 0}, {1, 1, 0}}));
-//        System.out.println(shortestPathBinaryMatrix(new int[][]{{1, 0, 0}, {1, 1, 0}, {1, 1, 0}}));
-//        System.out.println(stringArrayToInputForm("[[0,1,1,0,0,0],[0,1,0,1,1,0],[0,1,1,0,1,0],[0,0,0,1,1,0],[1,1,1,1,1,0],[1,1,1,1,1,0]]"));
-//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 0, 0}, {0, 0, 0}, {0, 1, 0}}));
-//        soutArray("[[0,1,1,0,0,0],[0,1,0,1,1,0],[0,1,1,0,1,0],[0,0,0,1,1,0],[1,1,1,1,1,0],[1,1,1,1,1,0]]");
-//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 1, 1, 0, 0, 0}, {0, 1, 0, 1, 1, 0}, {0, 1, 1, 0, 1, 0}, {0, 0, 0, 1, 1, 0}, {1, 1, 1, 1, 1, 0}, {1, 1, 1, 1, 1, 0}}));
-//        soutArray("[[0,1,0,0,0,0],[0,1,0,1,1,0],[0,1,1,0,1,0],[0,0,0,0,1,0],[1,1,1,1,1,0],[1,1,1,1,1,0]]");
-//        soutArray("{{0,1,0,0,0,0},{0,1,0,1,1,0},{0,1,1,0,1,0},{0,0,0,0,1,0},{1,1,1,1,1,0},{1,1,1,1,1,0}}");
-//        System.out.println(stringArrayToInputForm("[[0,1,0,0,0,0],[0,1,0,1,1,0],[0,1,1,0,1,0],[0,0,0,0,1,0],[1,1,1,1,1,0],[1,1,1,1,1,0]]"));
-//        System.out.println(stringArrayToInputForm("[[0,1,0,0,0,0],[0,1,0,1,1,0],[0,1,1,0,1,0],[0,0,0,0,1,0],[1,1,1,1,1,0],[1,1,1,1,1,0]]"));
-//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 1, 0, 0, 0, 0}, {0, 1, 0, 1, 1, 0}, {0, 1, 1, 0, 1, 0}, {0, 0, 0, 0, 1, 0}, {1, 1, 1, 1, 1, 0}, {1, 1, 1, 1, 1, 0}}));
-//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}));
-//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 1, 1}, {1, 0, 1, 1, 0, 0}, {0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0}}));
-//        System.out.println(shortestPathBinaryMatrix(new int[][]{{0, 1, 0, 0, 0, 0}, {0, 1, 0, 1, 1, 0}, {0, 1, 1, 0, 1, 0}, {0, 0, 0, 0, 1, 0}, {1, 1, 1, 1, 1, 0}, {1, 1, 1, 1, 1, 0}}));//14
-//        System.out.println(allPathsSourceTarget());
-//        System.out.println(stringArrayToInputForm("[[4,3,1],[3,2,4],[3],[4],[]]"));
-//        System.out.println(allPathsSourceTarget(new int[][]{{4, 3, 1}, {3, 2, 4}, {3}, {4}, {}}));
-//        System.out.println(stringToObject("[2,3,5,8,13,21,34,1,2,3,4,5,6,7,8]"));
-//        System.out.println(reverseOddLevels(new TreeNode(2, new TreeNode(3, new TreeNode(8, new TreeNode(1), new TreeNode(2)), new TreeNode(13, new TreeNode(3), new TreeNode(4))), new TreeNode(5, new TreeNode(21, new TreeNode(5), new TreeNode(6)), new TreeNode(34, new TreeNode(7), new TreeNode(8))))));
-//        System.out.println("TreeNode(val=2, left=TreeNode(val=3, left=TreeNode(val=8, left=TreeNode(val=1, left=null, right=null), right=TreeNode(val=2, left=null, right=null)), right=TreeNode(val=13, left=TreeNode(val=3, left=null, right=null), right=TreeNode(val=4, left=null, right=null))), right=TreeNode(val=5, left=TreeNode(val=21, left=TreeNode(val=5, left=null, right=null), right=TreeNode(val=6, left=null, right=null)), right=TreeNode(val=34, left=TreeNode(val=7, left=null, right=null), right=TreeNode(val=8, left=null, right=null))))\n");
-//        System.out.println(binaryTreePaths());
-//        System.out.println(arrayStringToTreeNode("1,2,3,null,5"));;
-//        System.out.println(binaryTreePaths(new TreeNode(1, new TreeNode(2, null, new TreeNode(5)), new TreeNode(3))));
-//        System.out.println(combinationSum(new int[]{2, 3, 6, 7}, 7));
-//        System.out.println(arrayStringToTreeNode("1,null,1,1,1,null,null,1,1,null,1,null,null,null,1,null,1"));
-//        System.out.println(longestZigZag(new TreeNode(1, null, new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1, null, new TreeNode(1)))), new TreeNode(1, null, null))))));
-//        System.out.println(arrayStringToTreeNode("1,1,1,null,1,null,null,1,1,null,1"));
-//        System.out.println(longestZigZag(new TreeNode(1, new TreeNode(1, null, new TreeNode(1, new TreeNode(1, null, new TreeNode(1)), new TreeNode(1))), new TreeNode(1, null, null))));
-//        System.out.println(arrayStringToTreeNode("5,4,8,11,null,13,4,7,2,null,null,5,1"));
-//        System.out.println(pathSum(new TreeNode(5, new TreeNode(4, new TreeNode(11, new TreeNode(7), new TreeNode(2)), null), new TreeNode(8, new TreeNode(13, null, null), new TreeNode(4, new TreeNode(5), new TreeNode(1)))), 22));
-//        System.out.println(pathSum(new TreeNode(1, new TreeNode(2), new TreeNode(3)), 5));
-//        System.out.println(pathSum(new TreeNode(-2, null, new TreeNode(-3)), -5));
-//        System.out.println(arrayStringToTreeNode("4,2,9,3,5,null,7"));
-//        System.out.println(findTilt(new TreeNode(4, new TreeNode(2, new TreeNode(3), new TreeNode(5)), new TreeNode(9, null, new TreeNode(7)))));
-//        System.out.println(arrayStringToTreeNode("3,9,20,null,null,15,7"));
-//        System.out.println(isBalanced(new TreeNode(3, new TreeNode(9, null, null), new TreeNode(20, new TreeNode(15), new TreeNode(7)))));
-//        System.out.println(arrayStringToTreeNode("1,2,2,3,3,null,null,4,4"));
-//        System.out.println(arrayStringToTreeNode("[1,2,2,3,null,null,3,4,null,null,4]"));
-//        System.out.println(isBalanced(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(4), new TreeNode(4)), new TreeNode(3)), new TreeNode(2, null, null))));
-//        System.out.println(isBalanced(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(4), null), null), new TreeNode(2, null, new TreeNode(3, null, new TreeNode(4))))));
-//        System.out.println(Math.log1p(10));
-//        System.out.println(Math.log1p(11));
-//        System.out.println(Math.log1p(100));
-//        System.out.println(arrayStringToTreeNode("[4,1,null,2,null,3,null]"));
-//        System.out.println(rob(new TreeNode(4, new TreeNode(1, new TreeNode(2, new TreeNode(3), null), null), null)));
-//        System.out.println(check(new StringBuilder("#,#")));
-//        System.out.println(isValidSerialization("9,#"));
-//        System.out.println(isValidSerialization("#,#"));
-//        System.out.println(isValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#"));
-//        System.out.println(isValidSerialization("#,#"));
-//        final VGet vGet = new VGet(new URL("https://www.youtube.com/watch?v=5G5fzf7dyhU"), new File("/test/"));
-//        vGet.empty();
-//        System.out.println(System.getProperty("user.dir"));
-//        System.out.println(isMatch("aa","*"));
-//        printMultiplicationTable(10);
-//        System.out.println(sortedArrayToBST(new int[]{-10, -3, 0, 5, 9}));
-//        System.out.println(sortedArrayToBST(new int[]{3, 5, 8}));
-//        System.out.println(arrayStringToTreeNode("5,3,6,2,4,null,7"));
-//        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(2, new TreeNode(1), new TreeNode(1))), new TreeNode(1, new TreeNode(1, new TreeNode(2), new TreeNode(2)), new TreeNode(1, new TreeNode(3), new TreeNode(4))))));
-//        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3), new TreeNode(2)), new TreeNode(1, new TreeNode(1), new TreeNode(1)))));
-//        System.out.println(pseudoPalindromicPaths(new TreeNode(2, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(2, new TreeNode(1), new TreeNode(1))), new TreeNode(1, new TreeNode(1, new TreeNode(2), new TreeNode(2)), new TreeNode(1, new TreeNode(3), new TreeNode(4))))));
-//        System.out.println(arrayStringToTreeNode());
-//        System.out.println(goodNodes(new TreeNode(3, new TreeNode(1, new TreeNode(3), null), new TreeNode(4, new TreeNode(1), new TreeNode(5)))));
-//        System.out.println(goodNodes(new TreeNode(3, new TreeNode(1, new TreeNode(3), null), new TreeNode(6, new TreeNode(1), new TreeNode(5)))));
-//        System.out.println(diameterOfBinaryTree());
-//        System.out.println(1 + 3);
-//        System.out.println(deleteNode(new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7))), 3));
-//        System.out.println(removeLeafNodes(new TreeNode(1, new TreeNode(2, new TreeNode(2), null), new TreeNode(3, new TreeNode(2), new TreeNode(4))), 2));
-//        System.out.println(arrayStringToTreeNode("[-1,-1,-1,-1,-1]"));
-//        System.out.println(sortedArrayToBST(new int[]{}));
-//        System.out.println(arrayStringToTreeNode("1,2,2,3,3,3,3,1,1,1,1,1,1,1,1"));
-//        System.out.println(printTree(new TreeNode(1, new TreeNode(2), null)));
-//        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(4)), new TreeNode(3))));
-//        System.out.println(printTree(new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
-//        System.out.println(arrayStringToTreeNode("3,1,4,null,null,2,null"));
-//        System.out.println(printTree(new TreeNode(9, new TreeNode(2, new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4))), new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4)))), new TreeNode(2, new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4))), new TreeNode(3, new TreeNode(1, new TreeNode(4), new TreeNode(4)), new TreeNode(1, new TreeNode(4), new TreeNode(4)))))));
-//        System.out.println(printTree(new TreeNode(1, new TreeNode(2, null, new TreeNode(3, new TreeNode(1), new TreeNode(1))), new TreeNode(2, new TreeNode(3, new TreeNode(1), new TreeNode(1)), new TreeNode(3, new TreeNode(1), new TreeNode(1))))));
-//        recoverTree(new TreeNode(1, new TreeNode(3, null, new TreeNode(2)), null));
-//        recoverTree(new TreeNode(3, new TreeNode(1, null, null), new TreeNode(4, new TreeNode(2), null)));
-//        final TreeNode treeNode = new TreeNode(2, new TreeNode(3), new TreeNode(1));
-//        recoverTree(treeNode);
-//        System.out.println(treeNode);
-//        System.out.println(arrayStringToTreeNode("1,3,2,5,null,null,9,6,null,7"));
-//        System.out.println(arrayStringToTreeNode("[1,1,1,1,1,1,1,null,null,null,1,null,null,null,null,2,2,2,2,2,2,2,null,2,null,null,2,null,2]"));
-//        System.out.println(3001 - 2997);
-//        System.out.println(widthOfBinaryTree(new TreeNode(1, new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, null, new TreeNode(1, new TreeNode(2, new TreeNode(2, new TreeNode(2), null), new TreeNode(2, new TreeNode(2), null)), new TreeNode(2, new TreeNode(2, null, new TreeNode(2)), new TreeNode(2, null, new TreeNode(2)))))), new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, null, null)))));
-//        System.out.println(widthOfBinaryTree(new TreeNode(1, new TreeNode(3, new TreeNode(5), null), new TreeNode(2))));
-//        System.out.println(widthOfBinaryTree(new TreeNode(1, new TreeNode(3, new TreeNode(5), new TreeNode(3)), new TreeNode(2, null, new TreeNode(9)))));
-//        System.out.println(widthOfBinaryTree(new TreeNode(1, new TreeNode(3, new TreeNode(5, new TreeNode(6), null), null), new TreeNode(2, null, new TreeNode(9, new TreeNode(7), null)))));
-//        System.out.println(printTreeBox(new TreeNode(1, new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, null, new TreeNode(1, new TreeNode(2, new TreeNode(2, new TreeNode(2), null), new TreeNode(2, new TreeNode(2), null)), new TreeNode(2, new TreeNode(2, null, new TreeNode(2)), new TreeNode(2, null, new TreeNode(2)))))), new TreeNode(1, new TreeNode(1, null, null), new TreeNode(1, null, null)))));
-//        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, null, new TreeNode(7)))));
-        System.out.println(arrayStringToTreeNode("1,2,3,4,null,2,4,null,null,4"));
-//        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), null), new TreeNode(3, new TreeNode(9), null))));
-//        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), null))));
-//        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), null))));
-//        System.out.println(recoverFromPreorder("1-2--3--4-5--6--7"));
-//        System.out.println(findDuplicateSubtrees(new TreeNode(1, new TreeNode(2, new TreeNode(4, null, null), null), new TreeNode(3, new TreeNode(2, new TreeNode(4), null), new TreeNode(4)))));
+//        System.out.println(arrayStringToTreeNode("1,2,3,4,5,6,7"));
+//        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
+//        System.out.println("1-2--3--4-5--6--7");
+        System.out.println(recoverFromPreorder(new StringBuilder("1-2--3--4-5--6--7"), 0, 0));
     }
-//    1
-//    -2
-//    --3
-//    --4
-//    -5
-//    --6
-//    --7
+//1
+// -2
+// --3
+// --4
+// -5
+// --6
+// --7
+
+    //  1
+//  -2
+//  --3
+//  ---4
+//  -5
+//  --6
+//  ---7
+
+    public static TreeNode balanceBST(TreeNode root) {
+        final LinkedList<Integer> numbers = new LinkedList<>();
+        balanceBST(root, numbers);
+        return listToListNode(numbers, 0, numbers.size() - 1);
+    }
+
+    public static void balanceBST(TreeNode root, LinkedList<Integer> list) {
+        if (root != null) {
+            balanceBST(root.left, list);
+            list.add(root.val);
+            balanceBST(root.right, list);
+        }
+    }
+
+    public static TreeNode listToListNode(LinkedList<Integer> list, int min, int max) {
+        if (min > max) return null;
+        int index = min + ((max - min) / 2);
+        return new TreeNode(list.get(index), listToListNode(list, min, index - 1), listToListNode(list, index + 1, max));
+    }
+
+    static int sumEvenGrandparent = 0;
+
+    public static int sumEvenGrandparent(TreeNode root) {
+        sumEvenGrandparent(root, null, null);
+        return sumEvenGrandparent;
+    }
+
+    public static void sumEvenGrandparent(TreeNode root, TreeNode greatParent, TreeNode parent) {
+        if (root != null) {
+            if (greatParent != null && greatParent.val % 2 == 0) {
+                sumEvenGrandparent += root.val;
+            }
+            sumEvenGrandparent(root.left, parent, root);
+            sumEvenGrandparent(root.right, parent, root);
+        }
+    }
+
+    public static TreeNode recoverFromPreorder(StringBuilder traversal, int minusNumber, int disNumber) {
+        StringBuilder number = new StringBuilder(3);
+        while (!traversal.isEmpty()) {
+            final char c = traversal.charAt(0);
+            traversal.deleteCharAt(0);
+            if (Character.isDigit(c)) {
+                if (number.isEmpty()) {
+                    number.append(c);
+                } else {
+                    return null;
+                }
+            } else {
+                disNumber++;
+            }
+        }
+        return null;
+    }
+
+    public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+        Arrays.sort(to_delete);
+        final LinkedList<TreeNode> list = new LinkedList<>();
+        list.add(root);
+        delNodes(list, root, to_delete);
+        list.removeIf(Objects::isNull);
+        return null;
+    }
+
+    public static TreeNode delNodes(List<TreeNode> list, TreeNode root, int[] to_delete) {
+        if (root != null) {
+            if (Arrays.binarySearch(to_delete, root.val) != -1) {
+                list.add(root.left);
+                list.add(root.right);
+                root.left = delNodes(list, root.left, to_delete);
+                root.right = delNodes(list, root.right, to_delete);
+                return null;
+            } else {
+                root.left = delNodes(list, root.left, to_delete);
+                root.right = delNodes(list, root.right, to_delete);
+                return root;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public static TreeNode createBinaryTree(int[][] descriptions) {
+        final TreeMap<Integer, TreeNode> map = new TreeMap<>();
+        for (int[] description : descriptions) {
+            createBinaryTree(description, map);
+        }
+        final TreeNode binaryTree = createBinaryTree(map.firstKey(), map);
+        return null;
+    }
+
+    public static TreeNode createBinaryTree(TreeMap<Integer, TreeNode> map) {
+        for (Integer id : new HashSet<>(map.keySet())) {
+            final TreeNode value = map.remove(id);
+            if (value != null) {
+                if (value.left != null) {
+                    final TreeNode treeNode = map.remove(value.left.val);
+                    value.left = treeNode != null ? treeNode : value.left;
+                }
+                if (value.right != null) {
+                    final TreeNode treeNode = map.remove(value.right.val);
+                    value.right = treeNode != null ? treeNode : value.right;
+                }
+            }
+        }
+        return map.size() == 1 ? map.lastEntry().getValue() : createBinaryTree(map);
+    }
+
+    public static void createBinaryTree(int[] description, TreeMap<Integer, TreeNode> map) {
+        final TreeNode treeNode = map.computeIfAbsent(description[0], value -> new TreeNode(description[0]));
+        if (description[2] == 1) {
+            treeNode.left = new TreeNode(description[1]);
+        } else {
+            treeNode.right = new TreeNode(description[1]);
+        }
+    }
+
+    public static TreeNode createBinaryTree(int id, TreeMap<Integer, TreeNode> map) {
+        final TreeNode node = map.computeIfAbsent(id, value -> null);
+        if (node != null) {
+            if (node.left != null) {
+                node.left = createBinaryTree(node.left.val, map);
+            }
+            if (node.right != null) {
+                node.right = createBinaryTree(node.right.val, map);
+            }
+            return node;
+        } else {
+            return null;
+        }
+    }
 
     public int kthSmallest(TreeNode root, int k) {
         final TreeSet<Integer> values = new TreeSet<>();
@@ -309,23 +210,6 @@ public class Leetcode {
             return Math.max(root.val, Math.max(getMaxValueTreeNode(root.left), getMaxValueTreeNode(root.right)));
         } else {
             return Integer.MIN_VALUE;
-        }
-    }
-
-    public static TreeNode recoverFromPreorder(String traversal) {
-        final StringBuilder stringBuilder = new StringBuilder(traversal.substring(traversal.indexOf('-')));
-        return new TreeNode(Integer.parseInt(traversal.substring(0, traversal.indexOf('-'))), recoverFromPreorder(stringBuilder, 1), recoverFromPreorder(stringBuilder, 1));
-    }
-
-    //-2--3--4-5--6--7
-    public static TreeNode recoverFromPreorder(StringBuilder traversal, int i) {
-        final String number = traversal.substring(0, Math.min(i, traversal.length() - 1));
-        final String substring = traversal.substring(number.length());
-        if (substring.startsWith("-")) {
-            return null;
-        } else {
-            traversal.delete(0, number.length() + 1);
-            return new TreeNode(Integer.parseInt(number), recoverFromPreorder(traversal, i + 1), recoverFromPreorder(traversal, i + 1));
         }
     }
 
