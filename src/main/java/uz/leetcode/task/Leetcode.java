@@ -21,7 +21,39 @@ public class Leetcode {
 //        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
 //        System.out.println("1-2--3--4-5--6--7");
 //        System.out.println(recoverFromPreorder(new StringBuilder("1-2--3--4-5--6--7"), 0, 0));
-        System.out.println(sortedListToBST(null));
+//        System.out.println(sortedListToBST(null));
+    }
+
+    public double[] convertTemperature(double celsius) {
+        return new double[]{celsius + 273.15, celsius * 1.80 + 32.00};
+    }
+
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        TreeSet<Long> set = new TreeSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            Long ceiling = set.ceiling((long) nums[i] - t);
+            if (ceiling != null && ceiling <= (long) nums[i] + t) {
+                return true;
+            }
+            set.add((long) nums[i]);
+            if (set.size() > k) {
+                set.remove((long) nums[i - k]);
+            }
+        }
+        return false;
+    }
+
+    public int pairSum(ListNode head) {
+        return head.val + lastItem(head);
+    }
+
+    public int lastItem(ListNode head) {
+        return head.next != null ? lastItem(head.next) : head.val;
+    }
+
+    public static boolean isStrictlyPalindromic(int n) {
+        System.out.println(Integer.toBinaryString(n));
+        return false;
     }
 //1
 // -2
@@ -1702,20 +1734,6 @@ public class Leetcode {
             .min(Map.Entry.comparingByKey())
             .map(Map.Entry::getKey)
             .orElse(-1);
-    }
-
-    public boolean containsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff) {//5
-        Map<Integer, Integer> map = new HashMap<>(nums.length << 1);
-        for (int i = 0; i < nums.length; i++) {
-            final int abs = nums[i];
-            int finalI = i;
-            if (map.entrySet().stream().anyMatch(item -> Math.abs(item.getKey() - abs) <= valueDiff && Math.abs(item.getValue() - finalI) <= indexDiff)) {
-                return true;
-            } else {
-                map.put(abs, i);
-            }
-        }
-        return false;
     }
 
     public static boolean containsNearbyDuplicate(int[] nums, int k) {
