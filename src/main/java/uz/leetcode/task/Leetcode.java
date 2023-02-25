@@ -26,6 +26,15 @@ public class Leetcode {
         System.out.println(isEvenOddTree(new TreeNode(1, new TreeNode(10, new TreeNode(3, new TreeNode(12), new TreeNode(8)), null), new TreeNode(4, new TreeNode(7, new TreeNode(6), null), new TreeNode(9, null, new TreeNode(2))))));
     }
 
+    public String truncateSentence(String s, int k) {
+        final StringBuilder string = new StringBuilder();
+        final String[] list = s.split(" ");
+        for (int index = 0; index < Math.min(list.length, k); index++) {
+            string.append(list[index]).append(' ');
+        }
+        return string.toString().trim();
+    }
+
     public List<String> stringMatching(String[] words) {
         HashSet<String> list = new HashSet<>();
         for (int indexA = 0; indexA < words.length; indexA++) {
