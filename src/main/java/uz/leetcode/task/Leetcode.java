@@ -26,6 +26,34 @@ public class Leetcode {
         System.out.println(isEvenOddTree(new TreeNode(1, new TreeNode(10, new TreeNode(3, new TreeNode(12), new TreeNode(8)), null), new TreeNode(4, new TreeNode(7, new TreeNode(6), null), new TreeNode(9, null, new TreeNode(2))))));
     }
 
+    public String destCity(List<List<String>> paths) {
+        HashSet<String> o = new HashSet<>();
+        for (List<String> path : paths) {
+            o.add(path.get(0));
+        }
+        for (List<String> path : paths) {
+            String dest = path.get(1);
+            if (!o.contains(dest)) {
+                return dest;
+            }
+        }
+        return "";
+    }
+
+    public int countAsterisks(String s) {
+        int res = 0;
+        for (int i = s.indexOf('|') + 1, counter = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '*') {
+                counter++;
+            }
+            if (s.charAt(i) == '|') {
+                res = Math.max(counter, res);
+                counter = 0;
+            }
+        }
+        return res;
+    }
+
     public String truncateSentence(String s, int k) {
         int n = s.length();
         int i = 0;
