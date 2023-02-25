@@ -27,12 +27,14 @@ public class Leetcode {
     }
 
     public String truncateSentence(String s, int k) {
-        final StringBuilder string = new StringBuilder();
-        final String[] list = s.split(" ");
-        for (int index = 0; index < Math.min(list.length, k); index++) {
-            string.append(list[index]).append(' ');
+        int n = s.length();
+        int i = 0;
+        while (i < n) {
+            if (s.charAt(i) == ' ') k--;
+            if (k == 0) return s.substring(0, i);
+            i++;
         }
-        return string.toString().trim();
+        return s;
     }
 
     public List<String> stringMatching(String[] words) {
@@ -166,6 +168,7 @@ public class Leetcode {
     public int lastItem(ListNode head) {
         return head.next != null ? lastItem(head.next) : head.val;
     }
+
     public static boolean isStrictlyPalindromic(int n) {
         System.out.println(Integer.toBinaryString(n));
         return false;
