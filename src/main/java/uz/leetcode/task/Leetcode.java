@@ -26,6 +26,93 @@ public class Leetcode {
         System.out.println(isEvenOddTree(new TreeNode(1, new TreeNode(10, new TreeNode(3, new TreeNode(12), new TreeNode(8)), null), new TreeNode(4, new TreeNode(7, new TreeNode(6), null), new TreeNode(9, null, new TreeNode(2))))));
     }
 
+    public List<String> stringMatching(String[] words) {
+        HashSet<String> list = new HashSet<>();
+        for (int indexA = 0; indexA < words.length; indexA++) {
+            for (int indexB = 0; indexB < words.length; indexB++) {
+                final String word = words[indexA];
+                if (indexA != indexB && word.contains(words[indexB])) {
+                    list.add(words[indexB]);
+                }
+            }
+        }
+        return new ArrayList<>(list);
+    }
+
+    public static TreeNode createBinaryTree(int[][] descriptions) {
+        return null;
+    }
+
+    public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+        Arrays.sort(to_delete);
+        final ArrayList<TreeNode> list = new ArrayList<>();
+        delNodes(list, root, to_delete);
+        System.out.println(list);
+        return list;
+    }
+
+    public static TreeNode delNodes(ArrayList<TreeNode> list, TreeNode root, int[] to_delete) {
+        if (root != null) {
+            final TreeNode old = root;
+            if (Arrays.binarySearch(to_delete, root.val) != -1) {
+                root = null;
+                list.add(delNodes(list, old.left, to_delete));
+                list.add(delNodes(list, old.right, to_delete));
+            } else {
+                delNodes(list, root.left, to_delete);
+                delNodes(list, root.right, to_delete);
+            }
+            return root;
+        } else {
+            return null;
+        }
+    }
+
+    public TreeNode canMerge(List<TreeNode> trees) {
+        return null;
+    }
+
+    public TreeNode marge(TreeNode treeA, TreeNode treeB) {
+        if (treeA.val == treeB.val) {
+            treeA = treeB;
+        }
+        return treeA;
+    }
+
+    public static TreeNode recoversFromPreorder(StringBuilder traversal) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i = 0; i < traversal.length(); i++) {
+            if (Character.isDigit(traversal.charAt(i))) {
+
+            }
+        }
+        return null;
+    }
+
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root != null) {
+            if (root.val == key) {
+                root = getNotNulItem(root);
+            }
+            if (root != null) {
+                root.left = deleteNode(root.left, key);
+                root.right = deleteNode(root.right, key);
+            }
+            return root;
+        }
+        return null;
+    }
+
+    public TreeNode getNotNulItem(TreeNode root) {
+        if (root == null) {
+            return root;
+        } else if (root.left != null) {
+            return root.left;
+        } else {
+            return root.right;
+        }
+    }
+
     public static boolean isEvenOddTree(TreeNode root) {
         return isEvenOddTree(root, new HashMap<>(), 0);
     }
@@ -42,19 +129,6 @@ public class Leetcode {
             return isEvenOddTree(root.left, list, level + 1) && isEvenOddTree(root.right, list, level + 1);
         }
         return true;
-    }
-
-    public TreeNode canMerge(List<TreeNode> trees) {
-        for (TreeNode tree : trees) {
-        }
-        return null;
-    }
-
-    public TreeNode marge(TreeNode treeA, TreeNode treeB) {
-        if (treeA.val == treeB.val) {
-            treeA = treeB;
-        }
-        return treeA;
     }
 
     public double[] convertTemperature(double celsius) {
@@ -83,7 +157,6 @@ public class Leetcode {
     public int lastItem(ListNode head) {
         return head.next != null ? lastItem(head.next) : head.val;
     }
-
     public static boolean isStrictlyPalindromic(int n) {
         System.out.println(Integer.toBinaryString(n));
         return false;
@@ -94,8 +167,8 @@ public class Leetcode {
 // --4
 // -5
 // --6
-// --7
 
+// --7
     //  1
 //  -2
 //  --3
@@ -103,6 +176,7 @@ public class Leetcode {
 //  -5
 //  --6
 //  ---7
+
     public static TreeNode sortedListToBST(ListNode head) {
         final List<Integer> list = listNodeToList(head, new ArrayList<>());
         return listNodeToList(list, 0, list.size() - 1);
@@ -175,42 +249,6 @@ public class Leetcode {
                 disNumber++;
             }
         }
-        return null;
-    }
-
-    public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
-        Arrays.sort(to_delete);
-        final LinkedList<TreeNode> list = new LinkedList<>();
-        list.add(root);
-        delNodes(list, root, to_delete);
-        list.removeIf(Objects::isNull);
-        return null;
-    }
-
-    public static TreeNode delNodes(List<TreeNode> list, TreeNode root, int[] to_delete) {
-        if (root != null) {
-            if (Arrays.binarySearch(to_delete, root.val) != -1) {
-                list.add(root.left);
-                list.add(root.right);
-                root.left = delNodes(list, root.left, to_delete);
-                root.right = delNodes(list, root.right, to_delete);
-                return null;
-            } else {
-                root.left = delNodes(list, root.left, to_delete);
-                root.right = delNodes(list, root.right, to_delete);
-                return root;
-            }
-        } else {
-            return null;
-        }
-    }
-
-    public static TreeNode createBinaryTree(int[][] descriptions) {
-        final TreeMap<Integer, TreeNode> map = new TreeMap<>();
-        for (int[] description : descriptions) {
-            createBinaryTree(description, map);
-        }
-        final TreeNode binaryTree = createBinaryTree(map.firstKey(), map);
         return null;
     }
 
@@ -473,9 +511,6 @@ public class Leetcode {
         return low <= root.val && root.val <= high ? root : root.left != null ? root.left : root.right;
     }
 
-    public TreeNode deleteNode(TreeNode root, int key) {
-        return null;
-    }
 
     public boolean evaluateTree(TreeNode root) {
         return root.val == 1 || root.val == 0 ? root.val == 1 : root.val == 2 ? evaluateTree(root.left) || evaluateTree(root.right) : evaluateTree(root.left) && evaluateTree(root.right);
@@ -1549,9 +1584,6 @@ public class Leetcode {
         return false;
     }
 
-    public void deleteNode(ListNode node) {
-
-    }
 
     public int findDuplicate(int[] nums) {
         return Arrays.stream(nums)
