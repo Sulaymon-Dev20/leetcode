@@ -22,6 +22,39 @@ public class Leetcode {
 //        System.out.println("1-2--3--4-5--6--7");
 //        System.out.println(recoverFromPreorder(new StringBuilder("1-2--3--4-5--6--7"), 0, 0));
 //        System.out.println(sortedListToBST(null));
+//        System.out.println(arrayStringToTreeNode("[1,10,4,3,null,7,9,12,8,6,null,null,2]"));
+        System.out.println(isEvenOddTree(new TreeNode(1, new TreeNode(10, new TreeNode(3, new TreeNode(12), new TreeNode(8)), null), new TreeNode(4, new TreeNode(7, new TreeNode(6), null), new TreeNode(9, null, new TreeNode(2))))));
+    }
+
+    public static boolean isEvenOddTree(TreeNode root) {
+        return isEvenOddTree(root, new HashMap<>(), 0);
+    }
+
+    public static boolean isEvenOddTree(TreeNode root, Map<Integer, Integer> list, int level) {
+        if (root != null) {
+            final boolean isOddLevel = level % 2 == 1;
+            final Integer oldValue = list.getOrDefault(level, isOddLevel ? 0 : Integer.MAX_VALUE);
+            if (isOddLevel ? root.val % 2 == 1 && oldValue < root.val : root.val % 2 == 0 && oldValue > root.val) {
+                list.put(level, root.val);
+            } else {
+                return false;
+            }
+            return isEvenOddTree(root.left, list, level + 1) && isEvenOddTree(root.right, list, level + 1);
+        }
+        return true;
+    }
+
+    public TreeNode canMerge(List<TreeNode> trees) {
+        for (TreeNode tree : trees) {
+        }
+        return null;
+    }
+
+    public TreeNode marge(TreeNode treeA, TreeNode treeB) {
+        if (treeA.val == treeB.val) {
+            treeA = treeB;
+        }
+        return treeA;
     }
 
     public double[] convertTemperature(double celsius) {
