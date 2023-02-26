@@ -31,6 +31,16 @@ public class Leetcode {
 //        System.out.println(longestWord(new String[]{"m", "mo", "moc", "moch", "mocha", "l", "la", "lat", "latt", "latte", "c", "ca", "cat"}));
     }
 
+    public List<List<Integer>> mergeSimilarItems(int[][] items1, int[][] items2) {
+        return Stream.of(items1, items2)
+            .flatMap(Arrays::stream)
+            .collect(Collectors.toMap(item -> item[0], value -> value[1], Integer::sum, TreeMap::new))
+            .entrySet()
+            .stream()
+            .map(item -> List.of(item.getKey(), item.getValue()))
+            .toList();
+    }
+
     public int maxProductDifference(int[] nums) {
         Arrays.sort(nums);
         final int length = nums.length;
