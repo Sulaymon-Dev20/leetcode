@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -23,14 +24,45 @@ public class Leetcode {
 //        System.out.println(recoverFromPreorder(new StringBuilder("1-2--3--4-5--6--7"), 0, 0));
 //        System.out.println(sortedListToBST(null));
 //        System.out.println(arrayStringToTreeNode("[1,10,4,3,null,7,9,12,8,6,null,null,2]"));
-        System.out.println(isEvenOddTree(new TreeNode(1, new TreeNode(10, new TreeNode(3, new TreeNode(12), new TreeNode(8)), null), new TreeNode(4, new TreeNode(7, new TreeNode(6), null), new TreeNode(9, null, new TreeNode(2))))));
+//        System.out.println(isEvenOddTree(new TreeNode(1, new TreeNode(10, new TreeNode(3, new TreeNode(12), new TreeNode(8)), null), new TreeNode(4, new TreeNode(7, new TreeNode(6), null), new TreeNode(9, null, new TreeNode(2))))));
+        System.out.println("latte".compareTo("mocha"));
+        System.out.println("mocha".compareTo("latte"));
+        System.out.println(longestWord(new String[]{"a", "banana", "app", "appl", "ap", "apply", "apple"}));
+        System.out.println(longestWord(new String[]{"m", "mo", "moc", "moch", "mocha", "l", "la", "lat", "latt", "latte", "c", "ca", "cat"}));
+    }
+
+    public int isPrefixOfWord(String sentence, String searchWord) {
+        final String[] list = sentence.split(" ");
+        for (int i = 0; i < list.length; i++) {
+            if (list[i].startsWith(searchWord)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static String longestWord(String[] words) {
+        String message = words[0];
+        String messageMax = words[0];
+        int max = 0;
+        for (int i = 1, counter = 0; i < words.length; i++) {
+            if (words[i].startsWith(message)) {
+                counter++;
+            } else {
+                if (counter > max) {
+                    max = counter;
+                    messageMax = words[i];
+                    counter = 0;
+                }
+            }
+            message = words[i];
+        }
+        return messageMax;
     }
 
     public String destCity(List<List<String>> paths) {
         HashSet<String> o = new HashSet<>();
-        for (List<String> path : paths) {
-            o.add(path.get(0));
-        }
+        for (List<String> path : paths) o.add(path.get(0));
         for (List<String> path : paths) {
             String dest = path.get(1);
             if (!o.contains(dest)) {
