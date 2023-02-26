@@ -25,10 +25,16 @@ public class Leetcode {
 //        System.out.println(sortedListToBST(null));
 //        System.out.println(arrayStringToTreeNode("[1,10,4,3,null,7,9,12,8,6,null,null,2]"));
 //        System.out.println(isEvenOddTree(new TreeNode(1, new TreeNode(10, new TreeNode(3, new TreeNode(12), new TreeNode(8)), null), new TreeNode(4, new TreeNode(7, new TreeNode(6), null), new TreeNode(9, null, new TreeNode(2))))));
-        System.out.println("latte".compareTo("mocha"));
-        System.out.println("mocha".compareTo("latte"));
-        System.out.println(longestWord(new String[]{"a", "banana", "app", "appl", "ap", "apply", "apple"}));
-        System.out.println(longestWord(new String[]{"m", "mo", "moc", "moch", "mocha", "l", "la", "lat", "latt", "latte", "c", "ca", "cat"}));
+//        System.out.println("latte".compareTo("mocha"));
+//        System.out.println("mocha".compareTo("latte"));
+//        System.out.println(longestWord(new String[]{"a", "banana", "app", "appl", "ap", "apply", "apple"}));
+//        System.out.println(longestWord(new String[]{"m", "mo", "moc", "moch", "mocha", "l", "la", "lat", "latt", "latte", "c", "ca", "cat"}));
+    }
+
+    public int[][] sortTheStudents(int[][] score, int k) {
+        return Arrays.stream(score)
+            .sorted(Comparator.comparing(item -> item[k], Comparator.reverseOrder()))
+            .toArray(int[][]::new);
     }
 
     public int isPrefixOfWord(String sentence, String searchWord) {
