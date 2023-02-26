@@ -31,6 +31,12 @@ public class Leetcode {
 //        System.out.println(longestWord(new String[]{"m", "mo", "moc", "moch", "mocha", "l", "la", "lat", "latt", "latte", "c", "ca", "cat"}));
     }
 
+    public int maxProductDifference(int[] nums) {
+        Arrays.sort(nums);
+        final int length = nums.length;
+        return nums[length - 1] * nums[length - 2] - nums[0] * nums[1];
+    }
+
     public int[][] sortTheStudents(int[][] score, int k) {
         return Arrays.stream(score)
             .sorted(Comparator.comparing(item -> item[k], Comparator.reverseOrder()))
