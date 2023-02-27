@@ -30,6 +30,21 @@ public class Leetcode {
 //        System.out.println(longestWord(new String[]{"m", "mo", "moc", "moch", "mocha", "l", "la", "lat", "latt", "latte", "c", "ca", "cat"}));
     }
 
+    public int maxDepth(String s) {
+        int max = 0;
+        int counter = 0;
+        for (int index = 0; index < s.length(); index++) {
+            if (s.charAt(index) == '(') {
+                counter++;
+            } else if (s.charAt(index) == ')') {
+                max = Math.max(counter, max);
+                counter--;
+            }
+        }
+        return max;
+    }
+
+
     public int countBattleships(char[][] board) {
         boolean[][] checked = new boolean[board.length][board[0].length];
         int res = 0;
