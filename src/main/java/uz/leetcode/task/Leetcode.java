@@ -1,5 +1,6 @@
 package uz.leetcode.task;
 
+import com.sun.source.tree.Tree;
 import uz.leetcode.model.ListNode;
 import uz.leetcode.model.Node;
 import uz.leetcode.model.TreeNode;
@@ -28,7 +29,27 @@ public class Leetcode {
 //        System.out.println("mocha".compareTo("latte"));
 //        System.out.println(longestWord(new String[]{"a", "banana", "app", "appl", "ap", "apply", "apple"}));
 //        System.out.println(longestWord(new String[]{"m", "mo", "moc", "moch", "mocha", "l", "la", "lat", "latt", "latte", "c", "ca", "cat"}));
+//        System.out.println(Arrays.deepToString(merge(new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 18}})));
     }
+
+    public static int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, Comparator.comparing(item -> item[0]));
+        LinkedList<int[]> merged = new LinkedList<>();
+        for (int[] interval : intervals) {
+            if (merged.isEmpty() || merged.getLast()[1] < interval[0]) {
+                merged.add(interval);
+            } else {
+                merged.getLast()[1] = Math.max(merged.getLast()[1], interval[1]);
+            }
+        }
+        return merged.toArray(new int[merged.size()][]);
+    }
+
+    /*
+    private <E> void pathSum(TreeNode root, int targetSum, ArrayList<E> es) {
+
+    }
+*/
 
     public int maxDepth(String s) {
         int max = 0;
@@ -37,8 +58,7 @@ public class Leetcode {
             if (s.charAt(index) == '(') {
                 counter++;
             } else if (s.charAt(index) == ')') {
-                max = Math.max(counter, max);
-                counter--;
+                max = Math.max(counter--, max);
             }
         }
         return max;
@@ -1052,31 +1072,6 @@ public class Leetcode {
         }
         if (root.right != null) {
             sumNumbers(root.right, number + root.val, som);
-        }
-    }
-
-    List<List<Integer>> pathSum1 = new LinkedList<>();
-
-    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        pathSum(root, targetSum, new ArrayList<>());
-        return pathSum1;
-    }
-
-    public void pathSum(TreeNode root, int targetSum, ArrayList<Integer> list) {
-        if (root != null) {
-            list.add(root.val);
-            if (root.val == targetSum) {
-                if (root.left == null && root.right == null) {
-                    pathSum1.add(list);
-                } else {
-                    list.clear();
-                }
-            } else if (Math.abs(targetSum) > Math.abs(root.val)) {
-                pathSum(root.left, targetSum - root.val, new ArrayList<>(list));
-                pathSum(root.right, targetSum - root.val, new ArrayList<>(list));
-            } else {
-                list.clear();
-            }
         }
     }
 
