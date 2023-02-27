@@ -30,6 +30,85 @@ public class Leetcode {
 //        System.out.println(longestWord(new String[]{"a", "banana", "app", "appl", "ap", "apply", "apple"}));
 //        System.out.println(longestWord(new String[]{"m", "mo", "moc", "moch", "mocha", "l", "la", "lat", "latt", "latte", "c", "ca", "cat"}));
 //        System.out.println(Arrays.deepToString(merge(new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 18}})));
+        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2), new TreeNode(3)), -1));
+        System.out.println(arrayStringToTreeNode("[1,-2,-3,1,3,-2,null,-1]"));
+        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2, new TreeNode(1, new TreeNode(-1), null), new TreeNode(3)), new TreeNode(-3, new TreeNode(-2), null)), -1));
+    }
+
+    static List<List<Integer>> pathSum = new ArrayList<>();
+
+    public static List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        if (root != null) {
+            pathSum(root, targetSum, 0, "");
+        }
+        return pathSum;
+    }
+
+    public static void pathSum(TreeNode root, int targetSum, int som2, String s) {
+        if (root != null) {
+            som2 += root.val;
+            if (som2 == targetSum) {
+                if (root.left == null && root.right == null) {
+                    final String s1 = s + ',' + root.val;
+                    pathSum.add(Arrays.stream(s1.substring(1).split(",")).map(Integer::parseInt).toList());
+                }
+            }
+            pathSum(root.left, targetSum, som2, s + "," + root.val);
+            pathSum(root.right, targetSum, som2, s + "," + root.val);
+        }
+    }
+
+    private boolean checkAllNumber(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        return canVisitAllRooms(rooms, new ArrayList<>(), 0);
+    }
+
+    public boolean canVisitAllRooms(List<List<Integer>> rooms, List<Integer> list, int i) {
+        if (!list.contains(i)) {
+            list.add(i);
+            if (rooms.size() == list.size()) return true;
+            final List<Integer> list2 = rooms.get(i);
+            for (final Integer integer : list2) {
+                if (canVisitAllRooms(rooms, list2, integer)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean increasingTriplet(int[] nums) {
+        for (int begin = 0; begin < nums.length; begin++) {
+            final int num = nums[begin];
+            for (int i = begin, counter = 0; i < nums.length; i++) {
+                if (num < nums[i]) {
+                    if (++counter > 3) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public static int[][] insert(int[][] intervals1, int[] newInterval) {
+        LinkedList<int[]> merged = new LinkedList<>();//https://leetcode.com/problems/insert-interval/description/
+        for (int[] interval : intervals1) {
+            if (merged.isEmpty() || merged.getLast()[1] < interval[0]) {
+                merged.add(interval);
+            } else {
+                merged.getLast()[1] = Math.max(merged.getLast()[1], interval[1]);
+            }
+        }
+        return merged.toArray(new int[merged.size()][]);
     }
 
     public static int[][] merge(int[][] intervals) {
@@ -1289,10 +1368,6 @@ public class Leetcode {
 
     public static int[] separateDigits(int[] nums) {
         return Arrays.stream(nums).flatMap(number -> String.valueOf(number).chars().map(item -> item - '0')).toArray();
-    }
-
-    public static boolean canVisitAllRooms(List<List<Integer>> rooms) {
-        return rooms.stream().flatMap(Collection::stream).distinct().filter(item -> item >= 0 && item < rooms.size()).count() == rooms.size();
     }
 
     public static List<List<Integer>> allPathsSourceTarget(int[][] graphs) {
