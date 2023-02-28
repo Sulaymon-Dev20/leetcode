@@ -31,4 +31,23 @@ public class S105 {
         }
         return null;
     }
+
+    class Solution {
+        int in = 0;
+        int pre = 0;
+
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            return buildTree(preorder, inorder, Integer.MAX_VALUE);
+        }
+
+        public TreeNode buildTree(int[] preorder, int[] inorder, int boundary){
+            if(pre >= preorder.length) return null;
+            if(inorder[in] == boundary) return null;
+            TreeNode root = new TreeNode(preorder[pre++]);
+            root.left = buildTree(preorder, inorder, root.val);
+            in++;
+            root.right = buildTree(preorder, inorder, boundary);
+            return root;
+        }
+    }
 }
