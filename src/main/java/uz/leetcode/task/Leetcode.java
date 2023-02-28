@@ -32,7 +32,14 @@ public class Leetcode {
 //        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2), new TreeNode(3)), -1));
 //        System.out.println(arrayStringToTreeNode("[1,-2,-3,1,3,-2,null,-1]"));
 //        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2, new TreeNode(1, new TreeNode(-1), null), new TreeNode(3)), new TreeNode(-3, new TreeNode(-2), null)), -1));
-        System.out.println();
+    }
+
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        return headA != null ? check(headA, headB) != null ? headA : getIntersectionNode(headA.next, headB) : headA;
+    }
+
+    public ListNode check(ListNode headA, ListNode headB) {
+        return headB != null ? headA.equals(headB) ? headB : check(headA, headB.next) : headB;
     }
 
     final ArrayList<Integer> list = new ArrayList<>();
