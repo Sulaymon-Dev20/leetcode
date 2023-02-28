@@ -21,6 +21,10 @@ public class Utils {
         return text.replace('[', '{').replace(']', '}');
     }
 
+    public static String stringArrayToInputFormArraylist(String text) {
+        return text.replace("[", "List.of(").replace(']', ')');
+    }
+
     public static boolean checkExist(int x, int y, char[][] ints) {
         return ints[0].length - 1 >= y && ints.length - 1 >= x && 0 <= x && 0 <= y;
     }

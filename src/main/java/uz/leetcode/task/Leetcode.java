@@ -32,7 +32,28 @@ public class Leetcode {
 //        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2), new TreeNode(3)), -1));
 //        System.out.println(arrayStringToTreeNode("[1,-2,-3,1,3,-2,null,-1]"));
 //        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2, new TreeNode(1, new TreeNode(-1), null), new TreeNode(3)), new TreeNode(-3, new TreeNode(-2), null)), -1));
+//        System.out.println(stringArrayToInputFormArraylist("[[1],[2],[3],[]]"));
+        System.out.println(canVisitAllRooms(List.of(List.of(1), List.of(2), List.of(3), List.of())));
     }
+
+    public static boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        return canVisitAllRooms(rooms, new ArrayList<>(), 0);
+    }
+
+    public static boolean canVisitAllRooms(List<List<Integer>> rooms, List<Integer> list, int i) {
+        if (!list.contains(i)) {
+            list.add(i);
+            if (rooms.size() == list.size()) return true;
+            final List<Integer> list2 = rooms.get(i);
+            for (final Integer integer : list2) {
+                if (canVisitAllRooms(rooms, list, integer)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         return headA != null ? check(headA, headB) != null ? headA : getIntersectionNode(headA.next, headB) : headA;
@@ -115,24 +136,6 @@ public class Leetcode {
             }
         }
         return true;
-    }
-
-    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
-        return canVisitAllRooms(rooms, new ArrayList<>(), 0);
-    }
-
-    public boolean canVisitAllRooms(List<List<Integer>> rooms, List<Integer> list, int i) {
-        if (!list.contains(i)) {
-            list.add(i);
-            if (rooms.size() == list.size()) return true;
-            final List<Integer> list2 = rooms.get(i);
-            for (final Integer integer : list2) {
-                if (canVisitAllRooms(rooms, list2, integer)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public boolean increasingTriplet(int[] nums) {
