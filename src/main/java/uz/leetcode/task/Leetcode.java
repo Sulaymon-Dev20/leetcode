@@ -1,6 +1,5 @@
 package uz.leetcode.task;
 
-import com.sun.source.tree.Tree;
 import uz.leetcode.model.ListNode;
 import uz.leetcode.model.Node;
 import uz.leetcode.model.TreeNode;
@@ -34,6 +33,32 @@ public class Leetcode {
 //        System.out.println(arrayStringToTreeNode("[1,-2,-3,1,3,-2,null,-1]"));
 //        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2, new TreeNode(1, new TreeNode(-1), null), new TreeNode(3)), new TreeNode(-3, new TreeNode(-2), null)), -1));
         System.out.println();
+    }
+
+    final ArrayList<Integer> list = new ArrayList<>();
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return buildTree(preorder, inorder, new AtomicInteger(), new AtomicInteger());
+    }
+
+    public TreeNode buildTree(int[] preorder, int[] inorder, AtomicInteger x, AtomicInteger y) {
+        if (x.get() < preorder.length) {
+            final TreeNode root = new TreeNode();
+            final int number = preorder[x.get()];
+            final int numberB = inorder[y.get()];
+            if (!list.contains(numberB)) {
+                root.val = number;
+                list.add(number);
+                x.incrementAndGet();
+                root.left = buildTree(preorder, inorder, x, y);
+                root.right = buildTree(preorder, inorder, x, y);
+            } else {
+                y.incrementAndGet();
+                return null;
+            }
+            return root;
+        }
+        return null;
     }
 
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
