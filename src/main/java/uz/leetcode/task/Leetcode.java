@@ -30,9 +30,27 @@ public class Leetcode {
 //        System.out.println(longestWord(new String[]{"a", "banana", "app", "appl", "ap", "apply", "apple"}));
 //        System.out.println(longestWord(new String[]{"m", "mo", "moc", "moch", "mocha", "l", "la", "lat", "latt", "latte", "c", "ca", "cat"}));
 //        System.out.println(Arrays.deepToString(merge(new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 18}})));
-        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2), new TreeNode(3)), -1));
-        System.out.println(arrayStringToTreeNode("[1,-2,-3,1,3,-2,null,-1]"));
-        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2, new TreeNode(1, new TreeNode(-1), null), new TreeNode(3)), new TreeNode(-3, new TreeNode(-2), null)), -1));
+//        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2), new TreeNode(3)), -1));
+//        System.out.println(arrayStringToTreeNode("[1,-2,-3,1,3,-2,null,-1]"));
+//        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2, new TreeNode(1, new TreeNode(-1), null), new TreeNode(3)), new TreeNode(-3, new TreeNode(-2), null)), -1));
+        System.out.println();
+    }
+
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        final ArrayList<List<Integer>> res = new ArrayList<>();
+        allPathsSourceTarget(graph, 0, "", res);
+        return res;
+    }
+
+    public void allPathsSourceTarget(int[][] graph, int id, String res, List<List<Integer>> list) {
+        final int[] points = graph[id];
+        final String text = res + "," + id;
+        for (int pointId : points) {
+            allPathsSourceTarget(graph, pointId, text, list);
+        }
+        if (graph.length - 1 == id) {
+            list.add(Arrays.stream(text.substring(1).split(",")).map(Integer::parseInt).toList());
+        }
     }
 
     static List<List<Integer>> pathSum = new ArrayList<>();
@@ -1368,25 +1386,6 @@ public class Leetcode {
 
     public static int[] separateDigits(int[] nums) {
         return Arrays.stream(nums).flatMap(number -> String.valueOf(number).chars().map(item -> item - '0')).toArray();
-    }
-
-    public static List<List<Integer>> allPathsSourceTarget(int[][] graphs) {
-        final List<List<Integer>> lists = Arrays.stream(graphs).map(item -> Arrays.stream(item).boxed().toList()).toList();
-        System.out.println(lists);
-        final List<List<Integer>> lists1 = IntStream.range(0, graphs.length).mapToObj(index -> allPathsSourceTarget(lists, new LinkedList<>(), index)).toList();
-        System.out.println(lists1);
-        return lists1;
-    }
-
-    public static List<Integer> allPathsSourceTarget(List<List<Integer>> lists, List<Integer> res, int i) {
-        if (!res.contains(i)) {
-            res.add(i);
-            lists.get(i).forEach(item -> {
-                res.add(item);
-                allPathsSourceTarget(lists, res, item);
-            });
-        }
-        return res;
     }
 
     public int nearestExit(char[][] maze, int[] entrance) {
