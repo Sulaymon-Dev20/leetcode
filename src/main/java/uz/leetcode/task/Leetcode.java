@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 import static uz.leetcode.model.Utils.*;
 
 public class Leetcode {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 //        System.out.println(arrayStringToTreeNode("1,2,3,4,5,6,7"));
 //        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
 //        System.out.println("1-2--3--4-5--6--7");
@@ -33,7 +33,162 @@ public class Leetcode {
 //        System.out.println(arrayStringToTreeNode("[1,-2,-3,1,3,-2,null,-1]"));
 //        System.out.println(pathSum(new TreeNode(1, new TreeNode(-2, new TreeNode(1, new TreeNode(-1), null), new TreeNode(3)), new TreeNode(-3, new TreeNode(-2), null)), -1));
 //        System.out.println(stringArrayToInputFormArraylist("[[1],[2],[3],[]]"));
-        System.out.println(canVisitAllRooms(List.of(List.of(1), List.of(2), List.of(3), List.of())));
+//        System.out.println(canVisitAllRooms(List.of(List.of(1), List.of(2), List.of(3), List.of())));
+//        System.out.println(increasingTriplet(new int[]{1, 5, 0, 4, 1, 3}));
+//        System.out.println(increasingTriplet(new int[]{1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1}));
+//        System.out.println(increasingTriplet(new int[]{1, 2, 1, 3}));
+//        System.out.println(constructFromPrePost(new int[]{1, 2, 4, 5, 3, 6, 7}, new int[]{4, 5, 2, 6, 7, 3, 1}));
+//        System.out.println(stringArrayToInputForm("[[20,15,1],[20,17,0],[50,20,1],[50,80,0],[80,19,1]]"));
+//        System.out.println(stringArrayToInputForm("[1,2,1],[2,3,0],[3,4,1]"));
+//        System.out.println(createBinaryTree(new int[][]{{20, 15, 1}, {20, 17, 0}, {50, 20, 1}, {50, 80, 0}, {80, 19, 1}}));
+//        System.out.println(createBinaryTree(new int[][]{{1, 2, 1}, {2, 3, 0}, {3, 4, 1}}));
+//        System.out.println(arrayStringToTreeNode("[1,null,0,0,1]"));
+        System.out.println(pruneTree(new TreeNode(1, null, new TreeNode(0, new TreeNode(0), new TreeNode(1)))));
+    }
+
+    public static TreeNode pruneTree(TreeNode root) {
+        if (root != null) {
+            if (!checkTree(root)) {
+                return null;
+            } else {
+                root.left = pruneTree(root.left);
+                root.right = pruneTree(root.right);
+            }
+            return root;
+        }
+        return root;
+    }
+
+    public static boolean checkTree(TreeNode root) {
+        return root != null && (root.val == 1 || checkTree(root.left) || checkTree(root.right));
+    }
+
+/*    public boolean checkTree(TreeNode root) {
+        return root != null && (root.val == 1 || checkTree(root.left) && checkTree(root.right));
+    }*/
+
+    public static TreeNode createBinaryTree(int[][] descriptions) {
+        TreeMap<Integer, TreeNode> map = new TreeMap<>();
+        for (int[] description : descriptions) {
+            createBinaryTree2(description, map);
+        }
+        final HashSet<Integer> set = new HashSet<>(map.keySet());
+        final List<TreeNode> treeNodes = set.stream().map(key -> createBinaryTree2(getValue(key, map), map, 0, new AtomicInteger())).toList();
+        System.out.println(map);
+//        final TreeNode binaryTree2 = createBinaryTree2(map.firstEntry().getValue(), map);
+        return null;
+    }
+
+    public static TreeNode getValue(int key, TreeMap<Integer, TreeNode> map) {
+        return map.getOrDefault(key, new TreeNode(-1));
+    }
+
+    public static void createBinaryTree2(int[] description, TreeMap<Integer, TreeNode> map) {
+        final TreeNode treeNode = map.computeIfAbsent(description[0], value -> new TreeNode(description[0]));
+        final TreeNode remove = map.remove(description[1]);
+        if (description[2] == 1) {
+            treeNode.left = remove != null ? remove : new TreeNode(description[1]);
+        } else {
+            treeNode.right = remove != null ? remove : new TreeNode(description[1]);
+        }
+    }
+
+    public static TreeNode createBinaryTree2(TreeNode description, TreeMap<Integer, TreeNode> map, int deep, AtomicInteger max) {
+        max.accumulateAndGet(deep, Math::max);
+        if (description != null) {
+            final TreeNode remove = map.remove(description.val);
+            if (remove != null) {
+                remove.left = createBinaryTree2(description.left, map, deep + 1, max);
+                remove.right = createBinaryTree2(description.right, map, deep + 1, max);
+                return remove;
+            }
+        }
+        return description;
+    }
+
+    /*
+        public TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
+            List<Integer> list = new ArrayList<>(preorder.length);
+            for (int i = 0, j = 0; i < preorder.length; i++) {
+                final int value = preorder[i];
+                list.add(value);
+                if (list.contains(postorder[j])) {
+                    j++;
+                } else {
+                    return new TreeNode(value, );
+                }
+            }
+        }
+    */
+    public static TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
+        return constructFromPrePost(preorder, new int[1], postorder, new int[1], new ArrayList<>());
+    }
+
+    public static TreeNode constructFromPrePost(int[] preorder, int[] i, int[] postorder, int[] j, List<Integer> list) {
+        if (i[0] < preorder.length) {
+            final int value = preorder[i[0]];
+            final int i1 = postorder[j[0]];
+            i[0]++;
+            if (list.contains(i1)) {
+                j[0]++;
+                list.add(value);
+                return new TreeNode(value);
+            } else {
+                list.add(value);
+                return new TreeNode(value, constructFromPrePost(preorder, i, postorder, j, list), constructFromPrePost(preorder, i, postorder, j, list));
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public int passThePillow(int n, int time) {
+        boolean status = false;
+        int res = 0;
+        for (int i = 0; i < time; i++, res += status ? 1 : -1) {
+            if (res == 0) {
+                status = true;
+            } else if (res == n) {
+                status = false;
+            }
+        }
+        return res;
+    }
+
+    public int maxWidthOfVerticalArea(int[][] points) {
+        int max = 0;
+        Arrays.sort(points, Comparator.comparing(item -> item[1]));
+        for (int index = 0; index < points.length - 1; index++)
+            max = Math.max(Math.abs(points[index][1] - points[index][2]), max);
+        return max;
+    }
+
+    public static boolean increasingTriplet(int[] nums) {
+        final TreeMap<Integer, List<Integer>> collect = IntStream.range(0, nums.length).boxed().collect(Collectors.groupingBy(index -> nums[index], TreeMap::new, Collectors.toList()));
+        final ArrayList<List<Integer>> lists = new ArrayList<>(collect.values());
+        System.out.println(collect);
+        return IntStream.range(0, lists.size())
+            .anyMatch(index -> {
+                AtomicInteger i = new AtomicInteger(increasingTriplet(Long.MIN_VALUE, lists.get(index)));
+                AtomicInteger counter = new AtomicInteger(1);
+                return collect.values().stream().skip(index).anyMatch(list -> {
+                    final int number = increasingTriplet(i.get(), list);
+                    if (number != Integer.MAX_VALUE) {
+                        i.set(number);
+                        counter.getAndIncrement();
+                    }
+                    return counter.get() == 3;
+                });
+            });
+    }
+
+    public static int increasingTriplet(long nums, List<Integer> list) {
+        for (Integer number : list) {
+            if (number > nums) {
+                return number;
+            }
+        }
+        return Integer.MAX_VALUE;
     }
 
     public static boolean canVisitAllRooms(List<List<Integer>> rooms) {
@@ -136,20 +291,6 @@ public class Leetcode {
             }
         }
         return true;
-    }
-
-    public boolean increasingTriplet(int[] nums) {
-        for (int begin = 0; begin < nums.length; begin++) {
-            final int num = nums[begin];
-            for (int i = begin, counter = 0; i < nums.length; i++) {
-                if (num < nums[i]) {
-                    if (++counter > 3) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 
     public static int[][] insert(int[][] intervals1, int[] newInterval) {
@@ -329,9 +470,6 @@ public class Leetcode {
         return new ArrayList<>(list);
     }
 
-    public static TreeNode createBinaryTree(int[][] descriptions) {
-        return null;
-    }
 
     public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
         Arrays.sort(to_delete);
@@ -1026,23 +1164,6 @@ public class Leetcode {
             isUnivalTree(root.left, list);
             isUnivalTree(root.right, list);
         }
-    }
-
-    public TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
-        List<Integer> list = new ArrayList<>();
-        for (int preItem : preorder) {
-            list.add(preItem);
-            for (int postItem : postorder) {
-                if (preItem == postItem) {
-
-                }
-            }
-        }
-        return null;
-    }
-
-    public TreeNode constructFromPrePost(int[] preorder, List<Integer> pre, int[] postorder, List<Integer> post) {
-        return null;
     }
 
     public static TreeNode removeLeafNodes(TreeNode root, int target) {
