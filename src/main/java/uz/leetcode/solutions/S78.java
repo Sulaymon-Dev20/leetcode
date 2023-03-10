@@ -4,6 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class S78 {
+    private static void print(int index, int a[], List<List<Integer>> ans, List<Integer> ds) {
+        if (index == a.length) {
+            ans.add(new ArrayList<>(ds));
+            return;
+        }
+        ds.add(a[index]);
+        print(index + 1, a, ans, ds);
+        ds.remove(ds.size() - 1);
+        print(index + 1, a, ans, ds);
+    }
+
+    public List<List<Integer>> subsets2(int[] a) {
+        List<List<Integer>> ans = new ArrayList<>();
+        print(0, a, ans, new ArrayList<>());
+        return ans;
+    }
+
+//    ----------------------------------------------
     public List<List<Integer>> subsets(int[] nums) {
         final ArrayList<List<Integer>> res = new ArrayList<>();
         res.add(List.of());
