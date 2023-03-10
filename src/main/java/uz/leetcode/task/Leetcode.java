@@ -5,6 +5,7 @@ import uz.leetcode.model.Node;
 import uz.leetcode.model.TreeNode;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -43,7 +44,34 @@ public class Leetcode {
 //        System.out.println(createBinaryTree(new int[][]{{20, 15, 1}, {20, 17, 0}, {50, 20, 1}, {50, 80, 0}, {80, 19, 1}}));
 //        System.out.println(createBinaryTree(new int[][]{{1, 2, 1}, {2, 3, 0}, {3, 4, 1}}));
 //        System.out.println(arrayStringToTreeNode("[1,null,0,0,1]"));
-        System.out.println(pruneTree(new TreeNode(1, null, new TreeNode(0, new TreeNode(0), new TreeNode(1)))));
+//        System.out.println(pruneTree(new TreeNode(1, null, new TreeNode(0, new TreeNode(0), new TreeNode(1)))));
+//        System.out.println(delNodes());
+//        System.out.println(arrayStringToTreeNode("[1,2,3,4,5,6,7]"));
+//        System.out.println(arrayStringToTreeNode("[[1,2,3,4,5,6,7]"));
+        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
+        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, null, null), new TreeNode(3, null, new TreeNode(4))), new int[]{2, 1}));
+//        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
+    }
+
+    public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+        final ArrayList<TreeNode> list = new ArrayList<>();
+        final List<Integer> list2 = new ArrayList<>(Arrays.stream(to_delete).boxed().distinct().toList());
+        list2.add(-1);
+        delNodes2(new TreeNode(-1, root, null), list2, list);
+        return list;
+    }
+
+    public static TreeNode delNodes2(TreeNode root, List<Integer> to_delete, List<TreeNode> list) {
+        if (root == null) return null;
+        root.left = delNodes2(root.left, to_delete, list);
+        root.right = delNodes2(root.right, to_delete, list);
+        if (to_delete.contains(root.val)) {
+            if (root.left != null) list.add(root.left);
+            if (root.right != null) list.add(root.right);
+            return null;
+        } else {
+            return root;
+        }
     }
 
     public static TreeNode pruneTree(TreeNode root) {
@@ -462,32 +490,6 @@ public class Leetcode {
             }
         }
         return new ArrayList<>(list);
-    }
-
-
-    public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
-        Arrays.sort(to_delete);
-        final ArrayList<TreeNode> list = new ArrayList<>();
-        delNodes(list, root, to_delete);
-        System.out.println(list);
-        return list;
-    }
-
-    public static TreeNode delNodes(ArrayList<TreeNode> list, TreeNode root, int[] to_delete) {
-        if (root != null) {
-            final TreeNode old = root;
-            if (Arrays.binarySearch(to_delete, root.val) != -1) {
-                root = null;
-                list.add(delNodes(list, old.left, to_delete));
-                list.add(delNodes(list, old.right, to_delete));
-            } else {
-                delNodes(list, root.left, to_delete);
-                delNodes(list, root.right, to_delete);
-            }
-            return root;
-        } else {
-            return null;
-        }
     }
 
     public TreeNode canMerge(List<TreeNode> trees) {
