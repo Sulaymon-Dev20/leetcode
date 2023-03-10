@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
+import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -52,6 +53,10 @@ public class Leetcode {
 //        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, null, null), new TreeNode(3, null, new TreeNode(4))), new int[]{2, 1}));
 //        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
         System.out.println(fizzBuzz(3));
+    }
+
+    public void number(IntConsumer printNumber) throws InterruptedException {
+        printNumber.accept(1);
     }
 
     public static List<String> fizzBuzz(int n) {
