@@ -48,9 +48,28 @@ public class Leetcode {
 //        System.out.println(delNodes());
 //        System.out.println(arrayStringToTreeNode("[1,2,3,4,5,6,7]"));
 //        System.out.println(arrayStringToTreeNode("[[1,2,3,4,5,6,7]"));
-        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
-        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, null, null), new TreeNode(3, null, new TreeNode(4))), new int[]{2, 1}));
 //        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
+//        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, null, null), new TreeNode(3, null, new TreeNode(4))), new int[]{2, 1}));
+//        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
+        System.out.println(fizzBuzz(3));
+    }
+
+    public static List<String> fizzBuzz(int n) {
+        final ArrayList<String> res = new ArrayList<>(n);
+        for (int i = 1; i <= n; i++) {
+            final boolean b1 = i % 3 == 0;
+            final boolean b2 = i % 5 == 0;
+            if (b1 && b2) {
+                res.add("FizzBuzz");
+            } else if (b1) {
+                res.add("Fizz");
+            } else if (b2) {
+                res.add("Buzz");
+            } else {
+                res.add(Integer.toString(i));
+            }
+        }
+        return res;
     }
 
     public List<List<Integer>> subsets(int[] nums) {
