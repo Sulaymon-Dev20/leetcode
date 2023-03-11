@@ -66,6 +66,22 @@ public class Leetcode {
         return 1;
     }
 
+    public int[] decompressRLElist(int[] nums) {
+        int arrSize = 0;
+        for (int i = 0; i < nums.length; i += 2) {
+            arrSize += nums[i];
+        }
+
+        int[] result = new int[arrSize];
+
+        int startIdx = 0;
+        for (int i = 0; i < nums.length; i += 2) {
+            Arrays.fill(result, startIdx, startIdx + nums[i], nums[i + 1]);
+            startIdx += nums[i];
+        }
+        return result;
+    }
+
     public int findMiddleIndex(int[] nums) {
         int sum = 0;
         for (int num : nums) sum += num;
