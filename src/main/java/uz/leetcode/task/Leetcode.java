@@ -66,6 +66,27 @@ public class Leetcode {
         return 1;
     }
 
+    public int findMiddleIndex(int[] nums) {
+        int sum = 0;
+        for (int num : nums) sum += num;
+        int temp = 0;
+        for (int j = 0; j < nums.length; j++) {
+            sum -= nums[j];
+            if (temp == sum) return j;
+            temp = temp + nums[j];
+        }
+        return -1;
+    }
+
+    public int minTimeToVisitAllPoints(int[][] points) {
+        int som = 0;
+        for (int i = 0; i + 1 < points.length; i++) {
+            som += (int) Math.sqrt(Math.pow(points[i][0] - points[i + 1][0], 2) + Math.pow(points[i][1] - points[i + 1][1], 2));
+            som--;
+        }
+        return som;
+    }
+
     public static int[] leftRigthDifference(int[] nums) {
         int[] left = new int[nums.length];
         int[] right = new int[nums.length];
