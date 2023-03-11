@@ -4,8 +4,6 @@ import uz.leetcode.model.ListNode;
 import uz.leetcode.model.Node;
 import uz.leetcode.model.TreeNode;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -52,7 +50,40 @@ public class Leetcode {
 //        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
 //        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, null, null), new TreeNode(3, null, new TreeNode(4))), new int[]{2, 1}));
 //        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
-        System.out.println(fizzBuzz(3));
+//        System.out.println(fizzBuzz(3));
+        System.out.println(passThePillow(4, 5));
+        System.out.println("0000000000000000");
+        System.out.println(passThePillow(3, 2));
+        System.out.println("0000000000000000");
+        System.out.println(passThePillow(18, 38));
+    }
+
+    public static int trap(int[] height) {//https://leetcode.com/problems/trapping-rain-water/description/
+        for (int c = 0, i = 0; i < height.length; i++) {
+
+        }
+        return 1;
+    }
+/*
+    final int i = time % n;
+        if (i % 2 == 0) {
+        return i;
+    } else {
+        return n - i;
+    }
+*/
+
+    public static int passThePillow(int n, int time) {
+        boolean status = false;
+        int res = 1;
+        for (int i = 0; i < time; i++, res += status ? -1 : 1) {
+            if (res == 0) {
+                status = false;
+            } else if (res == n) {
+                status = true;
+            }
+        }
+        return res;
     }
 
     public void number(IntConsumer printNumber) throws InterruptedException {
@@ -222,19 +253,6 @@ public class Leetcode {
         } else {
             return null;
         }
-    }
-
-    public int passThePillow(int n, int time) {
-        boolean status = false;
-        int res = 0;
-        for (int i = 0; i < time; i++, res += status ? 1 : -1) {
-            if (res == 0) {
-                status = true;
-            } else if (res == n) {
-                status = false;
-            }
-        }
-        return res;
     }
 
     public int maxWidthOfVerticalArea(int[][] points) {
