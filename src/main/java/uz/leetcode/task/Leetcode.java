@@ -51,11 +51,12 @@ public class Leetcode {
 //        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, null, null), new TreeNode(3, null, new TreeNode(4))), new int[]{2, 1}));
 //        System.out.println(delNodes(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7))), new int[]{3, 5}));
 //        System.out.println(fizzBuzz(3));
-        System.out.println(passThePillow(4, 5));
-        System.out.println("0000000000000000");
-        System.out.println(passThePillow(3, 2));
-        System.out.println("0000000000000000");
-        System.out.println(passThePillow(18, 38));
+//        System.out.println(passThePillow(4, 5));
+//        System.out.println("0000000000000000");
+//        System.out.println(passThePillow(3, 2));
+//        System.out.println("0000000000000000");
+//        System.out.println(passThePillow(18, 38));
+        System.out.println(Arrays.toString(leftRigthDifference(new int[]{10, 4, 8, 3})));
     }
 
     public static int trap(int[] height) {//https://leetcode.com/problems/trapping-rain-water/description/
@@ -64,14 +65,21 @@ public class Leetcode {
         }
         return 1;
     }
-/*
-    final int i = time % n;
-        if (i % 2 == 0) {
-        return i;
-    } else {
-        return n - i;
+
+    public static int[] leftRigthDifference(int[] nums) {
+        int[] left = new int[nums.length];
+        int[] right = new int[nums.length];
+        for (int i = 0, j = nums.length - 1, somLeft = 0, somRight = 0; i < nums.length; i++, j--) {
+            left[i] = somLeft;
+            right[j] = somRight;
+            somLeft += nums[i];
+            somRight += nums[j];
+        }
+        for (int i = 0; i < left.length; i++) {
+            left[i] = Math.abs(left[i] - right[i]);
+        }
+        return left;
     }
-*/
 
     public static int passThePillow(int n, int time) {
         boolean status = false;
