@@ -69,20 +69,12 @@ public class Leetcode {
     }
 
     public static ListNode removeNodes(ListNode head) {
-        LinkedList<Integer> list = new LinkedList<>();
-        while (head != null) {
-            list.add(head.val);
-            head = head.next;
+        if (head.next != null) {
+            final ListNode listNode = removeNodes(head.next);
+            return head.val >= listNode.val ? new ListNode(head.val, listNode) : listNode;
+        } else {
+            return new ListNode(head.val);
         }
-        int index = 0;
-        while (!list.isEmpty()) {
-            final Integer number = list.removeLast();
-            if (number >= index) {
-                head = new ListNode(number, head);
-                index = number;
-            }
-        }
-        return head;
     }
 
     public int[] decompressRLElist(int[] nums) {
