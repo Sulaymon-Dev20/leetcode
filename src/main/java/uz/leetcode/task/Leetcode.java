@@ -56,7 +56,9 @@ public class Leetcode {
 //        System.out.println(passThePillow(3, 2));
 //        System.out.println("0000000000000000");
 //        System.out.println(passThePillow(18, 38));
-        System.out.println(Arrays.toString(leftRigthDifference(new int[]{10, 4, 8, 3})));
+//        System.out.println(Arrays.toString(leftRigthDifference(new int[]{10, 4, 8, 3})));
+        System.out.println(removeNodes(new ListNode(5, new ListNode(2, new ListNode(13, new ListNode(3, new ListNode(8)))))));
+//        System.out.println(arrayStringToListNode("5,2,13,3,8"));
     }
 
     public static int trap(int[] height) {//https://leetcode.com/problems/trapping-rain-water/description/
@@ -64,6 +66,23 @@ public class Leetcode {
 
         }
         return 1;
+    }
+
+    public static ListNode removeNodes(ListNode head) {
+        LinkedList<Integer> list = new LinkedList<>();
+        while (head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
+        int index = 0;
+        while (!list.isEmpty()) {
+            final Integer number = list.removeLast();
+            if (number >= index) {
+                head = new ListNode(number, head);
+                index = number;
+            }
+        }
+        return head;
     }
 
     public int[] decompressRLElist(int[] nums) {
