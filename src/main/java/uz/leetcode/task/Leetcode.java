@@ -57,8 +57,55 @@ public class Leetcode {
 //        System.out.println("0000000000000000");
 //        System.out.println(passThePillow(18, 38));
 //        System.out.println(Arrays.toString(leftRigthDifference(new int[]{10, 4, 8, 3})));
-        System.out.println(removeNodes(new ListNode(5, new ListNode(2, new ListNode(13, new ListNode(3, new ListNode(8)))))));
+//        System.out.println(removeNodes(new ListNode(5, new ListNode(2, new ListNode(13, new ListNode(3, new ListNode(8)))))));
 //        System.out.println(arrayStringToListNode("5,2,13,3,8"));
+//        System.out.println(arrayStringToTreeNode("[1,2,3,4,5,6,7,8,9,10,11,12,13,null,null,15]"));
+//        System.out.println(largestNumber(new int[]{9, 10, 100, 1000}));
+//        System.out.println(arrayStringToTreeNode("[1,2,3,5,null,7,8]"));
+//        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4, new TreeNode(8, new TreeNode(15), null), new TreeNode(9)), new TreeNode(5, new TreeNode(10), new TreeNode(11))), new TreeNode(3, new TreeNode(6, new TreeNode(12), new TreeNode(13)), new TreeNode(7, null, null)))));
+        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(5), null), new TreeNode(3, new TreeNode(7), new TreeNode(8)))));
+//        System.out.println(arrayStringToTreeNode("[1,2,3,4,5,6]"));
+//        System.out.println(isCompleteTree(new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), null))));
+    }
+
+    public int vowelStrings(String[] words, int left, int right) {
+        int res = 0;
+        String a = "aeiou";
+        for (int i = left; i <= right; i++) {
+            final String word = words[i];
+            if (a.indexOf(word.charAt(0)) != -1 && a.indexOf(word.charAt(word.length() - 1)) != -1) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    public static int minDeep(TreeNode root) {
+        return root != null ? 1 + Math.min(minDeep(root.left), minDeep(root.right)) : 0;
+    }
+
+    public static boolean isCompleteTree(TreeNode root) {
+        final int i = minDeep(root);
+        return isCompleteTree(root, 0, i, new AtomicBoolean());
+    }
+
+    public static boolean isCompleteTree(TreeNode root, int level, int minLevel, AtomicBoolean status) {
+        if (root != null) {
+            if (level > minLevel || root.left == null && root.right != null) {
+                return false;
+            } else {
+                if (root.left != null && root.right == null) {
+                    if (status.get()) {
+                        return false;
+                    } else {
+                        status.set(true);
+                    }
+                }
+                return isCompleteTree(root.left, level + 1, minLevel, status) && isCompleteTree(root.right, level + 1, minLevel, status);
+            }
+        } else {
+            return true;
+        }
     }
 
     public static int trap(int[] height) {//https://leetcode.com/problems/trapping-rain-water/description/
@@ -66,6 +113,15 @@ public class Leetcode {
 
         }
         return 1;
+    }
+
+    public static String largestNumber(int[] nums) {
+        for (int num : nums) {
+            if (Math.floor(Math.log10(num)) == 1)
+                System.out.println();
+            ;
+        }
+        return "-1";
     }
 
     public static ListNode removeNodes(ListNode head) {
@@ -931,7 +987,7 @@ public class Leetcode {
         }
     }
 
-    public static boolean isCompleteTree(TreeNode root) {
+    public static boolean isCompleteTree2(TreeNode root) {
         final TreeMap<Integer, List<Integer>> map = new TreeMap<>();
         final boolean completeTree = isCompleteTree(root, map, 0, treeNodeMaxDeepLevel(root));
         final List<Integer> list = map.pollLastEntry().getValue();
